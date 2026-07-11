@@ -1,0 +1,205 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background-color: var(--fondo-pagina);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+:root {
+    --morado-oscuro: #4C1D95;
+    --morado-medio: #6C2BD9;
+    --rosa-fucsia: #EC4899;
+    --azul-celeste: #00FCF8;
+    --blanco: #FFFFFF;
+    --morado-claro: #F5F3FF;
+    --gris-borde: #E2DBF0;
+    --texto-oscuro: #1E1B4B;
+    --texto-gris: #6B7280;
+    --fondo-pagina: #FAF9FC;
+
+    --rojo-error: #EF4444;
+    /* Rojo para el estado de error */
+    --verde-exito: #10B981;
+    /* Verde para el estado correcto */
+}
+
+/* Contenedor principal (Tarjeta de Registro)*/
+.registro {
+    background-color: var(--blanco);
+    border: 1px solid var(--gris-borde);
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(76, 29, 149, 0.05);
+    padding: 40px 30px;
+    width: 100%;
+    max-width: 450px;
+
+    margin: auto;
+}
+
+.registro h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--morado-oscuro);
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+/* Formulario y Campos de Entrada */
+.formulario form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formulario label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--texto-oscuro);
+    margin-bottom: 6px;
+}
+
+.formulario input {
+    padding: 12px 16px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: var(--texto-oscuro);
+    background-color: var(--blanco);
+    transition: all 0.3s ease;
+    outline: none;
+    margin-bottom: 4px;
+}
+
+/* Efecto al seleccionar o enfocar los inputs */
+.formulario input:focus {
+    border-color: var(--morado-medio);
+    background-color: var(--morado-claro);
+    box-shadow: 0 0 0 3px rgba(108, 43, 217, 0.15);
+}
+
+.formulario input::placeholder {
+    color: var(--texto-gris);
+}
+
+.formulario input::placeholder {
+    color: var(--texto-gris);
+}
+
+/* Estilos comunes para las etiquetas pequeñas <small> */
+.formulario small {
+    font-size: 0.8rem;
+    margin-bottom: 16px;
+    display: block;
+    min-height: 18px;
+    font-weight: 700;
+}
+
+/*  Estado Erróneo */
+.mensajeErrorCampo {
+    font-size: .9rem;
+    color: var(--rojo-error);
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+}
+
+.mensajeExitoCampo {
+    color: var(--verde-exito);
+    font-size: .9rem;
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+}
+
+
+.mensajeError {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: black;
+}
+
+.mensajeError i{
+    color: rgb(255, 217, 0);
+    margin-right: 5px;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.mensajeExito{
+    color: black;
+    margin-right: 5px;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.mensajeExito i{
+    color: var(--verde-exito);
+}
+
+/* boton de envío */
+.formulario button[type="submit"] {
+    background-color: var(--morado-medio);
+    color: var(--blanco);
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
+}
+
+.formulario button[type="submit"]:hover {
+    background-color: var(--morado-oscuro);
+}
+
+.formulario button[type="submit"]:active {
+    transform: scale(0.98);
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+
+    .registro {
+        padding: 30px 20px;
+        border-radius: 12px;
+    }
+
+    .registro h1 {
+        font-size: 1.65rem;
+        margin-bottom: 20px;
+    }
+
+    .formulario label {
+        font-size: 0.85rem;
+    }
+
+    .formulario input {
+        padding: 10px 14px;
+        font-size: 0.9rem;
+    }
+
+    .formulario button[type="submit"] {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+}
