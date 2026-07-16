@@ -17,23 +17,45 @@
 
 <body>
 
-    <!-- Botón menú -->
-    <div class="menu-btn" id="menuBtn">
-        <img src="../assets/img/logo.png" alt="Logo One Click Service">
-    </div>
-
-    <!-- Menú lateral -->
-    <nav class="menu" id="menu">
-        <a href="../inicio/index.html">Inicio</a>
-        <a href="../nosotros/nosotros.html">Sobre Nosotros</a>
-        <a href="../catalogo/catalogo.html">Servicios</a>
-        <a href="../preguntas-frecuentes/Preguntas.html">Preguntas Frecuentes</a>
-        <a href="../contactenos/contactenos.html">Contáctenos</a>
-    </nav>
     
+    <script src="../js/navbar.js"></script>
 
     <div class="main-content">
+        
+
+   <header class="page-header">
+    <div class="container-header">
+
+        <!-- Breadcrumb alineado a la derecha -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/inicio/index.html">
+                        <i class="bi bi-house-door"></i> Inicio
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="bi bi-people"></i> Nosotros
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Título y subtítulo alineados a la izquierda -->
+        <div class="header-content">
+            <h1 class="page-title">
+                <i class="bi bi-people-fill"></i> Nosotros
+            </h1>
+            <p class="page-subtitle">
+                Conoce más sobre One Click Service y nuestro equipo
+            </p>
+        </div>
+
+    </div>
+</header>
+
+
         <div class="containerGeneral">
+            
             <div class="quienesSomos">
                 <h2>¿Quiénes somos?</h2>
                 <h6>
@@ -86,22 +108,6 @@
             <h2>Nuestro equipo</h2>
             <div class="row justify-content-center row-cols-1 row-cols-md-3 g-4">
 
-                <!-- Tarjeta 1: Tatiana -->
-                <div class="col">
-                    <div class="card team-card card-1">
-                        <img src="../assets/img/tatiana.png" class="team-img" alt="Tatiana Marrugo">
-                        <div class="card-body">
-                            <h5 class="card-title">Tatiana Marrugo</h5>
-                            <span class="card-rol badge-scrum"> Scrum master / Backend Developer</span>
-                            <p class="card-text">
-                                Ingeniera Industrial especializada en Gestión de Proyectos y análisis de datos. Combina
-                                visión de negocio con
-                                desarrollo fullstack en Java para crear aplicaciones y herramientas que optimizan
-                                procesos, facturación y seguimiento de indicadores.
-                            </p>
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Tarjeta 2: Alexandra -->
                 <div class="col">

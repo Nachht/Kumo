@@ -120,6 +120,7 @@ body{
     flex-direction: column;
     padding-top: 100px;
     transition: .4s;
+    
 }
 
 .menu.activo {
@@ -382,3 +383,140 @@ body{
     }
 }
 
+
+.page-header {
+    background: linear-gradient(135deg, #4C1D95, #6C2BD9);
+    padding: 30px 40px;
+    border-radius: 16px;
+    margin: 20px 30px 30px 30px;
+    box-shadow: 0 4px 20px rgba(76, 29, 149, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header .container-header {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+}
+
+/* ========================================== */
+/* BREADCRUMB A LA DERECHA                    */
+/* ========================================== */
+
+.breadcrumb-nav-right {
+    width: 100% !important;
+    margin-bottom: 15px !important;
+}
+
+.breadcrumb-nav-right .breadcrumb {
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 0.95rem !important;
+    display: flex !important;
+    justify-content: flex-end !important; /* ← Alinea a la derecha */
+    align-items: center !important;
+}
+
+.breadcrumb-nav-right .breadcrumb-item {
+    color: rgba(255, 255, 255, 0.7) !important;
+    font-size: 0.95rem !important;
+}
+
+.breadcrumb-nav-right .breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.7) !important;
+    text-decoration: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.breadcrumb-nav-right .breadcrumb-item a:hover {
+    color: #ffffff !important;
+    text-decoration: underline !important;
+}
+
+.breadcrumb-nav-right .breadcrumb-item.active {
+    color: #ffffff !important;
+    font-weight: 600 !important;
+}
+
+.breadcrumb-nav-right .breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.4) !important;
+    content: "/" !important;
+    padding: 0 6px !important;
+}
+
+.breadcrumb-nav-right .breadcrumb-item i {
+    margin-right: 4px !important;
+}
+
+/* ========================================== */
+/* TÍTULO Y SUBTÍTULO A LA IZQUIERDA         */
+/* ========================================== */
+
+.page-header .header-content {
+    width: 100% !important;
+    text-align: left !important;
+}
+
+.page-title {
+    color: #fff !important;
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+    margin: 0 0 8px 0 !important;
+    text-align: left !important;
+}
+
+.page-title i {
+    margin-right: 10px !important;
+    color: #00FCF8 !important;
+}
+
+.page-subtitle {
+    color: rgba(255, 255, 255, 0.8) !important;
+    font-size: 1.1rem !important;
+    font-weight: 400 !important;
+    margin: 0 !important;
+    text-align: left !important;
+}
+
+/* ========================================== */
+/* RESPONSIVE                                */
+/* ========================================== */
+
+@media (max-width: 768px) {
+    .page-header {
+        padding: 20px !important;
+        margin: 15px !important;
+        border-radius: 12px !important;
+    }
+    
+    .page-title {
+        font-size: 1.6rem !important;
+    }
+    
+    .page-subtitle {
+        font-size: 0.95rem !important;
+    }
+    
+    .breadcrumb-nav-right .breadcrumb {
+        font-size: 0.8rem !important;
+        justify-content: flex-start !important; /* En móvil a la izquierda */
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 15px !important;
+        margin: 10px !important;
+    }
+    
+    .page-title {
+        font-size: 1.3rem !important;
+    }
+    
+    .page-subtitle {
+        font-size: 0.85rem !important;
+    }
+}

@@ -316,3 +316,77 @@ font-size:14px;
 }
 
 }
+
+
+
+.page-header {
+    background: linear-gradient(135deg, #4C1D95, #6C2BD9);
+    padding: 30px 40px;
+    border-radius: 16px;
+    margin: 20px 30px 30px 30px;
+    box-shadow: 0 4px 20px rgba(76, 29, 149, 0.3);
+}
+
+.container-header {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+}
+
+.breadcrumb-nav-right {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.breadcrumb-nav-right .breadcrumb {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    font-size: 0.95rem;
+    justify-content: flex-end;
+}
+
+.breadcrumb-nav-right .breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+}
+
+.breadcrumb-nav-right .breadcrumb-item a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.breadcrumb-nav-right .breadcrumb-item.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.breadcrumb-nav-right .breadcrumb-item + .breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.4);
+    content: "/";
+}
+
+.header-content {
+    width: 100%;
+    text-align: left;
+}
+
+.page-title {
+    color: #fff;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 8px 0;
+}
+
+.page-title i {
+    margin-right: 10px;
+    color: #00FCF8;
+}
+
+.page-subtitle {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0;
+}
