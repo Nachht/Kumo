@@ -1,0 +1,334 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background-color: #E0E0E0;
+    margin: 0;
+}
+
+/*contenedor login*/ 
+.contenedorLogin {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+}
+
+.tarjetaLogin{
+    width: 1100px;
+    min-height: 700px;
+    background: #fff;
+    display: flex;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0,0,0,.15)
+}
+
+/*Parte izquierda*/
+.panelIzquierdo{
+    width: 42%;
+    position: relative;
+    background-image:url("../assets/img/login_foto2.jpg");
+    background-size: cover;
+    background-position: center;
+} 
+
+.capaDegradado{
+    position: absolute;
+    inset: 0;
+    background:linear-gradient(180deg,rgba(0, 0, 0, 0.55), rgba(2, 2, 2, 0.82));
+}
+
+.contenidoIzquierdo{
+    position: relative;
+    z-index: 10;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 45px;
+    color: white;
+}
+
+.logoKumo{
+    width: 180px;
+}
+
+.contenidoIzquierdo h1{
+    font-size: 2.6rem;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.contenidoIzquierdo span{
+    color: white;
+}
+
+.contenidoIzquierdo p{
+    margin-top: 20px;
+    font-size: 1.08rem;
+    line-height: 1.6;
+}
+
+.listaBeneficios{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.beneficio{
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.beneficio i{
+    width: 55px;
+    height: 55px;
+    background:rgba(255,255,255,.18);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.3rem;
+    backdrop-filter: blur(8px);
+}
+
+.beneficio h5{
+    margin: 0;
+    font-weight: 700;
+}
+
+.beneficio span{
+    color: #F2F2F2;
+    font-size: .92rem;
+}
+
+/*Parte derecha*/
+.panelDerecho{
+    width: 58%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 55px;
+}
+
+.panelDerecho form{
+    width: 100%;
+    max-width: 430px;
+}
+
+.panelDerecho h2{
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #282121;
+}
+
+.subtitulo{
+    color: #6F6F6F;
+    margin-bottom: 45px;
+    font-size: 1.05rem;
+}
+
+/*Label*/
+label{
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #282121;
+}
+
+/*inputs*/
+.grupoInput{
+    display: flex;
+    align-items: center;
+    border: 2px solid #D5D5D5;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    transition: .30s;
+}
+
+.grupoInput:focus-within{
+    border-color: #8316ED;
+    box-shadow: 0 0 0 4px rgba(131, 22, 237,.12);
+}
+
+.iconoInput{
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #707070;
+    font-size: 1.15rem;
+}
+
+.grupoInput input{
+    flex: 1;
+    border: none;
+    outline: none;
+    height: 58px;
+    padding-right: 15px;
+    font-size: 1rem;
+}
+
+.botonMostrar{
+    width: 60px;
+    border: none;
+    background: white;
+    color: #666;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: .25s;
+}
+
+.botonMostrar:hover{
+    color: #8316ED;
+}
+
+/*Boton*/
+.botonIngresar{
+    width: 100%;
+    margin-top: 30px;
+    border: none;
+    border-radius: 18px;
+    height: 58px;
+    color: white;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background:linear-gradient(90deg, #8316ED, #FD0C7D);
+    transition: .30s;
+}
+
+.botonIngresar:hover{
+    transform: translateY(-2px);
+    box-shadow:0 12px 25px rgba(131,22,237,.30);
+}
+
+/*registro*/
+.contenedorRegistro{
+    margin-top: 35px;
+    text-align: center;
+    color: #666;
+}
+
+.contenedorRegistro{
+    margin-top: 35px;
+    text-align: center;
+    color: #666;
+}
+
+.contenedorRegistro a{
+    color: #FD0C7D;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.contenedorRegistro a:hover{
+    color: #8316ED;
+}
+
+/*Mensajes*/
+small{
+    display:block;
+    min-height:22px;
+    margin-bottom:12px;
+    font-size:.9rem;
+}
+
+#mensajeFormulario{
+    margin-top:25px;
+    text-align:center;
+    font-weight:700;
+}
+
+/* mensajes error y exitoso */
+.mensajeErrorCampo{
+    font-size: .9rem;
+    color: rgb(253, 2, 2);
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+}
+
+.mensajeExitoCampo{
+    color: rgb(77, 255, 33);
+    font-size: .9rem;
+    display: flex;
+    font-weight: 500;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+}
+
+
+.mensajeError {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: black;
+}
+
+.mensajeExito {
+    color: rgb(77, 255, 33);
+    margin-right: 5px;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+/*Responsive*/
+@media(max-width:992px){
+
+    .tarjetaLogin{
+        flex-direction:column;
+        width:95%;
+    }
+
+    .panelIzquierdo{
+        width:100%;
+        height:320px;
+    }
+
+    .panelDerecho{
+        width:100%;
+    }
+
+    .contenidoIzquierdo{
+        padding:30px;
+    }
+}
+
+@media(max-width:576px){
+
+    body{
+        padding:15px;
+    }
+
+    .panelDerecho{
+        padding:30px 20px;
+    }
+
+    .panelDerecho h2{
+        font-size:2rem;
+    }
+
+    .logoKumo{
+        width:140px;
+    }
+
+    .contenidoIzquierdo h1{
+        font-size:2rem;
+    }
+}

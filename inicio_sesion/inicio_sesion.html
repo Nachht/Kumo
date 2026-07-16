@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio de sesión | Kumo</title>
+
+    <link rel="stylesheet" href="../estilos-css/inicio_sesion.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" href="../assets/img/logo.png">
+</head>
+
+<body>
+    <main class="contenedorLogin">
+        <section class="tarjetaLogin">
+
+            <!-- izquierda-->
+            <div class="panelIzquierdo">
+                <div class="capaDegradado"></div>
+                <div class="contenidoIzquierdo">
+                    <img src="../assets/img/logo.png" alt="Logo Kumo" class="logoKumo">
+                    <h1>
+                        TU MUNDO ANIME,<br>
+                        <span>EN UN SOLO LUGAR</span>
+                    </h1>
+                    <p>
+                        Descubre mangas, figuras, accesorios y mucho más
+                        de tus animes favoritos.
+                    </p>
+                    <div class="listaBeneficios">
+                        <div class="beneficio">
+                            <i class="bi bi-shield-check"></i>
+                            <div>
+                                <h5>Compra segura</h5>
+                                <span>Tus datos protegidos siempre.</span>
+                            </div>
+                        </div>
+                        <div class="beneficio">
+                            <i class="bi bi-truck"></i>
+                            <div>
+                                <h5>Envíos rápidos</h5>
+                                <span>Recibe tu pedido en casa.</span>
+                            </div>
+                        </div>
+                        <div class="beneficio">
+                            <i class="bi bi-stars"></i>
+                            <div>
+                                <h5>Productos originales</h5>
+                                <span>Calidad garantizada.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Derecha-->
+            <div class="panelDerecho">
+                <h2>¡Bienvenido de nuevo!</h2>
+                <p class="subtitulo">
+                    Inicia sesión para continuar
+                </p>
+                <form id="formularioLogin">
+                    <label for="correo">
+                        Correo electrónico
+                    </label>
+
+                    <div class="grupoInput">
+                        <span class="iconoInput">
+                            <i class="bi bi-envelope"></i>
+                        </span>
+                        <input type="email" id="correo" placeholder="ejemplo@correo.com">
+                    </div>
+                    <small id="errorCorreo"></small>
+
+                    <label for="password">
+                        Contraseña
+                    </label>
+
+                    <div class="grupoInput">
+                        <span class="iconoInput">
+                            <i class="bi bi-lock"></i>
+                        </span>
+                        <input type="password" id="password" placeholder="Ingresa tu contraseña">
+
+                        <button type="button" id="mostrarPassword" class="botonMostrar">
+                            <i class="bi bi-eye"></i>
+                        </button>
+                    </div>
+                    <small id="errorPassword"></small>
+
+                    <button type="submit" class="botonIngresar">
+                        Iniciar sesión
+                    </button>
+                    <div class="contenedorRegistro">
+                        ¿No tienes cuenta?
+                        <a href="../registro/registro.html">
+                            Regístrate
+                        </a>
+                    </div>
+                    <p id="mensajeFormulario"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+    
+    <script src="../js/inicio_sesion.js"></script>
+    <script src="../js/footer.js"></script>
+</body>
+
+</html>
