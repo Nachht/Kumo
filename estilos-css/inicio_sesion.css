@@ -289,46 +289,27 @@ small{
 }
 
 /*Responsive*/
-@media(max-width:992px){
+@media (max-width: 992px) {
 
     .tarjetaLogin{
-        flex-direction:column;
-        width:95%;
+        flex-direction: column;
+        width: 100%;
+        min-height: auto;
     }
 
-    .panelIzquierdo{
-        width:100%;
-        height:320px;
-    }
-
+    .panelIzquierdo,
     .panelDerecho{
-        width:100%;
+        width: 100%;
     }
 
     .contenidoIzquierdo{
-        padding:30px;
-    }
-}
-
-@media(max-width:576px){
-
-    body{
-        padding:15px;
+        justify-content: flex-start;
+        gap: 30px;
+        padding: 35px;
     }
 
-    .panelDerecho{
-        padding:30px 20px;
-    }
-
-    .panelDerecho h2{
-        font-size:2rem;
-    }
-
-    .logoKumo{
-        width:140px;
-    }
-
-    .contenidoIzquierdo h1{
-        font-size:2rem;
+    .listaBeneficios{
+        margin-top: 15px;
+        gap: 18px;
     }
 }
