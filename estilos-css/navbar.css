@@ -1,119 +1,416 @@
 /* ========================================== */
-/* NAVBAR PERSONALIZADO (armonizado con footer) */
+/* NAVBAR ANIME ECOMMERCE - KUMO              */
+/* FUENTE: Nunito (400 y 700)                 */
+/* PALETA: #8316ED #FD0C7D #E0E0E0 #D5D5D5 #282121 */
 /* ========================================== */
-.navbar-custom {
-    background: #4C1D95 !important;
-    /* Mismo morado del footer */
-    padding: 12px 0;
-    box-shadow: 0 4px 12px rgba(76, 29, 149, 0.3);
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+
+/* ===== RESET Y FUENTE GLOBAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
 }
 
-.navbar-custom .navbar-brand {
-    font-weight: 800;
-    font-size: 1.6rem;
-    color: white !important;
-    transition: color 0.3s;
+/* ===== NAVBAR PRINCIPAL ===== */
+.navbar-kumo {
+    background: #282121;
+    padding: 16px 0 0 0;
+    border-bottom: 4px solid #8316ED;
+    box-shadow: 0 4px 30px rgba(131, 22, 237, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    transition: all 0.4s ease;
 }
 
-.navbar-custom .navbar-brand:hover {
-    color: #00FCF8 !important;
-    /* Celeste del footer */
+.navbar-kumo.scrolled {
+    box-shadow: 0 4px 40px rgba(131, 22, 237, 0.5);
 }
 
-.navbar-custom .navbar-nav .nav-link {
-    color: rgba(255, 255, 255, 0.85) !important;
-    font-weight: 600;
-    padding: 8px 16px;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+.container-kumo {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
-.navbar-custom .navbar-nav .nav-link:hover {
-    color: #00FCF8 !important;
-    /* Celeste del footer */
-    background: rgba(255, 255, 255, 0.1);
+/* ===== FILA SUPERIOR ===== */
+.nav-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+}
+
+/* ===== LOGO ===== */
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logo-img {
+    height: 58px;
+    width: auto;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.logo-img:hover {
+    transform: rotate(-6deg) scale(1.08);
+    filter: drop-shadow(0 0 20px rgba(131, 22, 237, 0.4));
+}
+
+.logo-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 2rem;
+    color: #FFFFFF;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: all 0.4s ease;
+    text-shadow: 0 0 20px rgba(131, 22, 237, 0.2);
+}
+
+.logo-text:hover {
+    color: #8316ED;
+    transform: scale(1.02);
+    text-shadow: 0 0 40px rgba(131, 22, 237, 0.4);
+}
+
+/* ===== BUSCADOR ===== */
+.search-wrapper {
+    flex: 1;
+    min-width: 200px;
+    max-width: 600px;
+    position: relative;
+}
+
+.search-wrapper i {
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #D5D5D5;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.search-wrapper input {
+    width: 100%;
+    padding: 12px 16px 12px 48px;
+    border: 2px solid #D5D5D5;
+    border-radius: 40px;
+    background: #E0E0E0;
+    color: #282121;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.4s ease;
+}
+
+.search-wrapper input::placeholder {
+    color: #282121;
+    font-weight: 400;
+    opacity: 0.5;
+}
+
+.search-wrapper input:focus {
+    border-color: #8316ED;
+    box-shadow: 0 0 30px rgba(131, 22, 237, 0.2);
+    background: #FFFFFF;
+    transform: scale(1.02);
+}
+
+.search-wrapper input:focus ~ i {
+    color: #8316ED;
+}
+
+/* ===== ÍCONOS ===== */
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.icon-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #D5D5D5;
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    transition: all 0.4s ease;
+    padding: 6px 12px;
+    border-radius: 30px;
+    position: relative;
+}
+
+.icon-link i {
+    font-size: 1.5rem;
+    color: #D5D5D5;
+    transition: all 0.4s ease;
+}
+
+.icon-link span {
+    color: #D5D5D5;
+    transition: color 0.3s ease;
+}
+
+.icon-link:hover {
+    background: rgba(131, 22, 237, 0.12);
     transform: translateY(-2px);
 }
 
-.navbar-custom .navbar-nav .nav-link.active {
-    color: #00FCF8 !important;
-    background: rgba(255, 255, 255, 0.15);
+.icon-link:hover i {
+    color: #8316ED;
+    transform: scale(1.2) rotate(-5deg);
+    text-shadow: 0 0 30px rgba(131, 22, 237, 0.3);
 }
 
-/* ========================================== */
-/* BOTONES LOGIN / REGISTRO (armonizados)     */
-/* ========================================== */
-.btn-login {
-    background: transparent;
-    color: white !important;
-    border: 2px solid #00FCF8;
-    padding: 6px 18px;
-    border-radius: 25px;
-    font-weight: 700;
-    transition: all 0.3s ease;
+.icon-link:hover span {
+    color: #FD0C7D;
 }
 
-.btn-login:hover {
-    background: #00FCF8;
-    color: #4C1D95 !important;
-    transform: scale(1.05);
+/* Badge animado en carrito */
+.icon-link .badge-number {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: #FD0C7D;
+    color: #FFFFFF;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 800;
+    font-size: 0.65rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 20px rgba(253, 12, 125, 0.3);
+    animation: pulse-badge 2s ease-in-out infinite;
 }
 
-.btn-registro {
-    background: linear-gradient(135deg, #00FCF8, #00D4D0);
-    color: #4C1D95 !important;
+@keyframes pulse-badge {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); box-shadow: 0 0 30px rgba(253, 12, 125, 0.5); }
+}
+
+/* ===== HAMBURGUESA ===== */
+.hamburger {
+    display: none;
+    background: none;
     border: none;
-    padding: 6px 18px;
-    border-radius: 25px;
+    color: #D5D5D5;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 4px 8px;
+    transition: all 0.4s ease;
+}
+
+.hamburger:hover {
+    color: #8316ED;
+    transform: rotate(90deg);
+}
+
+/* ===== FILA INFERIOR ===== */
+.nav-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    padding: 12px 0 16px 0;
+    border-top: 2px solid #D5D5D5;
+    flex-wrap: wrap;
+}
+
+.menu-link {
+    color: #D5D5D5;
+    text-decoration: none;
+    font-family: 'Nunito', sans-serif;
     font-weight: 700;
-    transition: all 0.3s ease;
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 8px 4px;
+    transition: all 0.4s ease;
+    position: relative;
 }
 
-.btn-registro:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(0, 252, 248, 0.4);
-    color: #4C1D95 !important;
+/* Subrayado animado - morado con brillo */
+.menu-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #8316ED, #FD0C7D, #8316ED);
+    background-size: 200% 100%;
+    border-radius: 4px;
+    transition: width 0.4s ease;
+    animation: shimmer 2.5s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.menu-link:hover {
+    color: #FFFFFF;
+    transform: translateY(-3px);
+}
+
+.menu-link:hover::after {
+    width: 100%;
+}
+
+.menu-link.active {
+    color: #8316ED;
+}
+
+.menu-link.active::after {
+    width: 100%;
+}
+
+/* Efecto de destello al hover */
+.menu-link::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(131, 22, 237, 0.1), transparent 60%);
+    opacity: 0;
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
+
+.menu-link:hover::before {
+    opacity: 1;
 }
 
 /* ========================================== */
-/* TOGGLER (hamburguesa)                      */
+/* RESPONSIVE                                 */
 /* ========================================== */
-.navbar-custom .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.5);
-}
 
-.navbar-custom .navbar-toggler-icon {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-/* ========================================== */
-/* CONTENIDO PRINCIPAL                        */
-/* ========================================== */
-main {
-    flex: 1;
-    padding: 40px 0;
-}
-
-img,
-svg {
-    height: 80px;
-    width: auto;
-}
-
-
-/* ========================================== */
-/* RESPONSIVE (móviles)                       */
-/* ========================================== */
 @media (max-width: 992px) {
-    .navbar-custom .navbar-nav .nav-link {
-        text-align: center;
-        padding: 10px;
+    .nav-top {
+        flex-wrap: wrap;
     }
 
-    .navbar-custom .navbar-nav .btn-login,
-    .navbar-custom .navbar-nav .btn-registro {
+    .search-wrapper {
+        order: 3;
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    .hamburger {
         display: block;
+    }
+
+    .nav-bottom {
+        display: none;
+        flex-direction: column;
+        gap: 6px;
+        padding: 16px 0 20px 0;
+        border-top: 2px solid #D5D5D5;
+    }
+
+    .nav-bottom.open {
+        display: flex;
+        animation: slideDown 0.4s ease;
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    .menu-link {
+        font-family: 'Nunito', sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        padding: 12px 16px;
+        width: 100%;
         text-align: center;
-        margin: 5px 0;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        transition: all 0.3s ease;
+    }
+
+    .menu-link::after {
+        display: none;
+    }
+
+    .menu-link::before {
+        display: none;
+    }
+
+    .menu-link:hover {
+        background: rgba(131, 22, 237, 0.15);
+        transform: none;
+    }
+
+    .icon-link span {
+        display: none;
+    }
+
+    .icon-link i {
+        font-size: 1.6rem;
+    }
+
+    .logo-text {
+        font-size: 1.6rem;
+    }
+
+    .logo-img {
+        height: 38px;
+    }
+}
+
+@media (max-width: 576px) {
+    .container-kumo {
+        padding: 0 16px;
+    }
+
+    .logo-text {
+        font-size: 1.3rem;
+    }
+
+    .logo-img {
+        height: 32px;
+    }
+
+    .search-wrapper input {
+        font-size: 0.85rem;
+        padding: 10px 14px 10px 42px;
+    }
+
+    .nav-icons {
+        gap: 10px;
+    }
+
+    .icon-link i {
+        font-size: 1.3rem;
+    }
+
+    .menu-link {
+        font-size: 0.85rem;
+        padding: 10px 12px;
     }
 }

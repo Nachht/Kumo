@@ -13,32 +13,39 @@
 <body>
 
     <!-- ====== HEADER (RENDERIZADO POR JS) ====== -->
-   
-    <div id="header-container"></div>
-
-    <!-- Botón menú -->
-    <div class="menu-btn" id="menuBtn">
-        <img src="../assets/img/logo.png" alt="Logo One Click Service">
-    </div>
-
-    <!-- Menú lateral -->
-    <nav class="menu" id="menu">
-        <a href="../inicio/index.html">Inicio</a>
-        <a href="../nosotros/nosotros.html">Sobre Nosotros</a>
-        <a href="../catalogo/catalogo.html">Servicios</a>
-        <a href="../preguntas-frecuentes/Preguntas.html">Preguntas Frecuentes</a>
-        <a href="../contactenos/contactenos.html">Contáctenos</a>
-    </nav>
+    <script src="../js/navbar.js"></script>
 
     <section class="contacto">
 
-        <h1>Contáctenos</h1>
+        <header class="page-header">
+    <div class="container-header">
 
-        <p class="descripcion">
-            Estamos aquí para ayudarte.
-            <br>
-            Escríbenos y te responderemos lo antes posible.
-        </p>
+        <!-- Breadcrumb alineado a la derecha -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav-right">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/inicio/index.html">
+                        <i class="bi bi-house-door"></i> Inicio
+                    </a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                    <i class="bi bi-envelope"></i> Contacto
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Título y subtítulo -->
+        <div class="header-content">
+            <h1 class="page-title">
+                <i class="bi bi-envelope-fill"></i> Contáctenos
+            </h1>
+            <p class="page-subtitle">
+                Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.
+            </p>
+        </div>
+
+    </div>
+</header>
 
         <div class="contenedor">
 
