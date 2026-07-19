@@ -4,11 +4,6 @@
 
 body {
     background: linear-gradient(135deg, #f8fafc, #eef2ff);
-
-}
-
-body{
-    background: linear-gradient(135deg,#f8fafc,#eef2ff);
 }
 
 .containerGeneral {
@@ -21,39 +16,24 @@ body{
     margin: 0 auto;
 }
 
-.quienesSomos,
-.mision,
-.vision {
+.quienesSomos {
     width: 100%;
     max-width: 900px;
     background: #ffffff;
     padding: 30px 40px;
     border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.473);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     color: black;
-
 }
 
 .quienesSomos:hover {
     transform: translateY(-5px);
-    box-shadow: 0 4px 15px #00FCF8;
+    box-shadow: 0 4px 15px #8316ED;
 }
 
-.mision:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px #6C2BD9;
-}
-
-.vision:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px #EC4899;
-}
-
-.quienesSomos h2,
-.mision h2,
-.vision h2 {
+.quienesSomos h2 {
     font-family: 'Nunito';
     font-size: 2rem;
     color: #000000;
@@ -62,23 +42,13 @@ body{
 }
 
 .quienesSomos:hover h2 {
-    text-shadow: 0px 2px 3px #00FCF8;
+    text-shadow: 0px 2px 3px #8316ED;
 }
 
-.mision:hover h2 {
-    text-shadow: 0px 2px 3px #6C2BD9;
-}
-
-.vision:hover h2 {
-    text-shadow: 0px 2px 3px #EC4899;
-}
-
-.quienesSomos h6,
-.mision h6,
-.vision h6 {
+.quienesSomos h6 {
     font-size: 1rem;
     line-height: 1.8;
-    color: #555;
+    color: #4a4444;
     font-weight: 600;
     margin: 0;
 }
@@ -115,12 +85,11 @@ body{
     left: -250px;
     width: 250px;
     height: 100vh;
-    background: #4C1D95;
+    background: #8316ED;
     display: flex;
     flex-direction: column;
     padding-top: 100px;
     transition: .4s;
-    
 }
 
 .menu.activo {
@@ -135,7 +104,7 @@ body{
 }
 
 .menu a:hover {
-    background: #6C2BD9;
+    background: #8316ED;
 }
 
 /* TARJETAS EQUIPO */
@@ -154,8 +123,9 @@ body{
     content: "";
     display: block;
     width: 500px;
+    max-width: 90%;
     height: 4px;
-    background: linear-gradient(90deg, #00FCF8, #6C2BD9);
+    background: linear-gradient(90deg, #8316ED, #8316ED);
     margin: 15px auto 0;
     border-radius: 10px;
 }
@@ -186,19 +156,19 @@ body{
 /* Bordes superiores para cada tarjeta dependiendo del color */
 .card-1,
 .card-5 {
-    border-top: 6px solid #00FCF8 !important;
+    border-top: 6px solid #8316ED !important;
 }
 
 .card-2 {
-    border-top: 6px solid #EC4899 !important;
+    border-top: 6px solid #FD0C7D !important;
 }
 
 .card-3 {
-    border-top: 6px solid #8B5CF6 !important;
+    border-top: 6px solid #8316ED !important;
 }
 
 .card-4 {
-    border-top: 6px solid #6D28D9 !important;
+    border-top: 6px solid #8316ED !important;
 }
 
 .team-img {
@@ -213,7 +183,7 @@ body{
 
 .card-title {
     font-size: 1.4rem;
-    color: #1E293B;
+    color: #282121;
     font-weight: 800;
     margin-bottom: 10px;
 }
@@ -229,54 +199,29 @@ body{
     margin-bottom: 20px;
 }
 
-.badge-scrum {
-    background-color: #E0FDFD;
-    color: #0891B2;
-}
-
-.badge-front {
-    background-color: #FCE7F3;
-    color: #DB2777;
-}
-
-.badge-design {
-    background-color: #F3E8FF;
-    color: #7C3AED;
-}
-
-.badge-back {
-    background-color: #EDE9FE;
-    color: #5B21B6;
-}
-
-.badge-scrum { background-color: #E0FDFD; color: #0891B2; }
-.badge-front { background-color: #FCE7F3; color: #DB2777; }
-.badge-design { background-color: #F3E8FF; color: #7C3AED; }
-.badge-back { background-color: #EDE9FE; color: #5B21B6; }
+.badge-scrum { background-color: #FDE3F1; color: #FD0C7D; }
+.badge-front { background-color: #FDE3F1; color: #FD0C7D; }
+.badge-design { background-color: #F3E6FD; color: #8316ED; }
+.badge-back { background-color: #EBDCFB; color: #6a12bd; }
 
 .card-text {
     line-height: 1.6;
-    color: #666;
+    color: #4a4444;
     min-height: 100px;
 }
-
 
 /* DESPLAZAMIENTO DEL CONTENIDO PRINCIPAL */
 
 @media screen and (min-width: 769px) {
-    /* Estado por defecto: contenido a pantalla completa */
     .main-content {
         transition: margin-left 0.4s ease, width 0.4s ease;
         width: 100%;
         margin-left: 0;
     }
 
-    /* Si el elemento '.menu' tiene la clase '.activo', desplazamos '.main-content' */
     body:has(.menu.activo) .main-content {
         margin-left: 250px;
-        /* Desplaza el contenido para dar espacio al menú */
         width: calc(100% - 250px);
-        /* Ajusta el ancho para evitar overflow horizontal */
     }
 }
 
@@ -291,23 +236,17 @@ body{
         gap: 25px;
     }
 
-    .quienesSomos,
-    .mision,
-    .vision {
+    .quienesSomos {
         width: 95%;
         padding: 25px;
     }
 
     .quienesSomos h2,
-    .mision h2,
-    .vision h2,
     #cards-equipo h2 {
         font-size: 1.8rem;
     }
 
-    .quienesSomos h6,
-    .mision h6,
-    .vision h6 {
+    .quienesSomos h6 {
         font-size: 0.95rem;
         line-height: 1.7;
     }
@@ -331,25 +270,19 @@ body{
         gap: 20px;
     }
 
-    .quienesSomos,
-    .mision,
-    .vision {
+    .quienesSomos {
         width: 100%;
         padding: 20px 15px;
         border-radius: 10px;
     }
 
     .quienesSomos h2,
-    .mision h2,
-    .vision h2,
     #cards-equipo h2 {
         font-size: 1.5rem;
         margin-bottom: 15px;
     }
 
-    .quienesSomos h6,
-    .mision h6,
-    .vision h6 {
+    .quienesSomos h6 {
         font-size: 0.9rem;
         line-height: 1.6;
     }
@@ -383,15 +316,13 @@ body{
     }
 }
 
+/* ================= HEADER "NOSOTROS" ================= */
 
 .page-header {
-    background: linear-gradient(135deg, #4C1D95, #6C2BD9);
-    padding: 30px 40px;
-    border-radius: 16px;
-    margin: 20px 30px 30px 30px;
-    box-shadow: 0 4px 20px rgba(76, 29, 149, 0.3);
-    position: relative;
-    overflow: hidden;
+    background: transparent;
+    padding: 40px 30px 20px 30px;
+    margin: 0 auto;
+    max-width: 1200px;
 }
 
 .page-header .container-header {
@@ -400,10 +331,6 @@ body{
     align-items: stretch !important;
     width: 100% !important;
 }
-
-/* ========================================== */
-/* BREADCRUMB A LA DERECHA                    */
-/* ========================================== */
 
 .breadcrumb-nav-right {
     width: 100% !important;
@@ -416,33 +343,33 @@ body{
     margin: 0 !important;
     font-size: 0.95rem !important;
     display: flex !important;
-    justify-content: flex-end !important; /* ← Alinea a la derecha */
+    justify-content: flex-end !important;
     align-items: center !important;
 }
 
 .breadcrumb-nav-right .breadcrumb-item {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: #8a8a8a !important;
     font-size: 0.95rem !important;
 }
 
 .breadcrumb-nav-right .breadcrumb-item a {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: #8a8a8a !important;
     text-decoration: none !important;
     transition: all 0.3s ease !important;
 }
 
 .breadcrumb-nav-right .breadcrumb-item a:hover {
-    color: #ffffff !important;
+    color: #FD0C7D !important;
     text-decoration: underline !important;
 }
 
 .breadcrumb-nav-right .breadcrumb-item.active {
-    color: #ffffff !important;
+    color: #FD0C7D !important;
     font-weight: 600 !important;
 }
 
 .breadcrumb-nav-right .breadcrumb-item + .breadcrumb-item::before {
-    color: rgba(255, 255, 255, 0.4) !important;
+    color: #D5D5D5 !important;
     content: "/" !important;
     padding: 0 6px !important;
 }
@@ -451,17 +378,13 @@ body{
     margin-right: 4px !important;
 }
 
-/* ========================================== */
-/* TÍTULO Y SUBTÍTULO A LA IZQUIERDA         */
-/* ========================================== */
-
 .page-header .header-content {
     width: 100% !important;
     text-align: left !important;
 }
 
 .page-title {
-    color: #fff !important;
+    color: #282121 !important;
     font-size: 2.2rem !important;
     font-weight: 800 !important;
     margin: 0 0 8px 0 !important;
@@ -470,53 +393,201 @@ body{
 
 .page-title i {
     margin-right: 10px !important;
-    color: #00FCF8 !important;
+    color: #FD0C7D !important;
 }
 
 .page-subtitle {
-    color: rgba(255, 255, 255, 0.8) !important;
+    color: #8a8a8a !important;
     font-size: 1.1rem !important;
     font-weight: 400 !important;
     margin: 0 !important;
     text-align: left !important;
 }
 
-/* ========================================== */
-/* RESPONSIVE                                */
-/* ========================================== */
-
 @media (max-width: 768px) {
     .page-header {
-        padding: 20px !important;
-        margin: 15px !important;
-        border-radius: 12px !important;
+        padding: 25px 20px 15px 20px !important;
     }
-    
+
     .page-title {
         font-size: 1.6rem !important;
     }
-    
+
     .page-subtitle {
         font-size: 0.95rem !important;
     }
-    
+
     .breadcrumb-nav-right .breadcrumb {
         font-size: 0.8rem !important;
-        justify-content: flex-start !important; /* En móvil a la izquierda */
+        justify-content: flex-start !important;
     }
 }
 
 @media (max-width: 480px) {
     .page-header {
         padding: 15px !important;
-        margin: 10px !important;
     }
-    
+
     .page-title {
         font-size: 1.3rem !important;
     }
-    
+
     .page-subtitle {
         font-size: 0.85rem !important;
+    }
+}
+
+/* =========================================================
+   BLOQUE NUEVO: hero de 2 columnas y misión/visión con ícono
+========================================================= */
+
+.hero-nosotros {
+    width: 100%;
+}
+
+.hero-nosotros .hero-text-col {
+    text-align: left;
+}
+
+.hero-nosotros.row {
+    align-items: flex-start !important;
+}
+
+.hero-nosotros-img img {
+    max-width: 340px;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.25));
+}
+
+@media (max-width: 768px) {
+    .hero-nosotros-img {
+        margin-top: 25px;
+    }
+}
+
+.eyebrow-nosotros {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #8316ED;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+}
+
+.text-highlight {
+    position: relative;
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.page-title .text-highlight::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
+    border-radius: 10px;
+    margin-top: 6px;
+}
+
+.mision-vision-row {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.card-mision,
+.card-vision {
+    background: #ffffff;
+    padding: 35px 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+    text-align: left;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: black;
+}
+
+.card-mision:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(108, 43, 217, 0.35);
+}
+
+.card-vision:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(236, 72, 153, 0.35);
+}
+
+.card-mision h2,
+.card-vision h2 {
+    font-size: 1.6rem;
+    font-weight: bold;
+    margin-bottom: 12px;
+    color: #000;
+}
+
+.card-mision p,
+.card-vision p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #4a4444;
+    font-weight: 600;
+    margin: 0;
+}
+
+.card-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.icon-mision {
+    background: linear-gradient(135deg, #8316ED, #8316ED);
+}
+
+.icon-vision {
+    background: linear-gradient(135deg, #FD0C7D, #FD0C7D);
+}
+
+.team-social {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #E0E0E0;
+    color: #8316ED;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.team-social:hover {
+    background: #8316ED;
+    color: #ffffff;
+}
+
+@media (max-width: 480px) {
+    .card-mision,
+    .card-vision {
+        padding: 25px 20px;
+    }
+    .card-mision h2,
+    .card-vision h2 {
+        font-size: 1.3rem;
     }
 }

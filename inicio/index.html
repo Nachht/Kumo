@@ -4,15 +4,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>One Click Service</title>
-
-  <!-- CSS -->
+  <title>Kumo</title>
   <link rel="stylesheet" href="../estilos-css/index.css">
-
-  <!-- FUENTE -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <!-- ICONOS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" href="../assets/img/logo.png">
 </head>
@@ -20,175 +14,209 @@
 <body>
 
   <script src="../js/navbar.js"></script>
-  <!-- ================= HERO ================= -->
-  <section class="hero">
+  <section class="bannerKumo">
 
-    <div class="hero-content">
+    <!-- Carrusel -->
+    <div class="contenedorCarruselKumo">
+      <div class="carruselKumo">
+        <!-- Slide 1 -->
+        <article class="slideBannerKumo activo">
+          <div class="contenidoSlideKumo">
+            <div class="contenidoBannerKumo">
+              <span class="textoSuperiorBanner">
+                TU TIENDA DE ANIME FAVORITA
+              </span>
+              <h1 class="tituloBannerKumo">
+                MANGAS, FIGURAS Y MERCH
+                <span>OFICIAL</span>
+              </h1>
+              <p class="descripcionBannerKumo">
+                Descubre mangas, figuras coleccionables y
+                <br>
+                merchandising oficial de tus animes favoritos.
+              </p>
+              <a href="../catalogo/catalogo.html" class="botonExplorarBanner">
+                Explorar catálogo
+                <i class="bi bi-arrow-right-circle-fill"></i>
+              </a>
+            </div>
+            <div class="imagenBannerKumo">
+              <img src="../assets/img/carrusel1.png" alt="Banner Anime">
+            </div>
+          </div>
+        </article>
 
-      <!-- 🔥 CARRUSEL IZQUIERDA -->
-      <div class="hero-carousel">
+        <!-- Slide 2 -->
+        <article class="slideBannerKumo">
+          <div class="contenidoSlideKumo">
+            <div class="contenidoBannerKumo">
+              <span class="textoSuperiorBanner">
+                NUEVAS COLECCIONES
+              </span>
+              <h1 class="tituloBannerKumo">
+                LAS MEJORES <br>
+                FIGURAS
+                <span>PREMIUM</span>
+              </h1>
+              <p class="descripcionBannerKumo">
+                Ediciones limitadas y productos originales
+                para verdaderos coleccionistas.
+              </p>
 
-        <div class="slides">
-          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" class="slide active">
-          <img src="https://cdn.pixabay.com/photo/2023/06/22/07/59/women-8080878_640.png" class="slide">
-          <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf" class="slide">
-        </div>
+              <a href="../catalogo/catalogo.html" class="botonExplorarBanner">
+                Ver colección
+                <i class="bi bi-arrow-right-circle-fill"></i>
+              </a>
+            </div>
+            <div class="imagenBannerKumo">
+              <img src="../assets/img/carrusel2.png" alt="Banner Anime">
+            </div>
+          </div>
+        </article>
 
+        <!-- Slide 3 -->
+        <article class="slideBannerKumo">
+          <div class="contenidoSlideKumo">
+            <div class="contenidoBannerKumo">
+              <span class="textoSuperiorBanner">
+                MERCH EXCLUSIVO
+              </span>
+              <h1 class="tituloBannerKumo">
+                TODO PARA <br>
+                AGREGAR A
+                <span>TU COLECCIÓN</span>
+              </h1>
+              <p class="descripcionBannerKumo">
+                Llaveros, peluches, vasos, termos y
+                <br>
+                accesorios únicos, todo podrás encontrarlo aquí.
+              </p>
+              <a href="../catalogo/catalogo.html" class="botonExplorarBanner">
+                Comprar ahora
+                <i class="bi bi-arrow-right-circle-fill"></i>
+              </a>
+            </div>
+            <div class="imagenBannerKumo">
+              <img src="../assets/img/carrusel3.png" alt="Banner Anime">
+            </div>
+          </div>
+        </article>
       </div>
 
-      <!-- 🔥 TEXTO DERECHA -->
-      <div class="hero-text">
-
-        <h1>SERVICIOS QUE NECESITAS, A UN CLICK DE DISTANCIA</h1>
-        <p>Encuentra servicios rápidos y confiables cerca de ti</p>
-
-        <div class="search-box">
-          <input type="text" placeholder="Buscar servicio...">
-          <button><i class="fa fa-search"></i></button>
-        </div>
-
-      </div>
-
+      <!-- Flechas -->
+      <button class="botonAnteriorBanner">
+        <i class="bi bi-chevron-left"></i>
+      </button>
+      <button class="botonSiguienteBanner">
+        <i class="bi bi-chevron-right"></i>
+      </button>
     </div>
 
-  </section>
-
-  <section class="seccionSeguridad">
-
-    <h2>Servicios que te respaldan</h2>
-
-    <div class="contenedorSeguridad">
-
-      <div class="tarjetasSeguridad">
-        <i class="fa-solid fa-shield-halved iconoRosado"></i>
-        <h3>Compra segura</h3>
-        <p>Protegemos cada transacción para tu tranquilidad.</p>
+    <!-- Indicadores -->
+    <div class="contenedorIndicadoresBanner">
+      <div class="indicadoresBanner">
+        <span class="indicadorBanner activo"></span>
+        <span class="indicadorBanner"></span>
+        <span class="indicadorBanner"></span>
       </div>
-
-      <div class="tarjetasSeguridad">
-        <i class="fa-solid fa-lock iconoCeleste"></i>
-        <h3>Pagos protegidos</h3>
-        <p>Procesos de pago encriptados y confiables.</p>
-      </div>
-
-      <div class="tarjetasSeguridad">
-        <i class="fa-solid fa-headset iconoRosado"></i>
-        <h3>Atención 24/7</h3>
-        <p>Soporte disponible en cualquier momento del día.</p>
-      </div>
-
-      <div class="tarjetasSeguridad">
-        <i class="fa-solid fa-bolt iconoCeleste"></i>
-        <h3>Respuestas rápidas</h3>
-        <p>Conectamos usuarios con servicios en segundos.</p>
-      </div>
-
-      <div class="tarjetasSeguridad">
-        <i class="fa-solid fa-circle-check iconoRosado"></i>
-        <h3>Servicios confiables</h3>
-        <p>Ofrecemos servicios de calidad listos para usar.</p>
-      </div>
-
     </div>
 
+    <!-- Beneficios -->
+    <section class="barraBeneficiosBanner">
+      <div class="beneficioBanner">
+        <i class="bi bi-truck"></i>
+        <div class="contenidoBeneficio">
+          <h4>Envíos rápidos</h4>
+          <p>A todo Colombia</p>
+        </div>
+      </div>
+      <div class="beneficioBanner">
+        <i class="bi bi-shield-check"></i>
+        <div class="contenidoBeneficio">
+          <h4>Productos originales</h4>
+          <p>Calidad garantizada</p>
+        </div>
+      </div>
+      <div class="beneficioBanner">
+        <i class="bi bi-credit-card"></i>
+        <div class="contenidoBeneficio">
+          <h4>Pagos seguros</h4>
+          <p>Compra protegida</p>
+        </div>
+      </div>
+      <div class="beneficioBanner">
+        <i class="bi bi-headset"></i>
+        <div class="contenidoBeneficio">
+          <h4>Soporte 24/7</h4>
+          <p>Siempre para ayudarte</p>
+        </div>
+      </div>
+    </section>
   </section>
 
-  <section class="seccionPasos">
-
-    <h2>¿Cómo funciona?</h2>
-
-    <div class="containerComoFunciona">
-
-      <div class="pasos">
-        <div class="iconoCircular morado">
-          <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
-        <h3>1. Busca</h3>
-        <p>Encuentra el servicio que necesitas de forma rápida.</p>
-      </div>
-
-      <div class="puntos">
-        <span></span><span></span><span></span>
-      </div>
-
-      <div class="pasos">
-        <div class="iconoCircular rosado">
-          <i class="fa-solid fa-check"></i>
-        </div>
-        <h3>2. Elige</h3>
-        <p>Selecciona el servicio que mejor se adapte a ti.</p>
-      </div>
-
-      <div class="puntos">
-        <span></span><span></span><span></span>
-      </div>
-
-      <div class="pasos">
-        <div class="iconoCircular morado">
-          <i class="fa-solid fa-calendar-check"></i>
-        </div>
-        <h3>3. Agenda</h3>
-        <p>Programa el servicio en el momento que prefieras.</p>
-      </div>
-
-      <div class="puntos">
-        <span></span><span></span><span></span>
-      </div>
-
-      <div class="pasos">
-        <div class="iconoCircular rosado">
-          <i class="fa-solid fa-face-smile"></i>
-        </div>
-        <h3>4. Disfruta</h3>
-        <p>Recibe el servicio y disfruta la experiencia.</p>
-      </div>
-
+  <!--Categorias-->
+  <section class="seccionCategoriasKumo">
+    <div class="tituloCategoriasKumo">
+      <span></span>
+      <h2>CATEGORÍAS PRINCIPALES</h2>
+      <span></span>
     </div>
 
-  </section>
+    <div class="contenedorCategoriasKumo">
+      <!-- MANGAS -->
+      <a href="#" class="tarjetaCategoriaKumo">
+        <img src="../assets/img/categorias1.jpg" alt="Mangas">
+        <div class="overlayCategoriaKumo"></div>
+        <div class="contenidoCategoriaKumo">
+          <i class="bi bi-book"></i>
+          <h3>Mangas</h3>
+          <p>
+            Explora tomos y colecciones oficiales.
+          </p>
+          <span class="linkCategoriaKumo">
+            Ver más
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </a>
 
-  <!-- ================= NOVEDADES Y OFERTAS ================= -->
-  <section class="news-section">
+      <!-- FIGURAS -->
+      <a href="#" class="tarjetaCategoriaKumo">
+        <img src="../assets/img/categorias2.png" alt="Figuras">
+        <div class="overlayCategoriaKumo"></div>
+        <div class="contenidoCategoriaKumo">
+          <i class="bi bi-person-standing"></i>
+          <h3>Figuras</h3>
+          <p>
+            Colecciona tus personajes favoritos.
+          </p>
+          <span class="linkCategoriaKumo">
+            Ver más
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </a>
 
-    <h2>Novedades y Ofertas</h2>
-
-    <div class="news-grid">
-
-      <div class="news-card">
-        <img src="https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&w=800&q=60">
-        <h3>Noticias</h3>
-        <p>Últimas actualizaciones de la plataforma</p>
-      </div>
-
-      <div class="news-card">
-        <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e">
-        <h3>Novedades</h3>
-        <p>Nuevos servicios agregados esta semana</p>
-      </div>
-
-      <div class="news-card">
-        <img src="https://images.unsplash.com/photo-1607082349566-187342175e2f">
-        <h3>Descuentos</h3>
-        <p>Promociones activas por tiempo limitado</p>
-      </div>
-
-      <div class="news-card">
-        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d">
-        <h3>Recomendados</h3>
-        <p>Servicios más solicitados por usuarios</p>
-      </div>
-
-      <div class="news-card">
-        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f">
-        <h3>Destacados</h3>
-        <p>Servicios premium y rápidos</p>
-      </div>
-
+      <!-- MERCH -->
+      <a href="#" class="tarjetaCategoriaKumo">
+        <img src="../assets/img/categorias3.png" alt="Merch">
+        <div class="overlayCategoriaKumo"></div>
+        <div class="contenidoCategoriaKumo">
+          <i class="bi bi-bag"></i>
+          <h3>Merch</h3>
+          <p>
+            Accesorios y productos exclusivos.
+          </p>
+          <span class="linkCategoriaKumo">
+            Ver más
+            <i class="bi bi-arrow-right"></i>
+          </span>
+        </div>
+      </a>
     </div>
-
   </section>
 
-  <!-- ================= FOOTER ================= -->
+  <!-- FOOTER  -->
   <script src="../js/index.js"></script>
   <script src="../js/footer.js"></script>
 </body>
