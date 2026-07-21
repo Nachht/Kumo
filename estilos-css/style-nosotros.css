@@ -1,3 +1,4 @@
+/*  ============================= GENERAL ============================= */
 * {
     font-family: 'Nunito', sans-serif;
 }
@@ -16,455 +17,46 @@ body {
     margin: 0 auto;
 }
 
-.quienesSomos {
-    width: 100%;
-    max-width: 900px;
-    background: #ffffff;
-    padding: 30px 40px;
-    border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: black;
-}
 
-.quienesSomos:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 15px #8316ED;
-}
-
-.quienesSomos h2 {
-    font-family: 'Nunito';
-    font-size: 2rem;
-    color: #000000;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-.quienesSomos:hover h2 {
-    text-shadow: 0px 2px 3px #8316ED;
-}
-
-.quienesSomos h6 {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: #4a4444;
-    font-weight: 600;
-    margin: 0;
-}
-
-/* ================= MENÚ ================= */
-
-.menu-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 70px;
-    height: 70px;
-    background: transparent;
-    border-radius: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    box-shadow: none;
-    overflow: hidden;
-    padding: 10px;
-}
-
-.menu-btn img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-}
-
-.menu {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100vh;
-    background: #8316ED;
-    display: flex;
-    flex-direction: column;
-    padding-top: 100px;
-    transition: .4s;
-}
-
-.menu.activo {
-    left: 0;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    padding: 18px;
-    font-weight: 700;
-}
-
-.menu a:hover {
-    background: #8316ED;
-}
-
-/* TARJETAS EQUIPO */
-
-#cards-equipo h2 {
-    text-align: center;
-    color: #000000;
-    font-weight: bold;
-    margin-bottom: 60px;
-    margin-top: 70px;
-    font-size: 2.5rem;
-    position: relative;
-}
-
-#cards-equipo h2::after {
-    content: "";
-    display: block;
-    width: 500px;
-    max-width: 90%;
-    height: 4px;
-    background: linear-gradient(90deg, #8316ED, #8316ED);
-    margin: 15px auto 0;
-    border-radius: 10px;
-}
-
-#cards-equipo {
-    padding: 20px;
-}
-
-.team-card {
-    background-color: #ffffff;
-    border: none !important;
-    border-radius: 20px !important;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
-    padding: 25px 20px;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.card.team-card:hover {
-    transform: translateY(-8px);
-}
-
-/* Bordes superiores para cada tarjeta dependiendo del color */
-.card-1,
-.card-5 {
-    border-top: 6px solid #8316ED !important;
-}
-
-.card-2 {
-    border-top: 6px solid #FD0C7D !important;
-}
-
-.card-3 {
-    border-top: 6px solid #8316ED !important;
-}
-
-.card-4 {
-    border-top: 6px solid #8316ED !important;
-}
-
-.team-img {
-    width: 130px;
-    height: 130px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    z-index: 2;
-}
-
-.card-title {
-    font-size: 1.4rem;
-    color: #282121;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
-
-.card-rol {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 16px;
-    border-radius: 20px;
-    font-size: 0.82rem;
-    font-weight: 700;
-    margin-bottom: 20px;
-}
-
-.badge-scrum { background-color: #FDE3F1; color: #FD0C7D; }
-.badge-front { background-color: #FDE3F1; color: #FD0C7D; }
-.badge-design { background-color: #F3E6FD; color: #8316ED; }
-.badge-back { background-color: #EBDCFB; color: #6a12bd; }
-
-.card-text {
-    line-height: 1.6;
-    color: #4a4444;
-    min-height: 100px;
-}
-
-/* DESPLAZAMIENTO DEL CONTENIDO PRINCIPAL */
-
-@media screen and (min-width: 769px) {
-    .main-content {
-        transition: margin-left 0.4s ease, width 0.4s ease;
-        width: 100%;
-        margin-left: 0;
-    }
-
-    body:has(.menu.activo) .main-content {
-        margin-left: 250px;
-        width: calc(100% - 250px);
-    }
-}
-
-/*------------------------Responsive----------------------*/
-
-/* TABLETS */
-
-@media screen and (max-width: 768px) {
-
-    .containerGeneral {
-        padding: 40px 15px;
-        gap: 25px;
-    }
-
-    .quienesSomos {
-        width: 95%;
-        padding: 25px;
-    }
-
-    .quienesSomos h2,
-    #cards-equipo h2 {
-        font-size: 1.8rem;
-    }
-
-    .quienesSomos h6 {
-        font-size: 0.95rem;
-        line-height: 1.7;
-    }
-
-    .team-img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .card-title {
-        font-size: 1.2rem;
-    }
-}
-
-/* CELULARES */
-
-@media screen and (max-width: 480px) {
-
-    .containerGeneral {
-        padding: 25px 10px;
-        gap: 20px;
-    }
-
-    .quienesSomos {
-        width: 100%;
-        padding: 20px 15px;
-        border-radius: 10px;
-    }
-
-    .quienesSomos h2,
-    #cards-equipo h2 {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-    }
-
-    .quienesSomos h6 {
-        font-size: 0.9rem;
-        line-height: 1.6;
-    }
-
-    .img-container {
-        width: 70px;
-        height: 70px;
-        margin-top: 40px;
-    }
-
-    .team-img {
-        width: 80px;
-        height: 80px;
-    }
-
-    .card-title {
-        font-size: 1.1rem;
-    }
-
-    .card-rol {
-        font-size: 0.9rem;
-    }
-
-    .card-text {
-        font-size: 0.85rem;
-    }
-
-    #cards-equipo h2 {
-        margin-top: 40px;
-        margin-bottom: 30px;
-    }
-}
-
-/* ================= HEADER "NOSOTROS" ================= */
+/*  ============================= NOSOTROS ============================= */
 
 .page-header {
-    background: transparent;
-    padding: 40px 30px 20px 30px;
+    background: linear-gradient(135deg, #faf9ff, #fdf0f7);
+    padding: 60px 30px 50px;
     margin: 0 auto;
     max-width: 1200px;
 }
 
-.page-header .container-header {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: stretch !important;
-    width: 100% !important;
-}
-
-.breadcrumb-nav-right {
-    width: 100% !important;
-    margin-bottom: 15px !important;
-}
-
-.breadcrumb-nav-right .breadcrumb {
-    background: transparent !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    font-size: 0.95rem !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-}
-
-.breadcrumb-nav-right .breadcrumb-item {
-    color: #8a8a8a !important;
-    font-size: 0.95rem !important;
-}
-
-.breadcrumb-nav-right .breadcrumb-item a {
-    color: #8a8a8a !important;
-    text-decoration: none !important;
-    transition: all 0.3s ease !important;
-}
-
-.breadcrumb-nav-right .breadcrumb-item a:hover {
-    color: #FD0C7D !important;
-    text-decoration: underline !important;
-}
-
-.breadcrumb-nav-right .breadcrumb-item.active {
-    color: #FD0C7D !important;
-    font-weight: 600 !important;
-}
-
-.breadcrumb-nav-right .breadcrumb-item + .breadcrumb-item::before {
-    color: #D5D5D5 !important;
-    content: "/" !important;
-    padding: 0 6px !important;
-}
-
-.breadcrumb-nav-right .breadcrumb-item i {
-    margin-right: 4px !important;
-}
-
-.page-header .header-content {
-    width: 100% !important;
-    text-align: left !important;
-}
-
-.page-title {
-    color: #282121 !important;
-    font-size: 2.2rem !important;
-    font-weight: 800 !important;
-    margin: 0 0 8px 0 !important;
-    text-align: left !important;
-}
-
-.page-title i {
-    margin-right: 10px !important;
-    color: #FD0C7D !important;
-}
-
-.page-subtitle {
-    color: #8a8a8a !important;
-    font-size: 1.1rem !important;
-    font-weight: 400 !important;
-    margin: 0 !important;
-    text-align: left !important;
-}
-
-@media (max-width: 768px) {
-    .page-header {
-        padding: 25px 20px 15px 20px !important;
-    }
-
-    .page-title {
-        font-size: 1.6rem !important;
-    }
-
-    .page-subtitle {
-        font-size: 0.95rem !important;
-    }
-
-    .breadcrumb-nav-right .breadcrumb {
-        font-size: 0.8rem !important;
-        justify-content: flex-start !important;
-    }
-}
-
-@media (max-width: 480px) {
-    .page-header {
-        padding: 15px !important;
-    }
-
-    .page-title {
-        font-size: 1.3rem !important;
-    }
-
-    .page-subtitle {
-        font-size: 0.85rem !important;
-    }
-}
-
-/* =========================================================
-   BLOQUE NUEVO: hero de 2 columnas y misión/visión con ícono
-========================================================= */
-
-.hero-nosotros {
+body .page-header .container-header {
+    display: flex;
+    flex-direction: column;
     width: 100%;
 }
 
-.hero-nosotros .hero-text-col {
+body .page-header .header-content {
+    width: 100%;
     text-align: left;
 }
 
-.hero-nosotros.row {
-    align-items: flex-start !important;
+body .page-header .page-title {
+    color: #282121;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0 0 8px;
+    text-align: left;
 }
 
-.hero-nosotros-img img {
-    max-width: 340px;
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.25));
+body .page-header .page-title i {
+    margin-right: 10px;
+    color: #FD0C7D;
 }
 
-@media (max-width: 768px) {
-    .hero-nosotros-img {
-        margin-top: 25px;
-    }
+body .page-header .page-subtitle {
+    color: #8a8a8a;
+    font-size: 1.1rem;
+    font-weight: 400;
+    margin: 0;
+    text-align: left;
 }
 
 .eyebrow-nosotros {
@@ -495,6 +87,94 @@ body {
     border-radius: 10px;
     margin-top: 6px;
 }
+
+
+/*  ============================= HERO ============================= */
+
+body .hero-nosotros {
+    align-items: center;
+    width: 100%;
+}
+
+.hero-text-col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+}
+
+.hero-parrafo {
+    color: #4a4444;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+    max-width: 480px;
+}
+
+.palabra-destacada {
+    color: #8316ED;
+    font-weight: 800;
+}
+
+.hero-img-col {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-nosotros-img {
+    position: relative;
+}
+
+.hero-nosotros-img img {
+    max-width: 820px;  
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 35px rgba(131, 22, 237, .2));
+}
+
+.decor {
+    position: absolute;
+    color: #FD0C7D;
+    font-size: 1.6rem;
+    opacity: .7;
+    animation: flotar 4s ease-in-out infinite;
+}
+
+.decor-1 {
+    top: 5%;
+    left: -5%;
+    color: #8316ED;
+}
+
+.decor-2 {
+    bottom: 10%;
+    right: 0%;
+    animation-delay: 1.5s;
+}
+
+@keyframes flotar {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-14px) rotate(15deg); }
+}
+
+@media (max-width: 768px) {
+    .hero-img-col {
+        margin-top: 30px;
+    }
+
+    .hero-nosotros-img img {
+        max-width: 280px;
+    }
+
+    .hero-parrafo {
+        max-width: 100%;
+    }
+}
+
+
+/*  ============================= MISIÓN Y VISIÓN ============================= */
 
 .mision-vision-row {
     width: 100%;
@@ -554,11 +234,138 @@ body {
 }
 
 .icon-mision {
-    background: linear-gradient(135deg, #8316ED, #8316ED);
+    background: #8316ED;
 }
 
 .icon-vision {
-    background: linear-gradient(135deg, #FD0C7D, #FD0C7D);
+    background: #FD0C7D;
+}
+
+@media (max-width: 480px) {
+    .card-mision,
+    .card-vision {
+        padding: 25px 20px;
+    }
+    .card-mision h2,
+    .card-vision h2 {
+        font-size: 1.3rem;
+    }
+}
+
+
+/*  ============================= EQUIPO ============================= */
+
+#cards-equipo {
+    padding: 20px;
+}
+
+#cards-equipo h2 {
+    text-align: center;
+    color: #000000;
+    font-weight: bold;
+    margin-bottom: 60px;
+    margin-top: 70px;
+    font-size: 2.5rem;
+    position: relative;
+}
+
+#cards-equipo h2::after {
+    content: "";
+    display: block;
+    width: 500px;
+    max-width: 90%;
+    height: 4px;
+    background: #8316ED;
+    margin: 15px auto 0;
+    border-radius: 10px;
+}
+
+.decor-titulo {
+    color: #bb94e2;
+    font-size: 1.4rem;
+    vertical-align: middle;
+    margin: 0 8px;
+}
+
+.card.team-card {
+    background-color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 25px 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card.team-card:hover {
+    transform: translateY(-8px);
+}
+
+/* Bordes superiores por tarjeta */
+.card.team-card.card-1,
+.card.team-card.card-3,
+.card.team-card.card-4 {
+    border-top: 6px solid #8316ED;
+}
+
+.card.team-card.card-2, 
+.card.team-card.card-5 {
+    border-top: 6px solid #FD0C7D;
+}
+
+.team-img {
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    z-index: 2;
+}
+
+.card-title {
+    font-size: 1.4rem;
+    color: #282121;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.card-rol {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.badge-scrum,
+.badge-front { 
+    background-color: #FDE3F1; 
+    color: #FD0C7D; 
+}
+
+.badge-design { 
+    background-color: #F3E6FD; 
+    color: #8316ED; 
+}
+
+.badge-back { 
+    background-color: #EBDCFB; 
+    color: #6a12bd; 
+}
+
+.card-text {
+    line-height: 1.6;
+    color: #4a4444;
+    min-height: 100px;
 }
 
 .team-social {
@@ -581,13 +388,82 @@ body {
     color: #ffffff;
 }
 
-@media (max-width: 480px) {
-    .card-mision,
-    .card-vision {
-        padding: 25px 20px;
+
+/*  ============================= RESPONSIVE ============================= */
+
+@media screen and (max-width: 768px) {
+
+    .containerGeneral {
+        padding: 40px 15px;
+        gap: 25px;
     }
-    .card-mision h2,
-    .card-vision h2 {
+
+    #cards-equipo h2 {
+        font-size: 1.8rem;
+    }
+
+    .team-img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    body .page-header {
+        padding: 25px 20px 15px;
+    }
+
+    body .page-header .page-title {
+        font-size: 1.6rem;
+    }
+
+    body .page-header .page-subtitle {
+        font-size: 0.95rem;
+    }
+}
+
+/* CELULARES */
+@media screen and (max-width: 480px) {
+
+    .containerGeneral {
+        padding: 25px 10px;
+        gap: 20px;
+    }
+
+    #cards-equipo h2 {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        margin-top: 40px;
+    }
+
+    .team-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .card-title {
+        font-size: 1.1rem;
+    }
+
+    .card-rol {
+        font-size: 0.9rem;
+    }
+
+    .card-text {
+        font-size: 0.85rem;
+    }
+
+    body .page-header {
+        padding: 15px;
+    }
+
+    body .page-header .page-title {
         font-size: 1.3rem;
+    }
+
+    body .page-header .page-subtitle {
+        font-size: 0.85rem;
     }
 }
