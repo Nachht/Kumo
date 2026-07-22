@@ -1,19 +1,22 @@
 // ==========================================
-// CARRITO - LÓGICA COMPLETA
+// CARRITO - LÓGICA COMPLETA (PRODUCTOS KUMO)
 // ==========================================
 
 document.addEventListener("DOMContentLoaded", () => {
 
     // ===== ELEMENTOS DOM =====
-    const contenedor = document.getElementById("contenedorCarrito");
-    const cantidadSpan = document.getElementById("cantidadServicios");
-    const subtotalSpan = document.getElementById("subtotal");
-    const tarifaSpan = document.getElementById("tarifa");
-    const totalSpan = document.getElementById("total");
-    const botonSolicitar = document.querySelector(".boton-solicitar");
+    const contenedor = document.getElementById("contenedorArticulos");
+    const tablaPrincipal = document.getElementById("tablaCarritoPrincipal");
+    const cantidadSpan = document.getElementById("cantidadArticulos");
+    const subtotalSpan = document.getElementById("subtotalCarrito");
+    const botonComprar = document.getElementById("btnComprar");
+    const botonComprarPagina = document.getElementById("btnComprarPagina");
+    const botonVaciarOffcanvas = document.getElementById("btnVaciarCarrito");
+    const botonVaciarPagina = document.getElementById("btnVaciarPagina");
 
-    // ===== TARIFA FIJA (en pesos) =====
-    const TARIFA_SERVICIO = 5000;
+    // Elementos de la página de resumen principal
+    const resumenCantidad = document.getElementById("resumenCantidad");
+    const resumenTotal = document.getElementById("resumenTotal");
 
     // ===== CARGAR CARRITO =====
     function cargarCarrito() {
@@ -35,89 +38,128 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===== ACTUALIZAR BADGE DEL NAVBAR =====
-// ===== ACTUALIZAR BADGE DEL NAVBAR =====
-function actualizarBadge() {
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
+    function actualizarBadge() {
+        const carrito = cargarCarrito();
+        const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
 
-    const badge = document.getElementById("badge");
-    if (badge) {
-        badge.textContent = totalItems;
+        const badgeNavbar = document.getElementById("contadorCartNavbar");
+        if (badgeNavbar) {
+            badgeNavbar.textContent = totalItems;
+        }
     }
-}
 
-    // ===== RENDERIZAR TARJETAS =====
+    // ===== RENDERIZAR TODO EL CARRITO =====
     function renderizarCarrito() {
-        // LIMPIAR completamente el contenedor
-        contenedor.innerHTML = "";
-
         const carrito = cargarCarrito();
 
-        if (carrito.length === 0) {
-            contenedor.innerHTML = `
-                <div class="text-center py-5">
-                    <i class="bi bi-cart-x" style="font-size: 4rem; color: #D1D5DB;"></i>
-                    <h3 class="mt-3" style="color: #6B7280;">Tu carrito está vacío</h3>
-                    <p style="color: #9CA3AF;">Explora nuestro catálogo y agrega servicios.</p>
-                    <a href="../catalogo/catalogo.html" class="btn btn-primary mt-3" style="background: #4C1D95; border: none; border-radius: 12px; padding: 10px 30px;">
-                        <i class="bi bi-arrow-left"></i> Ir al catálogo
-                    </a>
-                </div>
-            `;
-            actualizarTotales(carrito);
-            return;
+        // 1. Renderizar Vista Offcanvas (Desplegable)
+        if (contenedor) {
+            contenedor.innerHTML = "";
+
+            if (carrito.length === 0) {
+                contenedor.innerHTML = `
+                    <div class="text-center py-5 w-100">
+                        <i class="bi bi-cart-x text-white-50" style="font-size: 3.5rem;"></i>
+                        <h5 class="mt-3 text-white fw-bold">Tu carrito está vacío</h5>
+                        <p class="text-white-50 small">Explora nuestro catálogo y agrega figuras.</p>
+                    </div>
+                `;
+            } else {
+                carrito.forEach((articulo, index) => {
+                    const tarjeta = document.createElement("div");
+                    tarjeta.className = "card border-0 rounded-3 p-3 text-dark style-tarjeta-producto";
+                    tarjeta.style.backgroundColor = "white";
+
+                    tarjeta.innerHTML = `
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-2 object-fit-cover" style="width: 70px; height: 70px;">
+                            
+                            <div class="flex-grow-1">
+                                <h6 class="fw-bold m-0 mb-1 text-dark text-truncate" style="max-width: 130px;">${articulo.nombre}</h6>
+                                <span class="text-muted small d-block">${formatearPrecio(articulo.precio)}</span>
+                            </div>
+
+                            <div class="control-cantidad d-flex align-items-center border rounded bg-light px-1">
+                                <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-dark" data-index="${index}">−</button>
+                                <span class="px-2 fw-bold small text-dark">${articulo.cantidad}</span>
+                                <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-dark" data-index="${index}">+</button>
+                            </div>
+
+                            <button class="btn p-0 border-0 text-danger ms-1 btn-eliminar" data-index="${index}" title="Eliminar">
+                                <i class="bi bi-trash fs-5"></i>
+                            </button>
+                        </div>
+                    `;
+                    contenedor.appendChild(tarjeta);
+                });
+            }
         }
 
-        // Renderizar cada servicio
-        carrito.forEach((servicio, index) => {
+        // 2. Renderizar Vista Principal de la Página (carrito.html)
+      // 2. Renderizar Vista Principal de la Página (carrito.html)
+if (tablaPrincipal) {
+    tablaPrincipal.innerHTML = "";
+
+    if (carrito.length === 0) {
+        tablaPrincipal.innerHTML = `
+            <div class="tarjeta-kumo-oscura p-5 text-center text-white-50">
+                <i class="bi bi-cart-x text-fucsia d-block mb-3 fs-1"></i>
+                <h4 class="text-white fw-bold mb-2">Tu carrito está vacío</h4>
+                <p class="mb-4 small">Explora el catálogo para agregar nuevos productos.</p>
+                <a href="../catalogo/catalogo.html" class="btn btn-neon-fucsia px-4 py-2 fw-bold text-uppercase rounded-3">
+                    Ir al Catálogo
+                </a>
+            </div>
+        `;
+    } else {
+        carrito.forEach((articulo, index) => {
             const tarjeta = document.createElement("div");
-            tarjeta.className = "tarjeta tarjeta-servicio";
-            tarjeta.dataset.index = index;
+            // Usamos la clase de tarjeta oscura idéntica a la del resumen
+            tarjeta.className = "tarjeta-kumo-oscura d-flex align-items-center justify-content-between p-3 mb-3";
 
             tarjeta.innerHTML = `
-                <img src="${servicio.imagen}" alt="${servicio.nombre}" class="imagen-servicio">
-                <div class="info-servicio">
-                    <h5 class="nombre-servicio">${servicio.nombre}</h5>
-                    <p class="descripcion-servicio">${servicio.descripcion}</p>
-                    <span class="etiqueta-servicio">
-                        <i class="bi bi-tag"></i> ${servicio.etiqueta || 'Servicio profesional'}
-                    </span>
+                <div class="d-flex align-items-center gap-3">
+                    <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-3 object-fit-cover" style="width: 75px; height: 75px; background-color: #2a2628;">
+                    <div>
+                        <h5 class="fw-bold m-0 text-white">${articulo.nombre}</h5>
+                        <span class="text-white-50 small">${formatearPrecio(articulo.precio)}</span>
+                    </div>
                 </div>
-                <div class="precio-servicio">
-                    <strong class="texto-precio">${formatearPrecio(servicio.precio)}</strong>
+
+                <div class="d-flex align-items-center gap-4">
+                    <div class="control-cantidad-kumo d-flex align-items-center rounded-pill px-2" style="background-color: #282325; border: 1px solid #3d3538;">
+                        <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-fucsia" data-index="${index}">−</button>
+                        <span class="px-3 fw-bold text-white">${articulo.cantidad}</span>
+                        <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-fucsia" data-index="${index}">+</button>
+                    </div>
+
+                    <span class="fw-bold fs-5 text-fucsia">${formatearPrecio(articulo.precio * articulo.cantidad)}</span>
+
+                    <button class="btn p-0 border-0 text-fucsia btn-eliminar ms-2" data-index="${index}" title="Eliminar producto">
+                        <i class="bi bi-trash3 fs-5"></i>
+                    </button>
                 </div>
-                <div class="control-cantidad">
-                    <button class="boton-cantidad btn-restar" data-index="${index}">−</button>
-                    <input type="text" class="numero-cantidad" value="${servicio.cantidad}" readonly>
-                    <button class="boton-cantidad btn-sumar" data-index="${index}">+</button>
-                </div>
-                <button class="boton-eliminar btn-eliminar" data-index="${index}" title="Eliminar servicio">
-                    <i class="bi bi-trash"></i>
-                </button>
             `;
-
-            contenedor.appendChild(tarjeta);
+            tablaPrincipal.appendChild(tarjeta);
         });
-
-        // ===== EVENTOS =====
+    }
+}
+        // ===== EVENTOS RE-ASIGNADOS =====
         document.querySelectorAll(".btn-sumar").forEach(btn => {
             btn.addEventListener("click", function () {
-                const index = parseInt(this.dataset.index);
-                cambiarCantidad(index, 1);
+                cambiarCantidad(parseInt(this.dataset.index), 1);
             });
         });
 
         document.querySelectorAll(".btn-restar").forEach(btn => {
             btn.addEventListener("click", function () {
-                const index = parseInt(this.dataset.index);
-                cambiarCantidad(index, -1);
+                cambiarCantidad(parseInt(this.dataset.index), -1);
             });
         });
 
         document.querySelectorAll(".btn-eliminar").forEach(btn => {
             btn.addEventListener("click", function () {
-                const index = parseInt(this.dataset.index);
-                eliminarServicio(index);
+                eliminarArticulo(parseInt(this.dataset.index));
             });
         });
 
@@ -138,72 +180,61 @@ function actualizarBadge() {
         renderizarCarrito();
     }
 
-    // ===== ELIMINAR SERVICIO =====
-    function eliminarServicio(index) {
+    // ===== ELIMINAR ARTÍCULO =====
+    function eliminarArticulo(index) {
         let carrito = cargarCarrito();
         if (!carrito[index]) return;
 
-        const nombre = carrito[index].nombre;
         carrito.splice(index, 1);
         guardarCarrito(carrito);
         renderizarCarrito();
-        actualizarBadge();
-        console.log(`🗑️ Eliminado: ${nombre}`);
     }
+
+    // ===== VACIAR CARRITO COMPLETO =====
+    // ===== VACIAR CARRITO COMPLETO =====
+function vaciarTodo() {
+    if (confirm("¿Seguro que deseas vaciar todo el carrito?")) {
+        localStorage.removeItem("carrito");
+        renderizarCarrito();
+    }
+}
+
+
+if (botonVaciarOffcanvas) botonVaciarOffcanvas.addEventListener("click", vaciarTodo);
+if (botonVaciarPagina) botonVaciarPagina.addEventListener("click", vaciarTodo);
 
     // ===== ACTUALIZAR TOTALES =====
     function actualizarTotales(carrito) {
         const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-        const tarifa = carrito.length > 0 ? TARIFA_SERVICIO : 0;
-        const total = subtotal + tarifa;
+        const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
 
         if (subtotalSpan) subtotalSpan.textContent = formatearPrecio(subtotal);
-        if (tarifaSpan) tarifaSpan.textContent = formatearPrecio(tarifa);
-        if (totalSpan) totalSpan.textContent = formatearPrecio(total);
-        if (cantidadSpan) {
-            const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-            cantidadSpan.textContent = totalItems;
+        if (cantidadSpan) cantidadSpan.textContent = totalItems;
+
+        // Actualizar resumen en la página si existe
+        if (resumenCantidad) resumenCantidad.textContent = totalItems;
+        if (resumenTotal) resumenTotal.textContent = formatearPrecio(subtotal);
+
+        localStorage.setItem("carritoTotal", JSON.stringify({ subtotal, total: subtotal }));
+    }
+
+    // ===== ACCIÓN COMPRAR =====
+    function ejecutarCompra() {
+        const carrito = cargarCarrito();
+        if (carrito.length === 0) {
+            alert("🛒 Tu carrito está vacío. Agrega productos primero.");
+            return;
         }
 
-        localStorage.setItem("carritoTotal", JSON.stringify({ subtotal, tarifa, total }));
+        const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
+        if (confirm(`📋 RESUMEN DE TU PEDIDO\n─────────────────────\nTotal: ${formatearPrecio(subtotal)}\n\n¿Confirmas tu compra en KUMO?`)) {
+            alert("✅ ¡Compra confirmada! Nos pondremos en contacto contigo.");
+        }
     }
 
-    // ===== BOTÓN SOLICITAR SERVICIOS =====
-    if (botonSolicitar) {
-        botonSolicitar.addEventListener("click", function () {
-            const carrito = cargarCarrito();
-
-            if (carrito.length === 0) {
-                alert("🛒 Tu carrito está vacío. Agrega servicios primero.");
-                return;
-            }
-
-            const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-            const tarifa = TARIFA_SERVICIO;
-            const total = subtotal + tarifa;
-
-            const mensaje = `
-📋 RESUMEN DE TU PEDIDO
-─────────────────────
-Servicios: ${carrito.length}
-Subtotal: ${formatearPrecio(subtotal)}
-Tarifa de servicio: ${formatearPrecio(tarifa)}
-─────────────────────
-TOTAL: ${formatearPrecio(total)}
-
-¿Confirmas tu solicitud?
-            `;
-
-            if (confirm(mensaje)) {
-                alert("✅ ¡Solicitud confirmada! Nos pondremos en contacto contigo.");
-                // Opcional: vaciar carrito
-                // localStorage.removeItem("carrito");
-                // renderizarCarrito();
-            }
-        });
-    }
+    if (botonComprar) botonComprar.addEventListener("click", ejecutarCompra);
+    if (botonComprarPagina) botonComprarPagina.addEventListener("click", ejecutarCompra);
 
     // ===== INICIALIZAR =====
     renderizarCarrito();
-
 });

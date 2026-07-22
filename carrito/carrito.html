@@ -4,154 +4,120 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Carrito</title>
+    <title>Carrito - KUMO</title>
 
     <link rel="stylesheet" href="../estilos-css/carrito.css">
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="icon" href="../assets/img/logo.png">
 </head>
 
-<body>
-    <main class="contenedor">
-        <!-- Encabezado -->
+<body class="body-kumo">
 
+    <div id="navbar-container"></div>
 
+    <main class="container my-5 pt-3" style="max-width: 1100px;">
+        
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="titulo-carrito m-0">CARRITO</h1>
+            <button id="btnVaciarPagina" class="btn btn-link text-white-50 text-decoration-none small fw-bold">
+                <i class="bi bi-trash3 me-1"></i> Vaciar
+            </button>
+        </div>
 
-        <section class="encabezado">
-            <div class="titulo">
-                <div>
-                    <h1>Carrito KUMO </h1>
-                    <p>
-                        Revisa los articulos agregados antes de confirmar tu pedido.
-                    </p>
+        <div class="row g-4">
+            <!-- COLUMNA IZQUIERDA: Tarjetas de Productos -->
+            <div class="col-lg-8">
+                <div id="tablaCarritoPrincipal" class="d-flex flex-column gap-3">
+                    <!-- JS inyectará aquí tarjetas individuales con clase .tarjeta-kumo -->
                 </div>
             </div>
-            <div class="contador">
-                <i class="bi bi-cart-fill"></i>
-                <span id="cantidadServicios">0</span>
-                Articulos
-            </div>    
-        </section>
-        <a href="../catalogo/catalogo.html" class="boton-volver">
-            ← Seguir explorando
-        </a>
 
-        <!-- inicio -------------------------------------------- -->
-        <div class="pantalla-carrito">
-            <!-- Sección inzquierda: servicios agregados -->
-            <section class="columna-servicios">
-                <div id="contenedorCarrito">
-
-                    <!-- Tarjeta de Servicio (Ejemplo para mostrar como quedan los servicios) -->
-                    <div class="tarjeta tarjeta-servicio">
-                        <img src="https://puertasblindadascolombia.com/wp-content/uploads/2026/01/Sin-titulo-1_0002_FOTO_2.jpg"
-                            alt="Cerrajería" class="imagen-servicio">
-
-                        <div class="info-servicio">
-                            <h5 class="nombre-servicio">Cerrajería</h5>
-                            <p class="descripcion-servicio">Apertura de puertas y cambio de cerraduras.</p>
-                            <span class="etiqueta-servicio">
-                                <i class="bi bi-tag"></i> Servicio profesional
-                            </span>
-                        </div>
-
-                        <div class="precio-servicio">
-                            <strong class="texto-precio">$95.000</strong>
-                        </div>
-
-                        <div class="control-cantidad">
-                            <button class="boton-cantidad" type="button">−</button>
-                            <input type="text" class="numero-cantidad" value="1" readonly>
-                            <button class="boton-cantidad" type="button">+</button>
-                        </div>
-
-                        <button class="boton-eliminar" title="Eliminar servicio">
-                            <i class="bi bi-trash"></i>
-                        </button>
+            <!-- COLUMNA DERECHA: Resumen de Compra -->
+            <div class="col-lg-4">
+                <div class="tarjeta-kumo tarjeta-resumen p-4">
+                    <h3 class="titulo-resumen mb-4">RESUMEN</h3>
+                    
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="text-white-50 small">Subtotal (<span id="totalItemsCount">0</span> items)</span>
+                        <span id="resumenSubtotal" class="fw-bold text-white">$0</span>
                     </div>
 
-                    <!-- Tarjeta de Servicio (Ejemplo 2: Plomería) -->
-                    <div class="tarjeta tarjeta-servicio">
-                        <!-- Imagen del servicio -->
-                        <img src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&w=150&h=150&q=80"
-                            alt="Plomería" class="imagen-servicio">
-
-                        <!-- Información -->
-                        <div class="info-servicio">
-                            <h5 class="nombre-servicio">Plomería General</h5>
-                            <p class="descripcion-servicio">Reparación de fugas de agua, destapes y cambio de tuberías.
-                            </p>
-                            <!-- Icono bi-clock dibuja un pequeño reloj de urgencia -->
-                            <span class="etiqueta-servicio">
-                                <i class="bi bi-clock"></i> Servicio urgente
-                            </span>
-                        </div>
-
-                        <!-- Precio -->
-                        <div class="precio-servicio">
-                            <strong class="texto-precio">$80.000</strong>
-                        </div>
-
-                        <!-- Cantidad -->
-                        <div class="control-cantidad">
-                            <button class="boton-cantidad" type="button">−</button>
-                            <input type="text" class="numero-cantidad" value="1" readonly>
-                            <button class="boton-cantidad" type="button">+</button>
-                        </div>
-
-                        <!-- Botón Eliminar -->
-                        <button class="boton-eliminar" title="Eliminar servicio">
-                            <i class="bi bi-trash"></i>
-                        </button>
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-white-50 small">Envío</span>
+                        <span class="text-white-50 small">Calculado al hacer checkout</span>
                     </div>
 
-                </div>
-            </section>
+                    <hr class="border-secondary opacity-25 my-3">
 
-            <!-- Sección derecha: Resumen -->
-            <aside class="columna-resumen">
-                <div class="tarjeta tarjeta-resumen">
-                    <h3 class="titulo-resumen">Resumen del pedido</h3>
-
-                    <div class="fila-resumen">
-                        <span>Subtotal</span>
-                        <strong id="subtotal" class="texto-rosa">$0</strong>
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <span class="fw-bold fs-5 text-white">Total</span>
+                        <span id="resumenTotal" class="fw-bold fs-4 text-fucsia">$0</span>
                     </div>
 
-                    <div class="fila-resumen">
-                        <span class="con-icono">
-                            Tarifa de servicio
-                            <i class="bi bi-info-circle icono-info" title="Costo de gestión"></i>
-                        </span>
-                        <strong id="tarifa" class="texto-rosa">$0</strong>
-                    </div>
-
-                    <hr class="separador">
-
-                    <div class="fila-resumen total">
-                        <span class="texto-total">Total</span>
-                        <h3 id="total" class="texto-rosa">$0</h3>
-                    </div>
-
-                    <button class="boton-solicitar">
-                        <i class="bi bi-check-circle"></i> Lo quiero !
+                    <button id="btnComprarPagina" class="btn btn-neon-fucsia w-100 py-3 fw-bold text-uppercase rounded-3 mb-3">
+                        Ir al checkout <i class="bi bi-arrow-right ms-1"></i>
                     </button>
 
-                    <div class="texto-seguro">
-                        <i class="bi bi-lock"></i> Pago contra entrega
+                    <div class="text-center">
+                        <a href="../catalogo/catalogo.html" class="text-white-50 text-decoration-none small fw-bold link-hover-fucsia">
+                            Seguir comprando
+                        </a>
                     </div>
                 </div>
-            </aside>
-
-        </div>
-
+            </div>
         </div>
     </main>
-            <script src="../js/navbar.js"></script>
 
+    <div id="footer-container"></div>
+
+    <!-- OFFCANVAS LATERAL -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoKumo" aria-labelledby="carritoKumoLabel" 
+         style="background-color: #1b1618; color: white; width: 380px; border-left: 2px solid #ff007f;">
+        
+        <div class="offcanvas-header pt-4 pb-2 px-4 border-bottom border-secondary border-opacity-25">
+            <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia" id="carritoKumoLabel" style="letter-spacing: 1px;">
+                CARRITO (<span id="cantidadArticulos">0</span>)
+            </h6>
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" style="font-size: 0.8rem;"></button>
+        </div>
+
+        <div class="offcanvas-body px-4 pt-3">
+            <div id="contenedorArticulos" class="d-flex flex-column gap-2"></div>
+
+            <div class="text-start mt-3">
+                <button id="btnVaciarCarrito" class="btn btn-link text-white-50 text-decoration-none p-0 small fw-bold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                    Vaciar Carrito
+                </button>
+            </div>
+        </div>
+
+        <div class="offcanvas-footer p-4 border-top border-secondary border-opacity-25">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <span class="small fw-bold text-white-50 text-uppercase" style="letter-spacing: 0.5px;">Subtotal</span>
+                <span id="subtotalCarrito" class="fw-bold fs-4 text-fucsia">$0</span>
+            </div>
+
+            <div class="d-flex flex-column gap-2 text-center">
+                <button id="btnComprar" class="btn btn-neon-fucsia w-100 py-2.5 fw-bold text-uppercase rounded-3">
+                    Comprar
+                </button>
+
+                <a href="../carrito/carrito.html" class="btn btn-outline-fucsia w-100 py-2 fw-bold text-uppercase rounded-3 mt-1" style="font-size: 0.75rem; letter-spacing: 1px;">
+                    Ver carrito completo
+                </a>
+                
+                <button type="button" class="btn btn-link text-white-50 text-decoration-none text-uppercase fw-bold p-0 mt-1" data-bs-dismiss="offcanvas" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                    Seguir viendo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/navbar.js"></script>
     <script src="../js/footer.js"></script>
     <script src="../js/carrito.js"></script>
 </body>
+
+</html>
