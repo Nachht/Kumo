@@ -10,8 +10,7 @@ const errorPassword = document.getElementById("errorPassword");
 
 // Obtener datos de los usuarios ya registrados en registro.js
 const listaUsuarios =
-JSON.parse(localStorage.getItem("listaUsuarios")) || [];
-
+    JSON.parse(localStorage.getItem("listaUsuarios")) || [];
 
 // Mostrar y ocultar contraseña
 mostrarPassword.addEventListener("click", () => {
@@ -26,9 +25,8 @@ mostrarPassword.addEventListener("click", () => {
 
 });
 
-
 // Iniciar sesión
-formulario.addEventListener("submit", function (e){
+formulario.addEventListener("submit", function (e) {
 
     e.preventDefault(); // SIEMPRE validamos primero
 
@@ -37,7 +35,7 @@ formulario.addEventListener("submit", function (e){
     // Se limpia los mensajes y errores y colores guardados
     mensajeFormulario.textContent = "";
     mensajeFormulario.className = "";
-    
+
     errorCorreo.textContent = "";
     errorPassword.textContent = "";
 
@@ -52,7 +50,7 @@ formulario.addEventListener("submit", function (e){
     const passwordValor = password.value.trim();
 
     // Validaciones del email
-        if (correoValor === "") {
+    if (correoValor === "") {
 
         errorCorreo.className = "mensajeErrorCampo";
         errorCorreo.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe ingresar su correo.';
@@ -93,7 +91,7 @@ formulario.addEventListener("submit", function (e){
         return;
     }
 
-        // Contraseña incorrecta
+    // Contraseña incorrecta
     if (usuarioEncontrado.contraseña !== passwordValor) {
 
         errorPassword.className = "mensajeErrorCampo";
@@ -111,8 +109,8 @@ formulario.addEventListener("submit", function (e){
     mensajeFormulario.className = "mensajeExito";
     mensajeFormulario.innerHTML = '<i class="bi bi-check-circle-fill"></i> Inicio de sesión exitoso.';
 
-  
- // Guardar usuario activo
+
+    // Guardar usuario activo
     localStorage.setItem(
         "usuarioActivo",
         JSON.stringify(usuarioEncontrado)
