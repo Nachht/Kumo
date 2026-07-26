@@ -15,11 +15,14 @@
 </head>
 
 <body>
+
     <main class="contenedorLogin">
         <section class="tarjetaLogin">
-
-            <!-- izquierda-->
+            <!-- Panel izquierdo -->
             <div class="panelIzquierdo">
+                <video class="videoLogin" autoplay muted loop playsinline preload="auto">
+                    <source src="../assets/img/inicio-de-sesion.mp4" type="video/mp4">
+                </video>
                 <div class="capaDegradado"></div>
                 <div class="contenidoIzquierdo">
                     <img src="../assets/img/logo.png" alt="Logo Kumo" class="logoKumo">
@@ -56,8 +59,7 @@
                     </div>
                 </div>
             </div>
-
-            <!--Derecha-->
+            <!-- Panel derecho -->
             <div class="panelDerecho">
                 <h2>¡Bienvenido de nuevo!</h2>
                 <p class="subtitulo">
@@ -67,7 +69,6 @@
                     <label for="correo">
                         Correo electrónico
                     </label>
-
                     <div class="grupoInput">
                         <span class="iconoInput">
                             <i class="bi bi-envelope"></i>
@@ -75,23 +76,19 @@
                         <input type="email" id="correo" placeholder="ejemplo@correo.com">
                     </div>
                     <small id="errorCorreo"></small>
-
                     <label for="password">
                         Contraseña
                     </label>
-
                     <div class="grupoInput">
                         <span class="iconoInput">
                             <i class="bi bi-lock"></i>
                         </span>
                         <input type="password" id="password" placeholder="Ingresa tu contraseña">
-
                         <button type="button" id="mostrarPassword" class="botonMostrar">
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
                     <small id="errorPassword"></small>
-
                     <button type="submit" class="botonIngresar">
                         Iniciar sesión
                     </button>
@@ -106,9 +103,9 @@
             </div>
         </section>
     </main>
-    
+
     <script src="../js/inicio_sesion.js"></script>
-    <script src="../js/footer.js"></script>
+
 </body>
 
 </html>

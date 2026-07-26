@@ -6,200 +6,509 @@
 }
 
 body {
-    background-color: var(--fondo-pagina);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
+    background-color: #E0E0E0;
 }
 
-:root {
-    --morado-oscuro: #4C1D95;
-    --morado-medio: #6C2BD9;
-    --rosa-fucsia: #EC4899;
-    --azul-celeste: #00FCF8;
-    --blanco: #FFFFFF;
-    --morado-claro: #F5F3FF;
-    --gris-borde: #E2DBF0;
-    --texto-oscuro: #1E1B4B;
-    --texto-gris: #6B7280;
-    --fondo-pagina: #FAF9FC;
-
-    --rojo-error: #EF4444;
-    /* Rojo para el estado de error */
-    --verde-exito: #10B981;
-    /* Verde para el estado correcto */
-}
-
-/* Contenedor principal (Tarjeta de Registro)*/
-.registro {
-    background-color: var(--blanco);
-    border: 1px solid var(--gris-borde);
-    border-radius: 16px;
-    box-shadow: 0 10px 25px rgba(76, 29, 149, 0.05);
-    padding: 40px 30px;
+.contenedorRegistro {
     width: 100%;
-    max-width: 450px;
-
-    margin: auto;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
 }
 
-.registro h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--morado-oscuro);
-    margin-bottom: 24px;
-    text-align: center;
+.tarjetaRegistro {
+    width: 1100px;
+    height: min(950px, calc(100vh - 60px));
+    background: #FFF;
+    display: flex;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .15);
 }
 
-/* Formulario y Campos de Entrada */
-.formulario form {
+/*formulario*/
+.panelFormularioRegistro {
+    width: 58%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 55px;
 }
 
-.formulario label {
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: var(--texto-oscuro);
-    margin-bottom: 6px;
+.panelFormularioRegistro form {
+    width: 100%;
+    max-width: 430px;
 }
 
-.formulario input {
-    padding: 12px 16px;
-    border: 1.5px solid var(--gris-borde);
-    border-radius: 8px;
-    font-size: 0.95rem;
-    color: var(--texto-oscuro);
-    background-color: var(--blanco);
-    transition: all 0.3s ease;
-    outline: none;
-    margin-bottom: 4px;
+.panelFormularioRegistro h2 {
+    font-size: 2.6rem;
+    font-weight: 800;
+    color: #282121;
 }
 
-/* Efecto al seleccionar o enfocar los inputs */
-.formulario input:focus {
-    border-color: var(--morado-medio);
-    background-color: var(--morado-claro);
-    box-shadow: 0 0 0 3px rgba(108, 43, 217, 0.15);
+.subtituloRegistro {
+    color: #666;
+    font-size: 1.05rem;
+    margin-bottom: 40px;
 }
 
-.formulario input::placeholder {
-    color: var(--texto-gris);
-}
-
-.formulario input::placeholder {
-    color: var(--texto-gris);
-}
-
-/* Estilos comunes para las etiquetas pequeñas <small> */
-.formulario small {
-    font-size: 0.8rem;
-    margin-bottom: 16px;
+/*labels*/
+.panelFormularioRegistro label {
     display: block;
-    min-height: 18px;
+    margin-bottom: 10px;
+    font-weight: 700;
+    color: #282121;
+}
+
+/*inputs*/
+.grupoInputRegistro {
+    display: flex;
+    align-items: center;
+    border: 2px solid #D5D5D5;
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    transition: .3s;
+}
+
+.grupoInputRegistro:focus-within {
+    border-color: #8316ED;
+    box-shadow: 0 0 0 4px rgba(131, 22, 237, .12);
+}
+
+.iconoInputRegistro {
+    width: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    font-size: 1.15rem;
+}
+
+.grupoInputRegistro input {
+    flex: 1;
+    height: 58px;
+    border: none;
+    outline: none;
+    padding-right: 15px;
+    font-size: 1rem;
+    transition: .3s;
+}
+
+.botonMostrarRegistro {
+    width: 60px;
+    height: 58px;
+    border: none;
+    background: #FFF;
+    color: #666;
+    font-size: 1.15rem;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.botonMostrarRegistro:hover {
+    color: #8316ED;
+}
+
+/*boton*/
+.botonCrearCuenta {
+    width: 100%;
+    height: 58px;
+    margin-top: 30px;
+    border: none;
+    border-radius: 18px;
+    color: #FFF;
+    font-size: 1.08rem;
+    font-weight: 700;
+    cursor: pointer;
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
+    transition: transform .3s, box-shadow .3s;
+}
+
+.botonCrearCuenta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(131, 22, 237, .30);
+}
+
+/*link login*/
+.contenedorInicioSesion {
+    margin-top: 35px;
+    text-align: center;
+    color: #666;
+}
+
+.contenedorInicioSesion a {
+    color: #FD0C7D;
+    text-decoration: none;
     font-weight: 700;
 }
 
-/*  Estado Erróneo */
-.mensajeErrorCampo {
+.contenedorInicioSesion a:hover {
+    color: #8316ED;
+}
+
+/*mensajes*/
+small {
+    display: block;
+    min-height: 22px;
+    margin-bottom: 12px;
     font-size: .9rem;
-    color: var(--rojo-error);
+}
+
+#mensajeRegistro {
+    margin-top: 25px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.mensajeErrorCampo {
     display: flex;
-    font-weight: 500;
     align-items: center;
     gap: 6px;
-    margin-top: 5px;
+    color: #ff1d1d;
+    font-size: .9rem;
+    font-weight: 600;
 }
 
 .mensajeExitoCampo {
-    color: var(--verde-exito);
-    font-size: .9rem;
     display: flex;
-    font-weight: 500;
     align-items: center;
     gap: 6px;
-    margin-top: 5px;
+    color: rgb(77, 255, 33);
+    font-size: .9rem;
+    font-weight: 600;
 }
-
 
 .mensajeError {
-    text-align: center;
     margin-top: 15px;
-    font-size: 0.9rem;
-    font-weight: 700;
-    color: black;
-}
-
-.mensajeError i{
-    color: rgb(255, 217, 0);
-    margin-right: 5px;
     text-align: center;
-    margin-top: 15px;
-    font-size: 0.9rem;
     font-weight: 700;
+    color: #282121;
 }
 
-.mensajeExito{
-    color: black;
-    margin-right: 5px;
+.mensajeExito {
+    margin-top: 15px;
     text-align: center;
-    margin-top: 15px;
-    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgb(77, 255, 33);
+}
+
+/*panel de la imagen*/
+.panelImagenRegistro {
+    width: 42%;
+    position: relative;
+    overflow: hidden;
+}
+
+.gifRegistro {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.capaDegradadoRegistro {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.500),
+            rgba(0, 0, 0, 0.500));
+    z-index: 2;
+}
+
+.contenidoImagenRegistro {
+    position: relative;
+    z-index: 3;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 45px;
+    color: white;
+}
+
+.logoRegistro {
+    width: 180px;
+}
+
+.contenidoImagenRegistro h1 {
+    font-size: 2.5rem;
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.contenidoImagenRegistro h1 span {
+    color: white;
+}
+
+.contenidoImagenRegistro p {
+    margin-top: 20px;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/*beneficios*/
+.listaVentajasRegistro {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.ventajaRegistro {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.ventajaRegistro i {
+    width: 55px;
+    height: 55px;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .18);
+    backdrop-filter: blur(8px);
+    font-size: 1.3rem;
+}
+
+.ventajaRegistro h5 {
+    margin: 0;
     font-weight: 700;
 }
 
-.mensajeExito i{
-    color: var(--verde-exito);
+.ventajaRegistro span {
+    color: #F2F2F2;
+    font-size: .92rem;
 }
 
-/* boton de envío */
-.formulario button[type="submit"] {
-    background-color: var(--morado-medio);
-    color: var(--blanco);
-    border: none;
-    padding: 14px;
-    border-radius: 8px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.2s ease, transform 0.1s ease, box-shadow 0.2s ease;
-}
-
-.formulario button[type="submit"]:hover {
-    background-color: var(--morado-oscuro);
-}
-
-.formulario button[type="submit"]:active {
-    transform: scale(0.98);
-}
-
-@media (max-width: 480px) {
+/* responsive*/
+@media (max-width: 992px) {
     body {
+        overflow-y: auto;
+    }
+
+    .contenedorRegistro {
+        height: auto;
+        min-height: 100vh;
+        padding: 40px 20px;
+        align-items: flex-start;
+    }
+
+    .tarjetaRegistro {
+        width: 100%;
+        max-width: 720px;
+        height: auto;
+        min-height: auto;
+        flex-direction: column-reverse;
+    }
+
+    .panelFormularioRegistro,
+    .panelImagenRegistro {
+        width: 100%;
+    }
+
+    .panelFormularioRegistro {
+        padding: 45px 35px;
+    }
+
+    .panelFormularioRegistro form {
+        max-width: 100%;
+    }
+
+    .panelFormularioRegistro h2 {
+        font-size: 2.2rem;
+        text-align: center;
+    }
+
+    .subtituloRegistro {
+        text-align: center;
+        margin-bottom: 35px;
+    }
+
+    .panelImagenRegistro {
+        min-height: 430px;
+    }
+
+    .contenidoImagenRegistro {
+        justify-content: flex-start;
+        gap: 30px;
+        padding: 35px;
+    }
+
+    .logoRegistro {
+        width: 150px;
+    }
+
+    .contenidoImagenRegistro h1 {
+        font-size: 2rem;
+    }
+
+    .contenidoImagenRegistro p {
+        margin-top: 0;
+        font-size: 1rem;
+    }
+
+    .listaVentajasRegistro {
+        gap: 18px;
+    }
+
+    .ventajaRegistro i {
+        width: 50px;
+        height: 50px;
+        font-size: 1.15rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .contenedorRegistro {
+        padding: 20px 15px;
+    }
+
+    .tarjetaRegistro {
+        border-radius: 22px;
+    }
+
+    .panelFormularioRegistro {
+        padding: 35px 25px;
+    }
+
+    .panelFormularioRegistro h2 {
+        font-size: 1.9rem;
+    }
+
+    .subtituloRegistro {
+        font-size: .95rem;
+        margin-bottom: 28px;
+    }
+
+    .grupoInputRegistro input {
+        height: 54px;
+    }
+
+    .iconoInputRegistro,
+    .botonMostrarRegistro {
+        width: 55px;
+        height: 54px;
+    }
+
+    .botonCrearCuenta {
+        height: 54px;
+        margin-top: 20px;
+    }
+
+    .panelImagenRegistro {
+        min-height: 360px;
+    }
+
+    .contenidoImagenRegistro {
+        padding: 28px;
+        gap: 22px;
+    }
+
+    .logoRegistro {
+        width: 130px;
+    }
+
+    .contenidoImagenRegistro h1 {
+        font-size: 1.75rem;
+    }
+
+    .contenidoImagenRegistro p {
+        font-size: .95rem;
+        line-height: 1.5;
+    }
+
+    .listaVentajasRegistro {
+        gap: 15px;
+    }
+
+    .ventajaRegistro {
+        gap: 15px;
+    }
+
+    .ventajaRegistro i {
+        width: 46px;
+        height: 46px;
+        font-size: 1rem;
+    }
+
+    .ventajaRegistro h5 {
+        font-size: 1rem;
+    }
+
+    .ventajaRegistro span {
+        font-size: .85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .contenedorRegistro {
         padding: 12px;
     }
 
-    .registro {
-        padding: 30px 20px;
-        border-radius: 12px;
+    .tarjetaRegistro {
+        border-radius: 18px;
     }
 
-    .registro h1 {
+    .panelFormularioRegistro {
+        padding: 28px 18px;
+    }
+
+    .panelFormularioRegistro h2 {
         font-size: 1.65rem;
-        margin-bottom: 20px;
     }
 
-    .formulario label {
-        font-size: 0.85rem;
+    .subtituloRegistro {
+        font-size: .9rem;
     }
 
-    .formulario input {
-        padding: 10px 14px;
-        font-size: 0.9rem;
+    .panelImagenRegistro {
+        min-height: 310px;
     }
 
-    .formulario button[type="submit"] {
-        padding: 12px;
-        font-size: 0.95rem;
+    .contenidoImagenRegistro {
+        padding: 22px;
+    }
+
+    .logoRegistro {
+        width: 115px;
+    }
+
+    .contenidoImagenRegistro h1 {
+        font-size: 1.45rem;
+    }
+
+    .contenidoImagenRegistro p {
+        font-size: .9rem;
+    }
+
+    .ventajaRegistro i {
+        width: 42px;
+        height: 42px;
+        font-size: .95rem;
+    }
+}
+
+@media (max-height: 820px) and (min-width: 993px) {
+    body {
+        overflow-y: auto;
+    }
+
+    .contenedorRegistro {
+        height: auto;
+        min-height: 100vh;
+        padding: 30px;
+    }
+
+    .tarjetaRegistro {
+        height: auto;
+        min-height: auto;
+        margin: 25px 0;
     }
 }

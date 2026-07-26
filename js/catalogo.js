@@ -1,18 +1,34 @@
-// ==========================================
-// CATÁLOGO - AGREGAR AL CARRITO
-// ==========================================
+const CLAVE_PRODUCTOS_KUMO = "kumo_productos";
 
+//categorias
+const nombresCategoria = {
+    manga: "Manga",
+    figura: "Figura",
+    merch: "Merch"
+};
 
-// ================= VARIABLES =================
-const contenedorServicios = document.getElementById("servicesGrid");
-const inputBusqueda = document.getElementById("searchInput");
-const totalServicios = document.getElementById("totalCount");
-const serviciosVisibles = document.getElementById("visibleCount");
+// Contenedores fijos categorias
+const contenedoresPorCategoria = {
+    manga: document.getElementById("productosCategoriaManga"),
+    figura: document.getElementById("productosCategoriaFigura"),
+    merch: document.getElementById("productosCategoriaMerch")
+};
 
-let listaServicios = [];
-let textoBusqueda = "";
+// Párrafos fijos categorias
+const contadoresPorCategoria = {
+    manga: document.getElementById("contadorSeccionManga"),
+    figura: document.getElementById("contadorSeccionFigura"),
+    merch: document.getElementById("contadorSeccionMerch")
+};
 
-// ================= FORMATEAR PRECIO =================
+//variables
+const inputBuscadorCatalogo = document.getElementById("buscadorCatalogo");
+const contadorCatalogoTotal = document.getElementById("contadorCatalogoTotal");
+const contadorCatalogoVisibles = document.getElementById("contadorCatalogoVisibles");
+let productosCatalogo = [];
+let textoBusquedaCatalogo = "";
+
+// precio formateado
 function formatearPrecio(precio) {
     return Number(precio).toLocaleString("es-CO", {
         style: "currency",
@@ -21,117 +37,138 @@ function formatearPrecio(precio) {
     });
 }
 
-// ================= CARGAR SERVICIOS =================
-document.addEventListener("DOMContentLoaded", () => {
-    const serviciosGuardados = localStorage.getItem("listaServicios");
+// productos desde el admin
+function cargarProductosCatalogo() {
+    try {
 
-    if (serviciosGuardados) {
-        listaServicios = JSON.parse(serviciosGuardados);
-    } else {
-        listaServicios = [];
+        const datosGuardados = localStorage.getItem(CLAVE_PRODUCTOS_KUMO);
+        productosCatalogo = datosGuardados ? JSON.parse(datosGuardados) : [];
+
+    } catch (error) {
+
+        console.error("No se pudieron leer los productos del catálogo:", error);
+        productosCatalogo = [];
     }
+}
 
-    renderizarServicios();
-    actualizarContadores();
-    actualizarBadgeCarrito();
-});
-
-// ================= BUSCADOR =================
-inputBusqueda.addEventListener("input", function () {
-    textoBusqueda = this.value.trim();
-    renderizarServicios();
-});
-
-// ================= RENDERIZAR SERVICIOS =================
-function renderizarServicios() {
-    contenedorServicios.innerHTML = "";
-    const serviciosActivos = listaServicios.filter(servicio => {
-        const coincideBusqueda =
-            servicio.nombre.toLowerCase().includes(textoBusqueda.toLowerCase()) ||
-            servicio.descripcion.toLowerCase().includes(textoBusqueda.toLowerCase());
-        return servicio.activo && coincideBusqueda;
-    });
-
-    serviciosVisibles.textContent = serviciosActivos.length;
-    totalServicios.textContent = listaServicios.filter(servicio => servicio.activo).length;
-
-    if (serviciosActivos.length === 0) {
-        contenedorServicios.innerHTML = `
-            <div class="col-12 text-center mt-5">
-                <h3>No hay servicios disponibles.</h3>
+// tarjeta del producto
+function crearTarjetaProductoCatalogo(producto) {
+    const columna = document.createElement("div");
+    columna.className = "col-lg-3 col-md-4 col-sm-6";
+    const nombreCategoria = nombresCategoria[producto.categoria] || producto.categoria;
+    columna.innerHTML = `
+        <div class="tarjetaProductoCatalogo">
+            <div class="contenedorImagenCatalogo">
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <span class="etiquetaCategoriaCatalogo categoria-${producto.categoria}">
+                    ${nombreCategoria}
+                </span>
             </div>
-        `;
-        return;
-    }
-
-    serviciosActivos.forEach(servicio => {
-        const card = document.createElement("div");
-        card.className = "col-lg-4 col-md-6 col-12";
-        card.innerHTML = `
-            <div class="service-card">
-                <div class="service-img-container">
-                    <img src="${servicio.imagen}" alt="${servicio.nombre}">
+            <div class="contenidoTarjetaCatalogo">
+                <h3 class="tituloProductoCatalogo">${producto.nombre}</h3>
+                <p class="descripcionProductoCatalogo">${producto.descripcion}</p>
+                <div class="datoStockCatalogo">
+                    <i class="bi bi-box-seam"></i>
+                    <span>${producto.stock > 0 ? `Stock: ${producto.stock}` : "Agotado"}</span>
                 </div>
-                <div class="text-center mt-4">
-                    <h3 class="service-card-title">${servicio.nombre}</h3>
-                    <p class="service-card-desc">${servicio.descripcion}</p>
-                    <div class="service-card-price">${formatearPrecio(servicio.precio)}</div>
-                    <button class="btn btn-primary mt-3 btn-solicitar" 
-                            data-id="${servicio.id}"
-                            data-nombre="${servicio.nombre}"
-                            data-descripcion="${servicio.descripcion}"
-                            data-precio="${servicio.precio}"
-                            data-imagen="${servicio.imagen}"
-                            data-etiqueta="${servicio.etiqueta || 'Servicio profesional'}">
-                        Agregar al Carrito
+                <div class="pieTarjetaCatalogo">
+                    <span class="precioProductoCatalogo">${formatearPrecio(producto.precio)}</span>
+                    <button
+                        class="botonAgregarCarrito${producto.stock <= 0 ? " deshabilitado" : ""}"
+                        title="${producto.stock > 0 ? "Agregar al carrito" : "Sin stock disponible"}"
+                        ${producto.stock <= 0 ? "disabled" : ""}
+                        data-id="${producto.id}"
+                        data-nombre="${producto.nombre}"
+                        data-descripcion="${producto.descripcion}"
+                        data-precio="${producto.precio}"
+                        data-imagen="${producto.imagen}">
+                        <i class="bi bi-cart-plus-fill"></i>
                     </button>
                 </div>
             </div>
-        `;
-        contenedorServicios.appendChild(card);
+        </div>
+    `;
+    return columna;
+}
+
+// llenar categorias con los productos
+function renderizarCatalogo() {
+    const productosActivos = productosCatalogo.filter(producto => {
+        const texto = textoBusquedaCatalogo.toLowerCase();
+        const coincideBusqueda =
+            producto.nombre.toLowerCase().includes(texto) ||
+            producto.descripcion.toLowerCase().includes(texto);
+        return producto.activo && coincideBusqueda;
     });
 
-    // ===== EVENTOS DE LOS BOTONES =====
-    document.querySelectorAll(".btn-solicitar").forEach(boton => {
+    contadorCatalogoTotal.textContent =
+        productosCatalogo.filter(producto => producto.activo).length;
+
+    contadorCatalogoVisibles.textContent = productosActivos.length;
+
+    Object.keys(contenedoresPorCategoria).forEach(categoria => {
+        const contenedor = contenedoresPorCategoria[categoria];
+        const contadorTexto = contadoresPorCategoria[categoria];
+
+        if (!contenedor) return;
+        contenedor.innerHTML = "";
+        const productosCategoria = productosActivos.filter(
+            producto => producto.categoria === categoria
+        );
+
+        if (contadorTexto) {
+            contadorTexto.textContent =
+                `${productosCategoria.length} ${productosCategoria.length === 1 ? "producto disponible" : "productos disponibles"}`;
+        }
+
+        if (productosCategoria.length === 0) {
+            contenedor.innerHTML = `<p class="mensajeVacioSeccion">No hay productos en esta categoría por ahora.</p>`;
+            return;
+        }
+
+        productosCategoria.forEach(producto => {
+            contenedor.appendChild(crearTarjetaProductoCatalogo(producto));
+        });
+    });
+
+    // eventos botones
+    document.querySelectorAll(".botonAgregarCarrito").forEach(boton => {
         boton.addEventListener("click", function () {
-            const servicio = {
-                id: this.dataset.id || Date.now() + Math.random(),
+            const producto = {
+                id: this.dataset.id,
                 nombre: this.dataset.nombre,
                 descripcion: this.dataset.descripcion,
                 precio: parseFloat(this.dataset.precio),
                 imagen: this.dataset.imagen,
-                etiqueta: this.dataset.etiqueta,
                 cantidad: 1
             };
-            agregarAlCarrito(servicio);
+            agregarAlCarrito(producto);
         });
     });
 }
 
-// ================= AGREGAR AL CARRITO =================
-function agregarAlCarrito(servicio) {
+// agregar al carrito
+function agregarAlCarrito(producto) {
     let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
-    const existente = carrito.find(item => item.id === servicio.id);
-
+    const existente = carrito.find(item => item.id === producto.id);
     if (existente) {
         existente.cantidad += 1;
+
     } else {
-        carrito.push(servicio);
+        carrito.push(producto);
     }
 
     localStorage.setItem("carrito", JSON.stringify(carrito));
     actualizarBadgeCarrito();
-    mostrarModal(servicio.nombre);
+    mostrarModalCarrito(producto.nombre);
 }
 
-// ================= MODAL =================
-function mostrarModal(nombreServicio) {
-    const modalExistente = document.getElementById("modalCarrito");
+// modal de confirmacion carrito
+function mostrarModalCarrito(nombreProducto) {
+    const modalExistente = document.getElementById("modalCarritoKumo");
     if (modalExistente) modalExistente.remove();
-
     const modal = document.createElement("div");
-    modal.id = "modalCarrito";
+    modal.id = "modalCarritoKumo";
     modal.style.cssText = `
         position: fixed;
         top: 0;
@@ -162,10 +199,10 @@ function mostrarModal(nombreServicio) {
                 ¡Agregado al carrito!
             </h3>
             <p style="color: #6B7280; margin-bottom: 25px;">
-                <strong>"${nombreServicio}"</strong> se agregó correctamente.
+                <strong>"${nombreProducto}"</strong> se agregó correctamente.
             </p>
             <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-                <button onclick="cerrarModal()" style="
+                <button onclick="cerrarModalCarrito()" style="
                     background: #E5E7EB;
                     border: none;
                     padding: 12px 28px;
@@ -195,43 +232,31 @@ function mostrarModal(nombreServicio) {
     `;
 
     document.body.appendChild(modal);
-
     modal.addEventListener("click", (e) => {
-        if (e.target === modal) cerrarModal();
+        if (e.target === modal) cerrarModalCarrito();
     });
 }
 
-function cerrarModal() {
-    const modal = document.getElementById("modalCarrito");
+function cerrarModalCarrito() {
+
+    const modal = document.getElementById("modalCarritoKumo");
     if (modal) modal.remove();
 }
 
-// ================= ACTUALIZAR BADGE DEL NAVBAR =================
+// actualizar navbar
 function actualizarBadgeCarrito() {
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-
+    const totalItems = carrito.reduce((suma, item) => suma + item.cantidad, 0);
     const badge = document.getElementById("badge");
-    if (badge) {
-        badge.textContent = totalItems;
-    }
-
+    if (badge) badge.textContent = totalItems;
     const cantidadServicios = document.getElementById("cantidadServicios");
-    if (cantidadServicios) {
-        cantidadServicios.textContent = totalItems;
-    }
+    if (cantidadServicios) cantidadServicios.textContent = totalItems;
 }
 
-// ================= CONTADORES =================
-function actualizarContadores() {
-    const activos = listaServicios.filter(servicio => servicio.activo).length;
-    totalServicios.textContent = activos;
-    serviciosVisibles.textContent = activos;
-}
+// animacion modal
+const estilosModalCatalogo = document.createElement("style");
 
-// ================= ESTILOS DE ANIMACIÓN =================
-const estilos = document.createElement("style");
-estilos.textContent = `
+estilosModalCatalogo.textContent = `
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -241,37 +266,36 @@ estilos.textContent = `
         to { transform: translateY(0); opacity: 1; }
     }
 `;
-document.head.appendChild(estilos);
 
+document.head.appendChild(estilosModalCatalogo);
 
+// buscador
+inputBuscadorCatalogo.addEventListener("input", function () {
+    textoBusquedaCatalogo = this.value.trim();
+    renderizarCatalogo();
+});
 
-// ==========================================
-// CATÁLOGO - BÚSQUEDA DESDE NAVBAR
-// ==========================================
+// sincronizacion con admin
+window.addEventListener("storage", (evento) => {
 
-// ================= AL INICIAR =================
-document.addEventListener("DOMContentLoaded", () => {
-    const serviciosGuardados = localStorage.getItem("listaServicios");
+    if (evento.key === CLAVE_PRODUCTOS_KUMO) {
 
-    if (serviciosGuardados) {
-        listaServicios = JSON.parse(serviciosGuardados);
-    } else {
-        listaServicios = [];
+        cargarProductosCatalogo();
+        renderizarCatalogo();
     }
+});
 
-    // ✅ LEER TÉRMINO DE BÚSQUEDA DESDE LA URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const terminoBusqueda = urlParams.get('buscar');
+document.addEventListener("DOMContentLoaded", () => {
+    cargarProductosCatalogo();
+    const parametrosUrl = new URLSearchParams(window.location.search);
+
+    const terminoBusqueda = parametrosUrl.get("buscar");
 
     if (terminoBusqueda) {
-        textoBusqueda = terminoBusqueda;
-        // Mostrar el término en el input de búsqueda del catálogo
-        if (inputBusqueda) {
-            inputBusqueda.value = terminoBusqueda;
-        }
+        textoBusquedaCatalogo = terminoBusqueda;
+        if (inputBuscadorCatalogo) inputBuscadorCatalogo.value = terminoBusqueda;
     }
 
-    renderizarServicios();
-    actualizarContadores();
+    renderizarCatalogo();
     actualizarBadgeCarrito();
 });
