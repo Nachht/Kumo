@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos | Kumo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="icon" href="../../assets/img/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../css/admin-servicios.css">
+    <link rel="stylesheet" href="../footer/footer_admin.css">
+</head>
+
+<body>
+
+    <script src="../js/navbar.js"></script>
+    <section class="contenedorProductosAdmin">
+
+        <!-- Encabezado -->
+        <header class="encabezadoProductos">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h1> Gestión de Productos </h1>
+                    <p> Administra mangas, figuras y merchandising disponibles en la tienda.</p>
+                </div>
+
+                <div>
+                    <span class="badge badgeProductos">
+                        <i class="bi bi-box-seam"></i> Total: <span id="contadorProductosTotal"> 0 </span> productos
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Barra superior -->
+
+        <div class="barraHerramientasProductos">
+
+            <div class="buscadorProductos">
+                <i class="bi bi-search"></i>
+                <input type="text" id="buscadorProductos" placeholder="Buscar productos...">
+            </div>
+
+            <!-- Filtros -->
+
+            <div class="grupoFiltrosProductos">
+                <button id="filtroTodos" class="btn btnFiltroProducto">
+                    <i class="bi bi-grid"></i> Todos</button>
+                <button id="filtroMangas" class="btn btnFiltroProducto"> <i class="bi bi-book"></i> Mangas</button>
+                <button id="filtroFiguras" class="btn btnFiltroProducto"><i class="bi bi-person-standing"></i> Figuras
+                </button>
+                <button id="filtroMerch" class="btn btnFiltroProducto"> <i class="bi bi-bag"></i> Merch </button>
+                <button id="limpiarFiltros" class="btn btnFiltroProducto"> <i class="bi bi-arrow-counterclockwise"></i>
+                    Limpiar </button>
+            </div>
+
+            <!-- Agregar -->
+            <button class="btn botonAgregarProducto" id="botonAgregarProducto"><i class="bi bi-plus-lg"></i> Agregar
+                producto </button>
+        </div>
+
+        <!-- Contador -->
+        <div class="contadorResultadosProductos"> Mostrando <span id="contadorProductosVisibles"> 0 </span> productos
+        </div>
+
+        <!-- Categorías -->
+        <div id="contenedorProductos"></div>
+    </section>
+
+
+    <!-- MODAL AGREGAR PRODUCTO -->
+    <div id="modalAgregarProducto" class="fondoModal">
+        <div class="ventanaModal">
+
+            <div class="encabezadoModal">
+                <h2> Agregar producto </h2>
+                <button id="cerrarModalAgregar" class="botonCerrarModal"> &times; </button>
+            </div>
+
+            <form id="formularioAgregarProducto">
+                <div class="grupoCampo">
+                    <label for="imagenProductoAgregar"> Imagen </label>
+                    <input type="file" id="imagenProductoAgregar" accept="image/*">
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="nombreProductoAgregar"> Nombre </label>
+                    <input type="text" id="nombreProductoAgregar" required>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="descripcionProductoAgregar"> Descripción</label>
+                    <textarea id="descripcionProductoAgregar" rows="4" required></textarea>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="categoriaProductoAgregar"> Categoría </label>
+                    <select id="categoriaProductoAgregar" required>
+                        <option value=""> Selecciona una categoría </option>
+                        <option value="manga"> Manga </option>
+                        <option value="figura"> Figura </option>
+                        <option value="merch"> Merch </option>
+                    </select>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="precioProductoAgregar"> Precio </label>
+                    <input type="number" id="precioProductoAgregar" required>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="stockProductoAgregar"> Stock disponible </label>
+                    <input type="number" id="stockProductoAgregar" required>
+                </div>
+
+                <button type="submit" class="botonGuardarProducto"> Guardar producto </button>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- MODAL EDITAR PRODUCTO -->
+    <div id="modalEditarProducto" class="fondoModal">
+        <div class="ventanaModal">
+
+            <div class="encabezadoModal">
+                <h2> Editar producto </h2>
+                <button id="cerrarModalEditar" class="botonCerrarModal"> &times; </button>
+            </div>
+
+            <form id="formularioEditarProducto">
+                <input type="hidden" id="idProductoEditar">
+
+                <div class="grupoCampo">
+                    <label for="imagenProductoEditar"> Imagen </label>
+                    <input type="file" id="imagenProductoEditar" accept="image/*">
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="nombreProductoEditar"> Nombre </label>
+                    <input type="text" id="nombreProductoEditar" required>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="descripcionProductoEditar"> Descripción </label>
+                    <textarea id="descripcionProductoEditar" rows="4" required></textarea>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="categoriaProductoEditar"> Categoría </label>
+                    <select id="categoriaProductoEditar" required>
+                        <option value="manga"> Manga </option>
+                        <option value="figura"> Figura </option>
+                        <option value="merch"> Merch </option>
+                    </select>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="precioProductoEditar"> Precio </label>
+                    <input type="number" id="precioProductoEditar" required>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="stockProductoEditar"> Stock disponible </label>
+                    <input type="number" id="stockProductoEditar" required>
+                </div>
+
+                <button type="submit" class="botonGuardarProducto"> Actualizar producto </button>
+            </form>
+        </div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="../footer/footer_admin.js"></script>
+    <script src="../js/modalServicios.js"></script>
+
+</body>
+
+</html>
