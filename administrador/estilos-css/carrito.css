@@ -1,0 +1,52 @@
+
+:root {
+    --purple-kumo: #8a2be2;
+    --fucsia-neon: #ff007f;
+    --gradient-kumo: linear-gradient(135deg, #8a2be2 0%, #ff007f 100%);
+}
+
+/* Botón con el Degradado de Iniciar Sesión */
+.btn-gradient-kumo {
+    background: var(--gradient-kumo) !important;
+    color: #ffffff !important;
+    border: none !important;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.btn-gradient-kumo:hover {
+    opacity: 0.92;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(255, 0, 127, 0.35);
+}
+
+/* Tarjeta Blanca de Productos */
+.tarjeta-kumo-clara {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+/* Control de Cantidad (+ 1 -) sobre Fondo Blanco */
+.control-cantidad-claro {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+}
+
+/* Texto Morado para Totales y Controles */
+.text-purple {
+    color: var(--purple-kumo) !important;
+}
+
+/* Enlace Seguir Comprando */
+.link-seguir-comprando {
+    color: var(--purple-kumo) !important;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.link-seguir-comprando:hover {
+    color: var(--fucsia-neon) !important;
+    text-decoration: underline;
+}

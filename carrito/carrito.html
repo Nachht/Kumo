@@ -10,17 +10,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" href="../assets/img/logo.png">
 </head>
 
 <body class="body-kumo">
-
+    <script src="../js/navbar.js"></script>
     <div id="navbar-container"></div>
 
     <main class="container my-5 pt-3" style="max-width: 1100px;">
-        
+
+        <!-- ENCABEZADO CON BOTÓN VACIAR DEGRADADO -->
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h1 class="titulo-carrito m-0">CARRITO</h1>
-            <button id="btnVaciarPagina" class="btn btn-link text-white-50 text-decoration-none small fw-bold">
+            <button id="btnVaciarPagina" class="btn btn-gradient-kumo px-4 py-2 rounded-pill shadow-sm">
                 <i class="bi bi-trash3 me-1"></i> Vaciar
             </button>
         </div>
@@ -29,38 +32,39 @@
             <!-- COLUMNA IZQUIERDA: Tarjetas de Productos -->
             <div class="col-lg-8">
                 <div id="tablaCarritoPrincipal" class="d-flex flex-column gap-3">
-                    <!-- JS inyectará aquí tarjetas individuales con clase .tarjeta-kumo -->
+                    <!-- JS inyectará las tarjetas -->
                 </div>
             </div>
 
             <!-- COLUMNA DERECHA: Resumen de Compra -->
             <div class="col-lg-4">
-                <div class="tarjeta-kumo tarjeta-resumen p-4">
-                    <h3 class="titulo-resumen mb-4">RESUMEN</h3>
-                    
+                <div class="tarjeta-kumo-clara p-4 bg-white">
+                    <h3 class="titulo-resumen text-dark fw-bold mb-4">RESUMEN</h3>
+
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="text-white-50 small">Subtotal (<span id="totalItemsCount">0</span> items)</span>
-                        <span id="resumenSubtotal" class="fw-bold text-white">$0</span>
+                        <span class="text-secondary small">Subtotal (<span id="totalItemsCount">0</span> items)</span>
+                        <span id="resumenSubtotal" class="fw-bold text-dark">$0</span>
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center mb-3">
-                        <span class="text-white-50 small">Envío</span>
-                        <span class="text-white-50 small">Calculado al hacer checkout</span>
+                        <span class="text-secondary small">Envío</span>
+                        <span class="text-muted small fst-italic">Calculado al hacer checkout</span>
                     </div>
 
                     <hr class="border-secondary opacity-25 my-3">
 
                     <div class="d-flex justify-content-between align-items-center mb-4">
-                        <span class="fw-bold fs-5 text-white">Total</span>
-                        <span id="resumenTotal" class="fw-bold fs-4 text-fucsia">$0</span>
+                        <span class="fw-bold fs-5 text-dark">Total</span>
+                        <span id="resumenTotal" class="fw-bold fs-4 text-purple">$0</span>
                     </div>
 
-                    <button id="btnComprarPagina" class="btn btn-neon-fucsia w-100 py-3 fw-bold text-uppercase rounded-3 mb-3">
+                    <button id="btnComprarPagina"
+                        class="btn btn-gradient-kumo text-white w-100 py-3 fw-bold text-uppercase rounded-pill mb-3 shadow-sm">
                         Ir al checkout <i class="bi bi-arrow-right ms-1"></i>
                     </button>
 
                     <div class="text-center">
-                        <a href="../catalogo/catalogo.html" class="text-white-50 text-decoration-none small fw-bold link-hover-fucsia">
+                        <a href="../catalogo/catalogo.html" class="link-seguir-comprando small">
                             Seguir comprando
                         </a>
                     </div>
@@ -72,50 +76,50 @@
     <div id="footer-container"></div>
 
     <!-- OFFCANVAS LATERAL -->
-    <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoKumo" aria-labelledby="carritoKumoLabel" 
-         style="background-color: #1b1618; color: white; width: 380px; border-left: 2px solid #ff007f;">
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoKumo" aria-labelledby="carritoKumoLabel">
         
-        <div class="offcanvas-header pt-4 pb-2 px-4 border-bottom border-secondary border-opacity-25">
-            <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia" id="carritoKumoLabel" style="letter-spacing: 1px;">
+        <!-- ENCABEZADO CON VACIAR -->
+        <div class="offcanvas-header border-bottom border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+            <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia-neon m-0" id="carritoKumoLabel">
                 CARRITO (<span id="cantidadArticulos">0</span>)
             </h6>
-            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" style="font-size: 0.8rem;"></button>
-        </div>
-
-        <div class="offcanvas-body px-4 pt-3">
-            <div id="contenedorArticulos" class="d-flex flex-column gap-2"></div>
-
-            <div class="text-start mt-3">
-                <button id="btnVaciarCarrito" class="btn btn-link text-white-50 text-decoration-none p-0 small fw-bold text-uppercase" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                    Vaciar Carrito
+            <div class="d-flex align-items-center gap-2">
+                <button id="btnVaciarCarrito" class="btn btn-link text-white-50 text-decoration-none p-0 small fw-bold text-uppercase btn-vaciar-offcanvas">
+                    <i class="bi bi-trash3 me-1"></i> Vaciar
                 </button>
+                <button type="button" class="btn-close btn-close-white ms-2" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
         </div>
 
-        <div class="offcanvas-footer p-4 border-top border-secondary border-opacity-25">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <span class="small fw-bold text-white-50 text-uppercase" style="letter-spacing: 0.5px;">Subtotal</span>
-                <span id="subtotalCarrito" class="fw-bold fs-4 text-fucsia">$0</span>
+        <!-- CUERPO DE PRODUCTOS -->
+        <div class="offcanvas-body">
+            <div id="contenedorArticulos" class="d-flex flex-column gap-2"></div>
+        </div>
+
+        <!-- PIE DE PÁGINA FIJO CON BOTONES FUCSIA LED -->
+        <div class="offcanvas-footer">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="small fw-bold text-white-50 text-uppercase" style="font-size: 0.75rem;">Subtotal</span>
+                <span id="subtotalCarrito" class="fw-bold fs-5 text-fucsia-neon">$0</span>
             </div>
 
             <div class="d-flex flex-column gap-2 text-center">
-                <button id="btnComprar" class="btn btn-neon-fucsia w-100 py-2.5 fw-bold text-uppercase rounded-3">
-                    Comprar
+                <button id="btnComprar" class="btn btn-fucsia-led w-100 rounded-pill">
+                    COMPRAR
                 </button>
 
-                <a href="../carrito/carrito.html" class="btn btn-outline-fucsia w-100 py-2 fw-bold text-uppercase rounded-3 mt-1" style="font-size: 0.75rem; letter-spacing: 1px;">
-                    Ver carrito completo
+                <a href="../carrito/carrito.html" class="btn btn-outline-fucsia-led w-100 rounded-pill">
+                    VER CARRITO COMPLETO
                 </a>
-                
-                <button type="button" class="btn btn-link text-white-50 text-decoration-none text-uppercase fw-bold p-0 mt-1" data-bs-dismiss="offcanvas" style="font-size: 0.75rem; letter-spacing: 0.5px;">
-                    Seguir viendo
+
+                <button type="button" class="btn btn-link text-decoration-none text-uppercase fw-bold p-0 mt-1 btn-seguir-viendo" data-bs-dismiss="offcanvas">
+                    SEGUIR VIENDO
                 </button>
             </div>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/navbar.js"></script>
     <script src="../js/footer.js"></script>
     <script src="../js/carrito.js"></script>
 </body>

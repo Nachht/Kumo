@@ -26,7 +26,91 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =============================================
-    // FUNCIÓN PARA MARCAR EL ENLACE ACTIVO
+    // INYECTAR ESTRUCTURA DEL OFFCANVAS
+    // =============================================
+    // =============================================
+// INYECTAR ESTRUCTURA DEL OFFCANVAS (CORREGIDO)
+// =============================================
+function prepararOffcanvasCarrito() {
+    if (!document.getElementById("carritoKumo")) {
+        const offcanvasHTML = `
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoKumo" aria-labelledby="carritoKumoLabel">
+                
+                <!-- ENCABEZADO CON VACIAR -->
+                <div class="offcanvas-header border-bottom border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
+                    <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia-neon m-0" id="carritoKumoLabel">
+                        CARRITO (<span id="cantidadArticulos">0</span>)
+                    </h6>
+                    <div class="d-flex align-items-center gap-2">
+                        <button id="btnVaciarCarrito" class="btn btn-link text-white-50 text-decoration-none p-0 small fw-bold text-uppercase btn-vaciar-offcanvas">
+                            <i class="bi bi-trash3 me-1"></i> Vaciar
+                        </button>
+                        <button type="button" class="btn-close btn-close-white ms-2" id="cerrarOffcanvasManual" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <!-- CUERPO DE PRODUCTOS -->
+                <div class="offcanvas-body">
+                    <div id="contenedorArticulos" class="d-flex flex-column gap-2"></div>
+                </div>
+
+                <!-- PIE DE PÁGINA FIJO CON BOTONES FUCSIA LED -->
+                <div class="offcanvas-footer">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="small fw-bold text-white-50 text-uppercase" style="font-size: 0.75rem;">Subtotal</span>
+                        <span id="subtotalCarrito" class="fw-bold fs-5 text-fucsia-neon">$0</span>
+                    </div>
+
+                    <div class="d-flex flex-column gap-2 text-center">
+                        <button id="btnComprar" class="btn btn-fucsia-led w-100 rounded-pill">
+                            COMPRAR
+                        </button>
+
+                        <a href="../carrito/carrito.html" class="btn btn-outline-fucsia-led w-100 rounded-pill">
+                            VER CARRITO COMPLETO
+                        </a>
+
+                        <button type="button" class="btn btn-link text-decoration-none text-uppercase fw-bold p-0 mt-1 btn-seguir-viendo" data-bs-dismiss="offcanvas">
+                            SEGUIR VIENDO
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.insertAdjacentHTML("beforeend", offcanvasHTML);
+    }
+}
+    // =============================================
+    // ESCUCHADOR GLOBAL PARA ABRIR Y CERRAR EL CARRITO
+    // =============================================
+    document.addEventListener("click", (e) => {
+        const btnCarrito = e.target.closest('.btn-cart-offcanvas');
+        const btnCerrar = e.target.closest('#cerrarOffcanvasManual') || e.target.closest('[data-bs-dismiss="offcanvas"]');
+        const offcanvasEl = document.getElementById("carritoKumo");
+
+        if (btnCarrito && offcanvasEl) {
+            e.preventDefault();
+            if (window.bootstrap && window.bootstrap.Offcanvas) {
+                const bsOffcanvas = bootstrap.Offcanvas.getOrCreateInstance(offcanvasEl);
+                bsOffcanvas.show();
+            } else {
+                offcanvasEl.classList.add("show");
+                offcanvasEl.style.visibility = "visible";
+            }
+        }
+
+        if (btnCerrar && offcanvasEl) {
+            if (window.bootstrap && window.bootstrap.Offcanvas) {
+                const bsOffcanvas = bootstrap.Offcanvas.getInstance(offcanvasEl);
+                if (bsOffcanvas) bsOffcanvas.hide();
+            }
+            offcanvasEl.classList.remove("show");
+            offcanvasEl.style.visibility = "hidden";
+        }
+    });
+
+    // =============================================
+    // MARCAR ENLACE ACTIVO
     // =============================================
     function marcarEnlaceActivo() {
         const path = window.location.pathname;
@@ -43,7 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =============================================
-    // FUNCIÓN PARA ACTUALIZAR EL BADGE DEL CARRITO
+    // ACTUALIZAR BADGE DEL CARRITO
     // =============================================
     function actualizarBadgeCarrito() {
         const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
@@ -54,19 +138,19 @@ document.addEventListener("DOMContentLoaded", () => {
         if (badge) {
             badge.textContent = totalItems;
         } else {
-            const cartIcon = document.querySelector('.icon-link[href*="carrito"]');
-            if (cartIcon) {
+            const cartBtn = document.querySelector('.btn-cart-offcanvas');
+            if (cartBtn) {
                 const newBadge = document.createElement('span');
                 newBadge.id = "badge";
                 newBadge.className = 'badge-number';
                 newBadge.textContent = totalItems;
-                cartIcon.appendChild(newBadge);
+                cartBtn.appendChild(newBadge);
             }
         }
     }
 
     // =============================================
-    // FUNCIÓN PARA MANEJAR LA BÚSQUEDA
+    // MANEJAR BÚSQUEDA
     // =============================================
     function manejarBusqueda() {
         const input = document.getElementById("searchInputNav");
@@ -99,7 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // =============================================
-    // 1. CARGAR NAVBAR
+    // CARGAR NAVBAR DESDE HTML E INICIALIZAR
     // =============================================
     fetch("../navbar/navbar-completo.html")
         .then(res => {
@@ -109,11 +193,10 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(data => {
             document.body.insertAdjacentHTML("afterbegin", data);
 
-            // =============================================
-            // 2. INICIALIZAR INTERACCIONES
-            // =============================================
+            // 1. Preparar HTML del offcanvas
+            prepararOffcanvasCarrito();
 
-            // === TOGGLE MENÚ HAMBURGUESA ===
+            // 2. Hamburguesa responsive
             const hamburger = document.getElementById("hamburgerBtn");
             const navMenu = document.getElementById("navMenu");
 
@@ -133,7 +216,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            // === EFECTO SCROLL ===
+            // 3. Efecto scroll
             const navbar = document.querySelector(".navbar-kumo");
             if (navbar) {
                 window.addEventListener("scroll", () => {
@@ -141,28 +224,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            // === BADGE DINÁMICO EN CARRITO ===
-            const cartIcon = document.querySelector('.icon-link[href*="carrito"]');
-            if (cartIcon) {
-                let badge = document.getElementById("badge");
-                if (!badge) {
-                    badge = document.createElement('span');
-                    badge.id = "badge";
-                    badge.className = 'badge-number';
-                    badge.textContent = '0';
-                    cartIcon.appendChild(badge);
-                }
-            }
-
-            // === BÚSQUEDA ===
+            // 4. Búsqueda, badge y active link
             manejarBusqueda();
-
-            // ✅ MARCAR ENLACE ACTIVO
             marcarEnlaceActivo();
-
-            // ✅ ACTUALIZAR BADGE
             actualizarBadgeCarrito();
 
+            // 📢 NOTIFICAR A OTROS SCRIPTS QUE EL NAVBAR Y EL OFFCANVAS YA ESTÁN EN EL DOM
+            document.dispatchEvent(new CustomEvent("navbarCargado"));
         })
         .catch(err => console.warn("⚠️ No se pudo cargar el navbar:", err));
 

@@ -1,4 +1,3 @@
-/* ================= RESET ================= */
 * {
   margin: 0;
   padding: 0;
@@ -11,345 +10,654 @@ body {
   color: #1F1F1F;
 }
 
-/* ================= HERO ================= */
-
-.hero {
-  padding: 60px 10%;
-}
-
-.hero-content {
+.contenidoSlideKumo {
+  width: 100%;
+  max-width: 1400px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: 40px;
+  margin: auto;
+  height: 100%;
 }
 
-/* ================= CARRUSEL (IZQUIERDA) ================= */
+/*Baner principal*/
+.bannerKumo {
+  width: 100%;
+  padding-top: 35px;
+}
 
-.hero-carousel {
-  flex: 1;
-  height: 350px;
-  border-radius: 15px;
+/* Espacio entre carrusel y beneficios */
+.barraBeneficiosBanner {
+  margin-top: 45px;
+}
+
+/*Carrusel*/
+.contenedorCarruselKumo {
+  width: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  overflow: hidden;
+  background: #fff;
+}
+
+.carruselKumo {
+  position: relative;
+  height: 520px;
   overflow: hidden;
 }
 
-.slides {
+.slideBannerKumo {
   width: 100%;
-  height: 100%;
-  position: relative;
-}
-
-.slide {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  height: 520px;
+  overflow: hidden;
+  background: white;
   opacity: 0;
-  transition: opacity 1s ease-in-out;
+  visibility: hidden;
+  transform: translateX(40px);
+  transition:
+    opacity .7s ease,
+    transform .7s ease,
+    visibility .7s;
 }
 
-.slide.active {
+.slideBannerKumo.activo {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+  z-index: 2;
+}
+
+/*Contenido*/
+.contenidoBannerKumo {
+  width: 40%;
+  padding: 55px 40px 55px 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  transform: translateX(-60px);
+  opacity: 0;
+  transition: all .8s ease;
+}
+
+.textoSuperiorBanner {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #FD0C7D;
+  font-size: .90rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.tituloBannerKumo {
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1.08;
+  min-height: 170px;
+}
+
+.tituloBannerKumo span {
+  background: linear-gradient(90deg, #8316ED, #FD0C7D);
+  background-clip: text;
+  color: transparent;
+
+}
+
+.descripcionBannerKumo {
+  color: #000000;
+  font-size: 1.25rem;
+  line-height: 1.7;
+  max-width: 520px;
+  min-height: 85px;
+}
+
+/*Boton*/
+.botonExplorarBanner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  width: 280px;
+  height: 58px;
+  border-radius: 50px;
+  text-decoration: none;
+  background: linear-gradient(90deg, #8316ED, #FD0C7D);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: .35s;
+  margin-top: auto;
+}
+
+.botonExplorarBanner:hover {
+  transform: translateY(-4px);
+  color: white;
+  box-shadow: 0 15px 30px rgba(131, 22, 237, .35);
+}
+
+.botonExplorarBanner i {
+  font-size: 1.2rem;
+}
+
+/*Imagen*/
+.imagenBannerKumo {
+  width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  overflow: hidden;
+  transform: translateX(60px);
+  opacity: 0;
+  transition: all .9s ease;
+}
+
+.imagenBannerKumo img {
+  display: block;
+  max-width: 100%;
+  max-height: 104%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom right;
+  transition: .4s;
+}
+
+.slideBannerKumo:hover .imagenBannerKumo img {
+  transform: scale(1.03);
+}
+
+.slideBannerKumo.activo .contenidoBannerKumo {
+  transform: translateX(0);
   opacity: 1;
 }
 
-/* ================= TEXTO (DERECHA) ================= */
-
-.hero-text {
-  flex: 1;
+.slideBannerKumo.activo .imagenBannerKumo {
+  transform: translateX(0);
+  opacity: 1;
 }
 
-.hero-text h1 {
-  font-size: 34px;
-  font-weight: 800;
-  line-height: 1.2;
-}
-
-.hero-text p {
-  margin-top: 10px;
-  font-size: 16px;
-  color: #555;
-}
-
-/* ================= SEARCH ================= */
-
-.search-box {
-  margin-top: 20px;
-  display: flex;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  max-width: 400px;
-}
-
-.search-box input {
-  flex: 1;
-  padding: 12px;
+/*Flechas*/
+.botonAnteriorBanner,
+.botonSiguienteBanner {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 55px;
   border: none;
-  outline: none;
-  font-size: 14px;
-}
-
-.search-box button {
-  background: #EC4899;
-  color: white;
-  border: none;
-  padding: 12px 16px;
+  border-radius: 50%;
   cursor: pointer;
-  transition: 0.3s;
-}
-
-.search-box button:hover {
-  background: #6C2BD9;
-}
-
-/* ================= NOVEDADES Y OFERTAS ================= */
-
-.news-section {
-  padding: 60px 10%;
-  text-align: center;
-}
-
-.news-section h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-}
-
-/* GRID */
-.news-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-}
-
-/* CARD */
-.news-card {
   background: white;
-  border-radius: 15px;
-  overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
-  text-align: left;
+  color: #282121;
+  font-size: 1.4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+  transition: .30s;
+  z-index: 50;
 }
 
-/* 🔥 IMAGEN CORREGIDA */
-.news-card img {
+.botonAnteriorBanner:hover,
+.botonSiguienteBanner:hover {
+  background: #8316ED;
+  color: white;
+}
+
+.botonAnteriorBanner {
+  left: 20px;
+}
+
+.botonSiguienteBanner {
+  right: 20px;
+}
+
+/*Indicadores*/
+.contenedorIndicadoresBanner {
   width: 100%;
-  height: 120px;
-  object-fit: cover;
-  object-position: center;
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 18px 0 22px;
 }
 
-/* TEXTO */
-.news-card h3 {
-  padding: 10px 15px 0;
-  font-size: 16px;
-  color: #4C1D95;
-}
-
-.news-card p {
-  padding: 5px 15px 15px;
-  font-size: 13px;
-  color: #555;
-}
-
-/* HOVER */
-.news-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 20px rgba(76, 29, 149, 0.3),
-    0 12px 25px rgba(0, 0, 0, 0.15);
-}
-
-/* seguridad al usuario */
-
-.seccionSeguridad {
-  padding: 60px 10%;
-  text-align: center;
-}
-
-.seccionSeguridad h2 {
-  font-size: 28px;
-  margin-bottom: 30px;
-}
-
-.contenedorSeguridad {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 20px;
-}
-
-.tarjetasSeguridad {
-  background: white;
-  border-radius: 15px;
-  padding: 25px 15px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  transition: 0.3s;
-  text-align: center;
-}
-
-.tarjetasSeguridad i {
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.iconoRosado {
-  color: #EC4899;
-}
-
-.iconoCeleste {
-  color: #00FCF8;
-}
-
-.tarjetasSeguridad h3 {
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #4C1D95;
-}
-
-.tarjetasSeguridad p {
-  font-size: 13px;
-  color: #555;
-}
-
-.tarjetasSeguridad:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 0 20px rgba(245, 45, 145, 0.568),
-    0 12px 25px rgba(0, 252, 248, 0.712);
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .contenedorSeguridad {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 500px) {
-  .contenedorSeguridad {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* como funciona */
-
-.seccionPasos {
-  padding: 60px 10%;
-  text-align: center;
-}
-
-.seccionPasos h2 {
-  font-size: 28px;
-  margin-bottom: 40px;
-}
-
-/* CONTENEDOR */
-.containerComoFunciona {
+.indicadoresBanner {
   display: flex;
   align-items: center;
+  gap: 12px;
+}
+
+.indicadorBanner {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #D5D5D5;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.indicadorBanner.activo {
+  background: #FD0C7D;
+  transform: scale(1.25);
+}
+
+/*Responsive*/
+@media (max-width: 992px) {
+  .bannerKumo {
+    margin-top: 25px;
+  }
+
+  .carruselKumo,
+  .slideBannerKumo {
+    height: 450px;
+  }
+
+  .contenidoSlideKumo {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .contenidoBannerKumo {
+    width: 45%;
+    padding: 40px;
+  }
+
+  .imagenBannerKumo {
+    width: 55%;
+  }
+
+  .tituloBannerKumo {
+    font-size: 2.4rem;
+    min-height: auto;
+    margin-bottom: 18px;
+  }
+
+  .descripcionBannerKumo {
+    font-size: 1rem;
+    min-height: auto;
+    margin-bottom: 28px;
+  }
+
+  .botonExplorarBanner {
+    width: 240px;
+    height: 54px;
+  }
+
+  .imagenBannerKumo img {
+    max-height: 92%;
+  }
+
+  .botonAnteriorBanner,
+  .botonSiguienteBanner {
+    width: 48px;
+    height: 48px;
+    font-size: 1.2rem;
+  }
+
+}
+
+@media (max-width:768px) {
+
+  .bannerKumo {
+    margin-top: 20px;
+  }
+
+  .carruselKumo {
+    height: auto;
+  }
+
+  .slideBannerKumo {
+    position: relative;
+    height: auto;
+  }
+
+  .slideBannerKumo:not(.activo) {
+    display: none;
+  }
+
+  .slideBannerKumo.activo {
+    display: block;
+  }
+
+  .contenidoSlideKumo {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 35px 20px;
+  }
+
+  .contenidoBannerKumo {
+    width: 100%;
+    padding: 0;
+    align-items: center;
+  }
+
+  .textoSuperiorBanner {
+    font-size: .75rem;
+    margin-bottom: 14px;
+  }
+
+  .tituloBannerKumo {
+    font-size: 2rem;
+    line-height: 1.15;
+    margin-bottom: 18px;
+  }
+
+  .descripcionBannerKumo {
+    max-width: 100%;
+    font-size: 1rem;
+    margin-bottom: 28px;
+  }
+
+  .botonExplorarBanner {
+    width: 250px;
+    height: 54px;
+    margin-top: 0;
+  }
+
+  .imagenBannerKumo {
+    width: 100%;
+    height: 260px;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 20px;
+  }
+
+  .imagenBannerKumo img {
+    max-width: 90%;
+    max-height: 100%;
+  }
+
+  .botonAnteriorBanner,
+  .botonSiguienteBanner {
+    display: none;
+  }
+
+  .contenedorIndicadoresBanner {
+    margin: 20px 0;
+  }
+
+}
+
+/*Beneficios*/
+.barraBeneficiosBanner {
+  width: 100%;
+  max-width: 1400px;
+  margin: 70px auto 0;
+  display: flex;
   justify-content: center;
-  gap: 25px;
+  gap: 26px;
   flex-wrap: wrap;
 }
 
-/* PASO */
-.pasos {
-  width: 200px;
-  text-align: center;
-}
-
-/* ICONO CIRCULAR */
-.iconoCircular {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+.beneficioBanner {
+  width: 330px;
+  min-height: 130px;
+  background: #FFF;
+  border-radius: 22px;
+  padding: 28px 22px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto 15px;
-  font-size: 22px;
+  gap: 18px;
+  border: 1px solid #F1F1F1;
+  box-shadow: 0 10px 28px rgba(131, 22, 237, .08);
+  transition: .35s;
 }
 
-/* COLORES */
-.iconoCircular.morado {
-  background: #6C2BD9;
+.beneficioBanner:hover {
+  transform: translateY(-10px);
+  border-color: #FD0C7D;
+  box-shadow:
+    0 18px 35px rgba(131, 22, 237, .18),
+    0 10px 20px rgba(253, 12, 125, .12);
+}
+
+.beneficioBanner i {
+  width: 65px;
+  height: 65px;
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 18px;
+  font-size: 1.55rem;
+  color: #FD0C7D;
+  background: linear-gradient(135deg,
+      rgba(131, 22, 237, .10),
+      rgba(253, 12, 125, .12));
+  transition: .35s;
+}
+
+.beneficioBanner:hover i {
+  background: linear-gradient(135deg, #8316ED, #FD0C7D);
+  color: white;
+  transform: rotate(-8deg) scale(1.08);
+}
+
+.contenidoBeneficio {
+  display: flex;
+  flex-direction: column;
+}
+
+.contenidoBeneficio h4 {
+  font-size: 1.08rem;
+  font-weight: 900;
+  color: #282121;
+  margin-bottom: 6px;
+}
+
+.contenidoBeneficio p {
+  font-size: .95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/*Responsive*/
+@media (max-width:1200px) {
+  .barraBeneficiosBanner {
+    gap: 20px;
+  }
+
+  .beneficioBanner {
+    width: 270px;
+  }
+}
+
+@media (max-width:992px) {
+  .barraBeneficiosBanner {
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .beneficioBanner {
+    width: 320px;
+  }
+}
+
+@media (max-width:768px) {
+  .barraBeneficiosBanner {
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+    margin-top: 55px;
+  }
+
+  .beneficioBanner {
+    width: 100%;
+    max-width: 420px;
+  }
+}
+
+@media (max-width:480px) {
+  .beneficioBanner {
+    padding: 22px 18px;
+  }
+
+  .beneficioBanner i {
+    width: 58px;
+    height: 58px;
+    font-size: 1.35rem;
+  }
+
+  .contenidoBeneficio h4 {
+    font-size: 1rem;
+  }
+
+  .contenidoBeneficio p {
+    font-size: .9rem;
+  }
+}
+
+/*Categorias*/
+.seccionCategoriasKumo {
+  width: 100%;
+  max-width: 1400px;
+  margin: 90px auto;
+  padding: 0 20px;
+}
+
+.tituloCategoriasKumo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 40px;
+}
+
+.tituloCategoriasKumo span {
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, #8316ED, #FD0C7D);
+}
+
+.tituloCategoriasKumo h2 {
+  font-size: 2rem;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+/* Grid */
+.contenedorCategoriasKumo {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+/* tarjeta */
+.tarjetaCategoriaKumo {
+  position: relative;
+  height: 230px;
+  border-radius: 20px;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition: .35s;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
+}
+
+/* Imagen */
+.tarjetaCategoriaKumo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: .5s;
+}
+
+/* Filtro */
+.overlayCategoriaKumo {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, .92) 0%,
+      rgba(0, 0, 0, .78) 22%,
+      rgba(0, 0, 0, .45) 48%,
+      rgba(0, 0, 0, .08) 75%,
+      rgba(0, 0, 0, 0) 100%);
+  z-index: 2;
+}
+
+/* contenido */
+.contenidoCategoriaKumo {
+  position: relative;
+  z-index: 3;
+  height: 100%;
+  width: 42%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding-left: 22px;
   color: white;
 }
 
-.iconoCircular.rosado {
-  background: #EC4899;
-  color: rgb(255, 255, 255);
+.contenidoCategoriaKumo i {
+  font-size: 1.8rem;
+  color: #FD0C7D;
+  margin-bottom: 12px;
 }
 
-/* TEXTO */
-.pasos h3 {
-  font-size: 16px;
-  margin-bottom: 8px;
-  color: #4C1D95;
+.contenidoCategoriaKumo h3 {
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 12px;
 }
 
-.pasos p {
-  font-size: 13px;
-  color: #555;
+.contenidoCategoriaKumo p {
+  font-size: .95rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
 }
 
-/* CONECTORES */
-.puntos {
+.linkCategoriaKumo {
   display: flex;
-  gap: 6px;
   align-items: center;
+  gap: 8px;
+  color: #FD0C7D;
+  font-weight: 700;
 }
 
-.puntos span {
-  width: 6px;
-  height: 6px;
-  background: #000000;
-  border-radius: 50%;
+.linkCategoriaKumo i {
+  margin: 0;
+  font-size: 1.2rem;
 }
 
-/* RESPONSIVE */
-@media (max-width: 900px) {
-  .containerComoFunciona {
-    flex-direction: column;
-  }
-
-  .puntos {
-    transform: rotate(90deg);
-  }
+/* Hover */
+.tarjetaCategoriaKumo:hover {
+  transform: translateY(-8px);
 }
 
-/* ================= RESPONSIVE ================= */
-
-@media (max-width: 900px) {
-
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .search-box {
-    margin: 20px auto;
-  }
-
-  .news-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  .hero-text h1 {
-    font-size: 26px;
-  }
-
-  .hero-carousel {
-    width: 100%;
-  }
+.tarjetaCategoriaKumo:hover img {
+  transform: scale(1.08);
 }
 
-@media (max-width: 500px) {
+/*Responsive*/
+@media(max-width:1100px) {
 
-  .news-grid {
+  .contenedorCategoriasKumo {
     grid-template-columns: 1fr;
   }
 
-  .hero {
-    padding: 40px 5%;
+  .tarjetaCategoriaKumo {
+    height: 250px;
+  }
+}
+
+@media(max-width:768px) {
+
+  .contenidoCategoriaKumo {
+    width: 60%;
+  }
+
+  .contenidoCategoriaKumo h3 {
+    font-size: 1.6rem;
   }
 }

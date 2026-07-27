@@ -1,37 +1,81 @@
-/* ================= FOOTER LOAD ================= */
+//Carrusel
+const slides = document.querySelectorAll(".slideBannerKumo");
+const indicadores = document.querySelectorAll(".indicadorBanner");
 
-document.addEventListener("DOMContentLoaded", () => {
-  fetch("../footer/footer.html")
-    .then(res => {
-      if (!res.ok) throw new Error("No se pudo cargar footer.html");
-      return res.text();
-    })
-    .then(data => {
-      document.getElementById("footer-container").innerHTML = data;
-    })
-    .catch(err => console.error("ERROR FOOTER:", err));
-});
+const botonAnterior =
+document.querySelector(".botonAnteriorBanner");
 
+const botonSiguiente =
+document.querySelector(".botonSiguienteBanner");
 
-/* ================= CARRUSEL ================= */
+let indiceActual = 0;
+let intervaloCarrusel;
 
-let index = 0;
+//Slide
+function mostrarSlide(indice){
+    slides.forEach((slide)=>{
 
-function showSlide() {
-  const slides = document.querySelectorAll(".slide");
+        slide.classList.remove("activo");
+    });
 
-  if (slides.length === 0) return;
+    indicadores.forEach((indicador)=>{
+        indicador.classList.remove("activo");
+    });
 
-  slides.forEach(slide => slide.classList.remove("active"));
+    slides[indice].classList.add("activo");
+    indicadores[indice].classList.add("activo");
 
-  index++;
-
-  if (index >= slides.length) {
-    index = 0;
-  }
-
-  slides[index].classList.add("active");
+    indiceActual = indice;
 }
 
-/* cambia cada 3 segundos */
-setInterval(showSlide, 3000);
+//Siguiente
+function siguienteSlide(){
+    indiceActual++;
+    if(indiceActual >= slides.length){
+        indiceActual = 0;
+    }
+
+    mostrarSlide(indiceActual);
+}
+
+//Anterior
+function anteriorSlide(){
+    indiceActual--;
+    if(indiceActual < 0){
+        indiceActual = slides.length - 1;
+    }
+    mostrarSlide(indiceActual);
+}
+
+// Reiniciar
+function reiniciarCarrusel(){
+    clearInterval(intervaloCarrusel);
+    intervaloCarrusel = setInterval(()=>{
+        siguienteSlide();
+    },5000);
+}
+
+//Evento botones
+botonSiguiente.addEventListener("click",()=>{
+    siguienteSlide();
+    reiniciarCarrusel();
+});
+
+botonAnterior.addEventListener("click",()=>{
+    anteriorSlide();
+    reiniciarCarrusel();
+});
+
+//Indicadores
+indicadores.forEach((indicador,indice)=>{
+    indicador.addEventListener("click",()=>{
+        mostrarSlide(indice);
+        reiniciarCarrusel();
+    });
+});
+
+//Inicio
+mostrarSlide(0);
+intervaloCarrusel = setInterval(()=>{
+    siguienteSlide();
+},5000);

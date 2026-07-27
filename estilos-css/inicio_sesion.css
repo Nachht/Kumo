@@ -7,47 +7,54 @@
 
 body {
     background-color: #E0E0E0;
-    margin: 0;
 }
 
-/*contenedor login*/ 
 .contenedorLogin {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 40px;
+    padding: 30px;
 }
 
-.tarjetaLogin{
+.tarjetaLogin {
     width: 1100px;
-    min-height: 700px;
-    background: #fff;
+    height: min(950px, calc(100vh - 60px));
+    background: #FFF;
     display: flex;
     border-radius: 28px;
     overflow: hidden;
-    box-shadow: 0 25px 70px rgba(0,0,0,.15)
+    box-shadow: 0 25px 70px rgba(0, 0, 0, .15);
 }
 
-/*Parte izquierda*/
-.panelIzquierdo{
+/*panel izquierdo*/
+.panelIzquierdo {
     width: 42%;
     position: relative;
-    background-image:url("../assets/img/login_foto2.jpg");
-    background-size: cover;
-    background-position: center;
-} 
-
-.capaDegradado{
-    position: absolute;
-    inset: 0;
-    background:linear-gradient(180deg,rgba(0, 0, 0, 0.55), rgba(2, 2, 2, 0.82));
+    overflow: hidden;
 }
 
-.contenidoIzquierdo{
+.videoLogin {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.capaDegradado {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg,
+            rgba(0, 0, 0, 0.500),
+            rgba(0, 0, 0, 0.500));
+    z-index: 2;
+}
+
+.contenidoIzquierdo {
     position: relative;
-    z-index: 10;
+    z-index: 3;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -56,42 +63,42 @@ body {
     color: white;
 }
 
-.logoKumo{
+.logoKumo {
     width: 180px;
 }
 
-.contenidoIzquierdo h1{
+.contenidoIzquierdo h1 {
     font-size: 2.6rem;
     font-weight: 800;
     line-height: 1.15;
 }
 
-.contenidoIzquierdo span{
+.contenidoIzquierdo span {
     color: white;
 }
 
-.contenidoIzquierdo p{
+.contenidoIzquierdo p {
     margin-top: 20px;
     font-size: 1.08rem;
     line-height: 1.6;
 }
 
-.listaBeneficios{
+.listaBeneficios {
     display: flex;
     flex-direction: column;
     gap: 25px;
 }
 
-.beneficio{
+.beneficio {
     display: flex;
     gap: 18px;
     align-items: center;
 }
 
-.beneficio i{
+.beneficio i {
     width: 55px;
     height: 55px;
-    background:rgba(255,255,255,.18);
+    background: rgba(255, 255, 255, .18);
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -100,45 +107,45 @@ body {
     backdrop-filter: blur(8px);
 }
 
-.beneficio h5{
+.beneficio h5 {
     margin: 0;
     font-weight: 700;
 }
 
-.beneficio span{
+.beneficio span {
     color: #F2F2F2;
     font-size: .92rem;
 }
 
-/*Parte derecha*/
-.panelDerecho{
+/*formulario*/
+.panelDerecho {
     width: 58%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 55px;
+    padding: 35px 55px;
 }
 
-.panelDerecho form{
+.panelDerecho form {
     width: 100%;
     max-width: 430px;
 }
 
-.panelDerecho h2{
+.panelDerecho h2 {
     font-size: 2.6rem;
     font-weight: 800;
     color: #282121;
 }
 
-.subtitulo{
+.subtitulo {
     color: #6F6F6F;
-    margin-bottom: 45px;
+    margin-bottom: 40px;
     font-size: 1.05rem;
 }
 
-/*Label*/
-label{
+/*labels*/
+label {
     display: block;
     margin-bottom: 10px;
     font-weight: 700;
@@ -146,7 +153,7 @@ label{
 }
 
 /*inputs*/
-.grupoInput{
+.grupoInput {
     display: flex;
     align-items: center;
     border: 2px solid #D5D5D5;
@@ -156,12 +163,12 @@ label{
     transition: .30s;
 }
 
-.grupoInput:focus-within{
+.grupoInput:focus-within {
     border-color: #8316ED;
-    box-shadow: 0 0 0 4px rgba(131, 22, 237,.12);
+    box-shadow: 0 0 0 4px rgba(131, 22, 237, .12);
 }
 
-.iconoInput{
+.iconoInput {
     width: 60px;
     display: flex;
     justify-content: center;
@@ -170,7 +177,7 @@ label{
     font-size: 1.15rem;
 }
 
-.grupoInput input{
+.grupoInput input {
     flex: 1;
     border: none;
     outline: none;
@@ -179,8 +186,9 @@ label{
     font-size: 1rem;
 }
 
-.botonMostrar{
+.botonMostrar {
     width: 60px;
+    height: 58px;
     border: none;
     background: white;
     color: #666;
@@ -189,12 +197,12 @@ label{
     transition: .25s;
 }
 
-.botonMostrar:hover{
+.botonMostrar:hover {
     color: #8316ED;
 }
 
-/*Boton*/
-.botonIngresar{
+/*boton*/
+.botonIngresar {
     width: 100%;
     margin-top: 30px;
     border: none;
@@ -203,113 +211,143 @@ label{
     color: white;
     font-size: 1.1rem;
     font-weight: 700;
-    background:linear-gradient(90deg, #8316ED, #FD0C7D);
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
     transition: .30s;
 }
 
-.botonIngresar:hover{
+.botonIngresar:hover {
     transform: translateY(-2px);
-    box-shadow:0 12px 25px rgba(131,22,237,.30);
+    box-shadow: 0 12px 25px rgba(131, 22, 237, .30);
 }
 
 /*registro*/
-.contenedorRegistro{
+.contenedorRegistro {
     margin-top: 35px;
     text-align: center;
     color: #666;
 }
 
-.contenedorRegistro{
-    margin-top: 35px;
-    text-align: center;
-    color: #666;
-}
-
-.contenedorRegistro a{
+.contenedorRegistro a {
     color: #FD0C7D;
     font-weight: 700;
     text-decoration: none;
 }
 
-.contenedorRegistro a:hover{
+.contenedorRegistro a:hover {
     color: #8316ED;
 }
 
-/*Mensajes*/
-small{
-    display:block;
-    min-height:22px;
-    margin-bottom:12px;
-    font-size:.9rem;
-}
-
-#mensajeFormulario{
-    margin-top:25px;
-    text-align:center;
-    font-weight:700;
-}
-
-/* mensajes error y exitoso */
-.mensajeErrorCampo{
+/*mensajes*/
+small {
+    display: block;
+    min-height: 22px;
+    margin-bottom: 12px;
     font-size: .9rem;
-    color: rgb(253, 2, 2);
+}
+
+#mensajeFormulario {
+    margin-top: 25px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.mensajeErrorCampo {
     display: flex;
-    font-weight: 500;
     align-items: center;
     gap: 6px;
-    margin-top: 5px;
+    color: rgb(253, 2, 2);
+    font-size: .9rem;
+    font-weight: 500;
 }
 
-.mensajeExitoCampo{
+.mensajeExitoCampo {
+    display: flex;
+    align-items: center;
+    gap: 6px;
     color: rgb(77, 255, 33);
     font-size: .9rem;
-    display: flex;
     font-weight: 500;
-    align-items: center;
-    gap: 6px;
-    margin-top: 5px;
 }
-
 
 .mensajeError {
     text-align: center;
     margin-top: 15px;
-    font-size: 0.9rem;
+    color: #282121;
+    font-size: .9rem;
     font-weight: 700;
-    color: black;
 }
 
 .mensajeExito {
-    color: rgb(77, 255, 33);
-    margin-right: 5px;
     text-align: center;
     margin-top: 15px;
-    font-size: 0.9rem;
+    color: rgb(77, 255, 33);
+    font-size: .9rem;
     font-weight: 700;
 }
 
-/*Responsive*/
-@media (max-width: 992px) {
+/*resonsive*/
+@media (max-width:992px) {
+    body {
+        overflow-y: auto;
+    }
 
-    .tarjetaLogin{
-        flex-direction: column;
+    .contenedorLogin {
+        height: auto;
+        min-height: 100vh;
+        padding: 40px 20px;
+    }
+
+    .tarjetaLogin {
         width: 100%;
-        min-height: auto;
+        max-width: 700px;
+        height: auto;
+        flex-direction: column;
     }
 
     .panelIzquierdo,
-    .panelDerecho{
+    .panelDerecho {
         width: 100%;
     }
 
-    .contenidoIzquierdo{
+    .panelDerecho {
+        padding: 40px 35px;
+    }
+
+    .panelDerecho form {
+        max-width: 100%;
+    }
+
+    .panelIzquierdo {
+        min-height: 420px;
+    }
+
+    .contenidoIzquierdo {
         justify-content: flex-start;
         gap: 30px;
         padding: 35px;
     }
 
-    .listaBeneficios{
-        margin-top: 15px;
+    .listaBeneficios {
+        margin-top: 10px;
         gap: 18px;
+    }
+
+    .contenidoIzquierdo h1,
+    .panelDerecho h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-height:820px) {
+    .contenedorLogin {
+        height: auto;
+        min-height: 100vh;
+        padding: 30px;
+    }
+
+    .tarjetaLogin {
+        height: auto;
+        min-height: auto;
+        margin: 30px 0;
     }
 }

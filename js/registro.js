@@ -1,117 +1,137 @@
-const formulario = document.getElementById("formulario");
-const mensajeFormulario = document.getElementById("mensajeFormulario");
+const formularioRegistro = document.getElementById("formularioRegistro");
+const mensajeRegistro = document.getElementById("mensajeRegistro");
 
-const nombre = document.getElementById("nombre");
-const telefono = document.getElementById("telefono");
-const correo = document.getElementById("correo");
-const contraseña = document.getElementById("contraseña");
+const inputNombre = document.getElementById("nombreCompleto");
+const inputTelefono = document.getElementById("telefono");
+const inputCorreo = document.getElementById("correo");
+const inputPassword = document.getElementById("password");
 
 const errorNombre = document.getElementById("errorNombre");
 const errorTelefono = document.getElementById("errorTelefono");
 const errorCorreo = document.getElementById("errorCorreo");
-const errorContraseña = document.getElementById("errorContraseña");
+const errorPassword = document.getElementById("errorPassword");
 
-//LocalStorage
+// Lista de usuarios almacenados
 let listaUsuarios = [];
-const usuariosGuardados = localStorage.getItem("listaUsuarios");
+
+const usuariosGuardados =
+    localStorage.getItem("listaUsuarios");
 
 if (usuariosGuardados) {
     listaUsuarios = JSON.parse(usuariosGuardados);
 }
 
-// Validacion
-formulario.addEventListener("submit", function (e) {
+// Mostrar y ocultar contraseña
+mostrarPassword.addEventListener("click", () => {
 
-    e.preventDefault(); // SIEMPRE validamos primero
+    if (password.type === "password") {
+        password.type = "text";
+        mostrarPassword.innerHTML = '<i class="bi bi-eye-slash"></i>';
+    } else {
+        password.type = "password";
+        mostrarPassword.innerHTML = '<i class="bi bi-eye"></i>';
+    }
 
+});
+
+// Registro
+formularioRegistro.addEventListener("submit", function (e) {
+    e.preventDefault();
     let valido = true;
+    mensajeRegistro.textContent = "";
+    mensajeRegistro.className = "";
 
-    mensajeFormulario.textContent = "";
-    mensajeFormulario.className = "";
-
-    // LIMPIAR MENSAJES
+    // Limpiar mensajes
     document.querySelectorAll("small").forEach(campo => {
         campo.textContent = "";
     });
 
-    // LIMPIAR ESTILOS
-    document.querySelectorAll("input, textarea").forEach(campo => {
+    // Limpiar estilos
+    document.querySelectorAll("input").forEach(campo => {
         campo.classList.remove("errorInput");
         campo.classList.remove("successInput");
     });
 
-    // Nombre completo
-    const nombreValor = nombre.value.trim();
+    const nombreValor = inputNombre.value.trim();
+    const telefonoValor = inputTelefono.value.trim();
+    const correoValor = inputCorreo.value.trim();
+    const passwordValor = inputPassword.value.trim();
 
+    //Validaciones de nombre
     if (nombreValor === "") {
 
         errorNombre.className = "mensajeErrorCampo";
         errorNombre.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe escribir su nombre completo.';
-        nombre.classList.add("errorInput");
+
+        inputNombre.classList.add("errorInput");
         valido = false;
 
     } else if (nombreValor.length < 2) {
 
         errorNombre.className = "mensajeErrorCampo";
         errorNombre.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Mínimo 2 caracteres.';
-        nombre.classList.add("errorInput");
+
+        inputNombre.classList.add("errorInput");
         valido = false;
 
     } else if (nombreValor.length > 50) {
 
         errorNombre.className = "mensajeErrorCampo";
         errorNombre.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Máximo 50 caracteres.';
-        nombre.classList.add("errorInput");
+
+        inputNombre.classList.add("errorInput");
         valido = false;
 
     } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombreValor)) {
 
         errorNombre.className = "mensajeErrorCampo";
         errorNombre.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Solo se permiten letras y espacios.';
-        nombre.classList.add("errorInput");
+
+        inputNombre.classList.add("errorInput");
         valido = false;
 
     } else {
 
         errorNombre.className = "mensajeExitoCampo";
-        errorNombre.innerHTML = '<i class="bi bi-check-circle-fill"></i> Nombre válido';
-        nombre.classList.add("success-text");
+        errorNombre.innerHTML = '<i class="bi bi-check-circle-fill"></i> Nombre válido.';
+
+        inputNombre.classList.add("successInput");
     }
 
-    // teléfono
-    const telefonoValor = telefono.value.trim();
-
+    // Validaciones de telefono
     if (telefonoValor === "") {
 
         errorTelefono.className = "mensajeErrorCampo";
         errorTelefono.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe ingresar su teléfono.';
-        telefono.classList.add("errorInput");
+
+        inputTelefono.classList.add("errorInput");
         valido = false;
 
     } else if (!/^\d+$/.test(telefonoValor)) {
 
         errorTelefono.className = "mensajeErrorCampo";
         errorTelefono.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Solo se permiten números.';
-        telefono.classList.add("errorInput");
+
+        inputTelefono.classList.add("errorInput");
         valido = false;
 
     } else if (!/^3\d{9}$/.test(telefonoValor)) {
 
         errorTelefono.className = "mensajeErrorCampo";
         errorTelefono.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe ingresar un número colombiano válido.';
-        telefono.classList.add("errorInput");
+
+        inputTelefono.classList.add("errorInput");
         valido = false;
 
     } else {
 
         errorTelefono.className = "mensajeExitoCampo";
         errorTelefono.innerHTML = '<i class="bi bi-check-circle-fill"></i> Teléfono válido.';
-        telefono.classList.add("success-text");
+
+        inputTelefono.classList.add("successInput");
     }
 
-    // correo
-    const correoValor = correo.value.trim();
-
+    // Validaciones correo
     const regexCorreo =
         /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|co|org|net|edu|gov|info|biz)$/i;
 
@@ -119,132 +139,123 @@ formulario.addEventListener("submit", function (e) {
 
         errorCorreo.className = "mensajeErrorCampo";
         errorCorreo.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe ingresar su correo.';
-        correo.classList.add("errorInput");
+
+        inputCorreo.classList.add("errorInput");
         valido = false;
 
     } else if (!correoValor.includes("@")) {
 
         errorCorreo.className = "mensajeErrorCampo";
         errorCorreo.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> El correo debe contener el símbolo @.';
-        correo.classList.add("errorInput");
+
+        inputCorreo.classList.add("errorInput");
         valido = false;
 
     } else if (!regexCorreo.test(correoValor)) {
 
         errorCorreo.className = "mensajeErrorCampo";
         errorCorreo.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Ingrese un correo electrónico válido.';
-        correo.classList.add("errorInput");
+
+        inputCorreo.classList.add("errorInput");
+        valido = false;
+
+    } else if (listaUsuarios.some(usuario => usuario.correo === correoValor)) {
+
+        errorCorreo.className = "mensajeErrorCampo";
+        errorCorreo.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Este correo ya está registrado.';
+
+        inputCorreo.classList.add("errorInput");
         valido = false;
 
     } else {
 
         errorCorreo.className = "mensajeExitoCampo";
         errorCorreo.innerHTML = '<i class="bi bi-check-circle-fill"></i> Correo válido.';
-        correo.classList.add("success-text");
+
+        inputCorreo.classList.add("successInput");
     }
 
-    // Contraseña
-    const contraseñaValor = contraseña.value.trim();
+    //Validaciones contraseña
+    if (passwordValor === "") {
 
-    if (contraseñaValor === "") {
+        errorPassword.className = "mensajeErrorCampo";
+        errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe ingresar una contraseña.';
 
-        errorContraseña.className = "mensajeErrorCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe ingresar una contraseña.';
-        contraseña.classList.add("errorInput");
+        inputPassword.classList.add("errorInput");
         valido = false;
 
-    } else if (contraseñaValor.length < 8) {
+    } else if (passwordValor.length < 8) {
 
-        errorContraseña.className = "mensajeErrorCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Mínimo 8 caracteres.';
-        contraseña.classList.add("errorInput");
+        errorPassword.className = "mensajeErrorCampo";
+        errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Mínimo 8 caracteres.';
+
+        inputPassword.classList.add("errorInput");
         valido = false;
 
-    } else if (!/[A-Z]/.test(contraseñaValor)) {
+    } else if (!/[A-Z]/.test(passwordValor)) {
 
-        errorContraseña.className = "mensajeErrorCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener al menos una letra mayúscula.';
-        contraseña.classList.add("errorInput");
+        errorPassword.className = "mensajeErrorCampo";
+        errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener al menos una letra mayúscula.';
+
+        inputPassword.classList.add("errorInput");
         valido = false;
 
-    } else if (!/[a-z]/.test(contraseñaValor)) {
+    } else if (!/[a-z]/.test(passwordValor)) {
 
-        errorContraseña.className = "mensajeErrorCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener al menos una letra minúscula.';
-        contraseña.classList.add("errorInput");
+        errorPassword.className = "mensajeErrorCampo";
+        errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener al menos una letra minúscula.';
+
+        inputPassword.classList.add("errorInput");
         valido = false;
 
-    } else if (!/\d/.test(contraseñaValor)) {
+    } else if (!/\d/.test(passwordValor)) {
 
-        errorContraseña.className = "mensajeErrorCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener al menos un número.';
-        contraseña.classList.add("errorInput");
+        errorPassword.className = "mensajeErrorCampo";
+        errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener al menos un número.';
+
+        inputPassword.classList.add("errorInput");
         valido = false;
 
-    } else if (!/[!@#$%^&*(),.?":{}|<>_\-+=/\\[\];'`~]/.test(contraseñaValor)) {
+    } else if (!/[!@#$%^&*(),.?":{}|<>_\-+=/\\[\];'`~]/.test(passwordValor)) {
 
-        errorContraseña.className = "mensajeErrorCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener un carácter especial.';
-        contraseña.classList.add("errorInput");
+        errorPassword.className = "mensajeErrorCampo";
+        errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe contener un carácter especial.';
+
+        inputPassword.classList.add("errorInput");
         valido = false;
 
-    } else if (/\s/.test(contraseñaValor)) {
+    } else if (/\s/.test(passwordValor)) {
 
-        errorContraseña.className = "mensajeErrorCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> La contraseña no puede contener espacios.';
-        contraseña.classList.add("errorInput");
+        errorPassword.className = "mensajeErrorCampo";
+        errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> La contraseña no puede contener espacios.';
+
+        inputPassword.classList.add("errorInput");
         valido = false;
 
     } else {
 
-        errorContraseña.className = "mensajeExitoCampo";
-        errorContraseña.innerHTML = '<i class="bi bi-check-circle-fill"></i> Contraseña segura.';
-        contraseña.classList.add("success-text");
+        errorPassword.className = "mensajeExitoCampo";
+        errorPassword.innerHTML = '<i class="bi bi-check-circle-fill"></i> Contraseña segura.';
 
+        inputPassword.classList.add("successInput");
     }
 
-    //Validaciones registro completo
+    // Validacion completa
     if (!valido) {
 
-        mensajeFormulario.className = "mensajeError";
-        mensajeFormulario.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Debe corregir los campos marcados en rojo.';
+        mensajeRegistro.className = "mensajeError";
+        mensajeRegistro.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Debe corregir los campos marcados en rojo.';
 
-        mensajeFormulario.classList.add("mensajeError");
         return;
     }
 
-    // Registro exitoso
-    mensajeFormulario.className = "mensajeExito";
-    mensajeFormulario.innerHTML = '<i class="bi bi-check-circle-fill"></i> Registro realizado correctamente.';
-
-    mensajeFormulario.classList.add("mensajeExito");
-
-    // Limpiar formulario
-    formulario.reset();
-
-    // Quitar bordes verdes
-    document.querySelectorAll("input").forEach(campo => {
-        campo.classList.remove("successInput");
-    });
-
-    // Limpiar mensajes de cada campo
-    document.querySelectorAll("small").forEach(campo => {
-        campo.textContent = "";
-    });
-
-    setTimeout(() => {
-
-        mensajeFormulario.textContent = "";
-        mensajeFormulario.className = "";
-
-    }, 3000);
-
+    //Crea el usuario
     const nuevoUsuario = {
         id: Date.now().toString(),
         nombre: nombreValor,
         telefono: telefonoValor,
         correo: correoValor,
-        contraseña: contraseñaValor,
+        contraseña: passwordValor
     };
 
     listaUsuarios.push(nuevoUsuario);
@@ -253,4 +264,27 @@ formulario.addEventListener("submit", function (e) {
         "listaUsuarios",
         JSON.stringify(listaUsuarios)
     );
+
+    // Mensaje
+    mensajeRegistro.className = "mensajeExito";
+    mensajeRegistro.innerHTML = '<i class="bi bi-check-circle-fill"></i> Registro realizado correctamente.';
+
+    // Limpiar formulario
+    formularioRegistro.reset();
+
+    document.querySelectorAll("input").forEach(campo => {
+        campo.classList.remove("successInput");
+    });
+
+    document.querySelectorAll("small").forEach(campo => {
+        campo.textContent = "";
+    });
+
+    setTimeout(() => {
+        mensajeRegistro.textContent = "";
+        mensajeRegistro.className = "";
+
+        window.location.href = "../inicio_sesion/inicio_sesion.html";
+
+    }, 1800);
 });
