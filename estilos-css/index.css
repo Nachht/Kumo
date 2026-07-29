@@ -389,7 +389,7 @@ body {
 .barraBeneficiosBanner {
   width: 100%;
   max-width: 1400px;
-  margin: 70px auto 0;
+  margin: 150px auto 0;
   display: flex;
   justify-content: center;
   gap: 26px;
@@ -518,7 +518,7 @@ body {
 .seccionCategoriasKumo {
   width: 100%;
   max-width: 1400px;
-  margin: 90px auto;
+  margin: 150px auto;
   padding: 0 20px;
 }
 
@@ -547,6 +547,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 28px;
+  margin-bottom: 200px;
 }
 
 /* tarjeta */
@@ -558,7 +559,7 @@ body {
   text-decoration: none;
   display: block;
   transition: .35s;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, .15);
+  box-shadow: 0px 15px 15px 0px #8116ed63;
 }
 
 /* Imagen */
@@ -632,6 +633,7 @@ body {
 /* Hover */
 .tarjetaCategoriaKumo:hover {
   transform: translateY(-8px);
+  box-shadow: 0px 15px 15px 0px #e616ed63;
 }
 
 .tarjetaCategoriaKumo:hover img {
