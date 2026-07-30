@@ -1,10 +1,81 @@
 /* ========================================== */
+/* NAVBAR ADMIN - KUMO                         */
+/* FUENTE: Nunito                             */
+/* ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
+
+/* ===== RESET Y FUENTE GLOBAL ===== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* ===== NAVBAR ADMIN PRINCIPAL ===== */
+.navbar-kumo {
+    background: #282121;
+    padding: 16px 0 0 0;
+    border-bottom: 4px solid #8316ED;
+    box-shadow: 0 4px 30px rgba(131, 22, 237, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1050;
+    transition: all 0.4s ease;
+}
+
+.navbar-kumo.scrolled {
+    box-shadow: 0 4px 40px rgba(131, 22, 237, 0.5);
+}
+
+.container-kumo {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ===== FILA SUPERIOR ===== */
+.nav-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-bottom: 14px;
+}
+
+/* ===== LOGO ===== */
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.logo-img {
+    height: 60px;
+    width: 60px;
+    display: block;
+    transition: transform 0.4s ease, filter 0.4s ease;
+}
+
+.logo-img:hover {
+    transform: rotate(-6deg) scale(1.08);
+    filter: drop-shadow(0 0 20px rgba(131, 22, 237, 0.3));
+}
+
+/* ========================================== */
 /* TÍTULO ADMIN                               */
 /* ========================================== */
 
 .admin-title {
     flex: 1;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .admin-title span {
@@ -17,22 +88,227 @@
     padding: 6px 24px;
     border-radius: 50px;
     border: 1px solid rgba(253, 12, 125, 0.3);
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .admin-title span i {
-    margin-right: 8px;
     font-size: 1.1rem;
+    color: #FD0C7D;
+}
+
+.admin-title span:hover {
+    background: rgba(253, 12, 125, 0.25);
+    border-color: rgba(253, 12, 125, 0.6);
+    transform: scale(1.02);
+    box-shadow: 0 0 25px rgba(253, 12, 125, 0.15);
+}
+
+/* ========================================== */
+/* ÍCONOS Y MENÚ DE USUARIO                   */
+/* ========================================== */
+
+.nav-icons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+}
+
+.user-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* === BOTÓN DEL USUARIO LOGUEADO === */
+
+/* === BOTONES LOGIN / REGISTRO === */
+.btn-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #fff !important;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn-login:hover {
+    border-color: #FD0C7D;
+    background: rgba(253, 12, 125, 0.1);
+}
+
+.btn-registro {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
+    color: #fff !important;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    font-family: 'Nunito', sans-serif;
+}
+
+.btn-registro:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(253, 12, 125, 0.3);
+}
+
+/* === DROPDOWN MENU === */
+.dropdown-menu {
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    min-width: 200px;
+    background: #1a1a2e;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    font-family: 'Nunito', sans-serif;
+}
+
+.dropdown-item:hover {
+    background: rgba(131, 22, 237, 0.2);
+    color: #fff;
+}
+
+.dropdown-item i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.dropdown-item.text-danger {
+    color: #FD0C7D !important;
+}
+
+.dropdown-item.text-danger:hover {
+    background: rgba(253, 12, 125, 0.15);
+    color: #FD0C7D !important;
+}
+
+.dropdown-divider {
+    border-color: rgba(255, 255, 255, 0.06);
+}
+
+/* === VOLVER A LA TIENDA === */
+.icon-link {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #D5D5D5;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 6px 12px;
+    border-radius: 30px;
+    transition: all 0.4s ease;
+    font-family: 'Nunito', sans-serif;
+}
+
+.icon-link i {
+    font-size: 1.5rem;
+    transition: all 0.4s ease;
+}
+
+.icon-link:hover {
+    background: rgba(131, 22, 237, 0.12);
+    color: #8316ED;
+    transform: translateY(-2px);
+}
+
+.icon-link:hover i {
+    color: #8316ED;
+}
+
+/* ========================================== */
+/* RESPONSIVE                                 */
+/* ========================================== */
+
+@media (max-width: 992px) {
+    .admin-title span {
+        font-size: 1rem;
+        padding: 5px 18px;
+    }
+    
+    .nav-top {
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width: 768px) {
     .admin-title span {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
         padding: 4px 14px;
+        letter-spacing: 1px;
+    }
+    
+    .admin-title span i {
+        font-size: 0.9rem;
+    }
+    
+    .btn-user-dropdown .user-name {
+        max-width: 80px;
+    }
+    
+    .btn-login,
+    .btn-registro {
+        font-size: 0.75rem;
+        padding: 4px 12px;
     }
 }
 
 @media (max-width: 576px) {
     .admin-title {
         display: none;
+    }
+    
+    .logo-img {
+        height: 40px;
+        width: 40px;
+    }
+    
+    .btn-user-dropdown {
+        padding: 4px 12px 4px 8px;
+        font-size: 0.8rem;
+    }
+    
+    .btn-user-dropdown .user-name {
+        max-width: 60px;
+    }
+    
+    .btn-login,
+    .btn-registro {
+        font-size: 0.7rem;
+        padding: 4px 10px;
+    }
+    
+    .icon-link span {
+        display: none;
+    }
+    
+    .icon-link i {
+        font-size: 1.3rem;
     }
 }

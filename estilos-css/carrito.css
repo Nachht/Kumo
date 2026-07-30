@@ -1,261 +1,163 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Nunito', sans-serif;
-}
-
 :root {
-    /* FONDO DE LA PÁGINA: Lila / Rosado muy suave */
-    --bg-kumo: #f7f0f8;
-
-    /* TARJETAS Y RESUMEN: Color oscuro del Navbar */
-    --card-kumo: #221d1e;
-
-    /* ACENTOS Y DETALLES */
+    --purple-kumo: #8a2be2;
     --fucsia-neon: #ff007f;
-    --fucsia-neon-glow: rgba(255, 0, 127, 0.4);
-    --texto-amarillo: #facc15;
-    --texto-titulo: #221d1e;
+    --gradient-kumo: linear-gradient(135deg, #8a2be2 0%, #ff007f 100%);
+    --bg-dark-offcanvas: #120e11;
 }
 
-/* Ancho general más estrecho para que no se vea gigante ni estirado */
-main.container {
-    max-width: 980px !important;
-}
-
-/* Fondo principal de la página */
-.body-kumo {
-    background-color: var(--bg-kumo);
-    color: #221d1e;
-    min-height: 100vh;
-}
-
-.text-fucsia {
-    color: var(--fucsia-neon) !important;
-}
-
-/* Título de la página */
-.titulo-carrito {
-    font-size: 1.8rem;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-    color: var(--texto-titulo);
-}
-
-/* Botón Vaciar superior sobre fondo claro */
-#btnVaciarPagina {
+/* --- ESTILOS GENERALES Y BOTÓN DEGRADADO --- */
+.btn-gradient-kumo {
+    background: var(--gradient-kumo) !important;
     color: #ffffff !important;
-    font-size: 0.85rem;
-    background: #8316ED;
-    transition: 0.3s;
+    border: none !important;
+    font-weight: 700;
+    transition: all 0.3s ease;
 }
 
-#btnVaciarPagina:hover {
-    color: white !important;
-    background: black;
+.btn-gradient-kumo:hover {
+    opacity: 0.92;
     transform: translateY(-2px);
-    transition: 0.3s;
+    box-shadow: 0 6px 18px rgba(255, 0, 127, 0.35);
 }
 
-/* TARJETAS DE PRODUCTO Y RESUMEN (Contenedor Oscuro Empaquetado) */
-.tarjeta-kumo {
-    background-color: var(--card-kumo);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 14px;
-    box-shadow: 0 8px 20px rgba(34, 29, 30, 0.15);
+/* Tarjeta Blanca de Productos */
+.tarjeta-kumo-clara {
+    background-color: #ffffff !important;
+    border: 1px solid rgba(0, 0, 0, 0.08) !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-/* Tarjeta individual de producto */
-.item-carrito {
-    padding: 16px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    position: relative;
-    color: #ffffff;
+/* Control de Cantidad (+ 1 -) sobre Fondo Blanco */
+.control-cantidad-claro {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
 }
 
-/* Imagen compacta */
-.item-imagen {
-    width: 70px;
-    height: 70px;
-    border-radius: 10px;
-    object-fit: cover;
+/* Texto Morado para Totales y Controles */
+.text-purple {
+    color: var(--purple-kumo) !important;
 }
 
-.item-detalles {
-    flex-grow: 1;
+/* Enlace Seguir Comprando */
+.link-seguir-comprando {
+    color: var(--purple-kumo) !important;
+    text-decoration: none;
+    font-weight: 600;
 }
 
-.item-titulo {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #ffffff;
-    margin-bottom: 2px;
+.link-seguir-comprando:hover {
+    color: var(--fucsia-neon) !important;
+    text-decoration: underline;
 }
 
-.item-subtitulo {
-    font-size: 0.8rem;
-    color: rgb(255, 255, 255);
-    margin-bottom: 6px;
+/* ==========================================
+   FORZAR ESTRUCTURA PERFECTA DEL OFFCANVAS
+   ========================================== */
+#carritoKumo.offcanvas {
+    background-color: var(--bg-dark-offcanvas) !important;
+    color: #ffffff !important;
+    width: 380px !important;
+    border-left: 2px solid var(--fucsia-neon) !important;
+    
+    /* Forzar distribución Flexbox estricta en pantalla */
+    display: flex !important;
+    flex-direction: column !important;
+    height: 100vh !important;
+    max-height: 100vh !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    overflow: hidden !important;
 }
 
-.item-precio-unitario {
-    font-size: 0.95rem;
-    font-weight: 800;
-    color: var(--texto-amarillo);
+/* Encabezado fijo arriba */
+#carritoKumo .offcanvas-header {
+    flex-shrink: 0 !important;
+    background-color: var(--bg-dark-offcanvas) !important;
+    padding: 1rem 1.25rem !important;
 }
 
-.item-precio-total {
-    font-size: 1.05rem;
-    font-weight: 800;
-    color: #ffffff;
+/* Cuerpo con scroll automático interno */
+#carritoKumo .offcanvas-body {
+    flex: 1 1 auto !important;
+    overflow-y: auto !important;
+    padding: 1rem 1.25rem !important;
 }
 
-/* Selector de Cantidad Mini Pill (- 1 +) */
-.control-cantidad-kumo {
-    display: inline-flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 20px;
-    padding: 1px 6px;
+/* Pie de página pegado abajo SIEMPRE */
+#carritoKumo .offcanvas-footer {
+    flex-shrink: 0 !important;
+    background-color: var(--bg-dark-offcanvas) !important;
+    padding: 1rem 1.25rem 1.25rem 1.25rem !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
 }
 
-.btn-cantidad-kumo {
-    border: none;
-    background: transparent;
-    color: #ffffff;
-    font-weight: bold;
-    width: 22px;
-    height: 22px;
-    font-size: 0.85rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s;
+/* --- TEXTOS Y BOTONES FUCSIA LED COMPACTOS --- */
+.text-fucsia-neon {
+    color: var(--fucsia-neon) !important;
+    text-shadow: 0 0 8px rgba(255, 0, 127, 0.5);
+    letter-spacing: 0.8px;
 }
 
-.btn-cantidad-kumo:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.input-cantidad-kumo {
-    width: 28px;
-    text-align: center;
-    border: none;
-    background: transparent;
-    color: #ffffff;
-    font-weight: 700;
-    font-size: 0.85rem;
-}
-
-/* Botón Eliminar Individual */
-.btn-eliminar-item {
-    background: transparent;
-    border: none;
-    color: rgb(252, 251, 251);
-    font-size: 1rem;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-
-.btn-eliminar-item:hover {
-    color: var(--fucsia-neon);
-}
-
-/* TARJETA RESUMEN COMPACTA */
-.tarjeta-resumen {
-    position: sticky;
-    top: 20px;
-    color: #ffffff;
-    padding: 20px !important;
-}
-
-.titulo-resumen {
-    font-size: 1.05rem;
-    font-weight: 800;
-    letter-spacing: 1px;
-    color: #ffffff;
-}
-
-/* BOTONES CON EFECTO LED NEÓN FUCSIA */
-.btn-neon-fucsia {
+.btn-fucsia-led {
     background-color: var(--fucsia-neon) !important;
     color: #ffffff !important;
     border: none !important;
-    box-shadow: 0 0 15px var(--fucsia-neon-glow);
-    transition: 0.3s;
+    font-size: 0.8rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px;
+    padding: 10px 16px !important;
+    box-shadow: 0 0 10px rgba(255, 0, 127, 0.4);
+    transition: all 0.25s ease;
 }
 
-.btn-neon-fucsia:hover {
-    background-color: #ff1a8c !important;
-    box-shadow: 0 0 25px var(--fucsia-neon);
-    transform: translateY(-2px);
-    transition: 0.3s;
+.btn-fucsia-led:hover {
+    background-color: #e0006f !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 16px rgba(255, 0, 127, 0.7);
 }
 
-.btn-outline-fucsia {
-    color: var(--fucsia-neon) !important;
-    border: 1px solid var(--fucsia-neon) !important;
-    background: transparent;
-    transition: all 0.2s ease-in-out;
+.btn-outline-fucsia-led {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border: 1.5px solid var(--fucsia-neon) !important;
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    letter-spacing: 0.8px;
+    padding: 8px 16px !important;
+    transition: all 0.25s ease;
 }
 
-.btn-outline-fucsia:hover {
-    background-color: rgba(255, 0, 127, 0.15) !important;
-    box-shadow: 0 0 10px var(--fucsia-neon-glow);
+.btn-outline-fucsia-led:hover {
+    background-color: var(--fucsia-neon) !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 14px rgba(255, 0, 127, 0.6);
 }
 
-.link-hover-fucsia {
-    color: rgba(255, 255, 255, 0.6) !important;
-    transition: color 0.2s;
+.btn-vaciar-offcanvas {
+    font-size: 0.75rem !important;
+    color: #b0b0b0 !important;
 }
 
-.link-hover-fucsia:hover {
-    color: var(--fucsia-neon) !important;
+.btn-vaciar-offcanvas:hover {
+    color: #ff4d4d !important;
 }
 
-/* Offcanvas Lateral */
-.offcanvas.offcanvas-end {
-    z-index: 1060 !important;
+.btn-seguir-viendo {
+    font-size: 0.7rem !important;
+    color: #aaaaaa !important;
+    letter-spacing: 0.5px;
 }
 
+.btn-seguir-viendo:hover {
+    color: #ffffff !important;
+}
+/* FORZAR QUE EL CARRITO QUEDE POR ENCIMA DEL NAVBAR */
+#carritoKumo.offcanvas {
+    z-index: 99999 !important; /* Capa superior a cualquier navbar */
+}
+
+/* Si el fondo oscuro (backdrop) queda tapando cosas raras */
 .offcanvas-backdrop {
-    z-index: 1050 !important;
-}
-
-/* Media Queries */
-@media (max-width: 576px) {
-    .item-carrito {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .item-precio-total {
-        align-self: flex-end;
-    }
-}
-
-/* Tarjeta oscura tipo KUMO (igual al Resumen) */
-.tarjeta-kumo-oscura {
-    background-color: #1a1819 !important;
-    border: 1px solid rgba(255, 0, 127, 0.15);
-    border-radius: 16px;
-    color: #ffffff;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Color fucsia neón característico */
-.text-fucsia {
-    color: #ff007f !important;
-}
-
-/* Hover suave para el botón de basura */
-.btn-eliminar:hover {
-    transform: scale(1.15);
-    transition: transform 0.2s ease;
+    z-index: 99990 !important;
 }

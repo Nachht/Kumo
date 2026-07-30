@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Catálogo de servicios</title>
+    <title>Catálogo | Kumo</title>
 
     <link rel="stylesheet" href="../estilos-css/catalogo.css">
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
@@ -16,51 +16,130 @@
 
 <body>
     <script src="../js/navbar.js"></script>
-    <!-- Botón menú -->
-  
 
     <!-- Encabezado del catálogo -->
-    <section class="services-container">
-        <header class="page-header">
+    <section class="contenedorCatalogo">
+        <header class="encabezadoCatalogo">
             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <div>
-                    <h1>Catálogo de Artículos</h1>
-                    <p>Explora nuestra colección de mangas, figuras y más.</p>
+                    <h1>Catálogo Kumo</h1>
+                    <p>Explora nuestra colección de mangas, figuras y merchandising.</p>
                 </div>
-
                 <div>
-                    <span class="badge">
-                        <i class="bi bi-info-circle"></i>
-                        Total:
-                        <span id="totalCount">0</span>
-                        Articulos
+                    <span class="badge badgeCatalogo">
+                        <i class="bi bi-shop"></i>
+                        Articulos:
+                        <span id="contadorCatalogoTotal">0</span>
                     </span>
                 </div>
+            </div>
+            <!-- Imagen del encabezado: escribe aquí la ruta de tu imagen -->
+            <div class="contenedorImagenEncabezado">
+                <img src="../assets/img/catalogo_fondo.jpg" alt="" class="imagenFondoEncabezado">
             </div>
         </header>
 
         <!-- Barra de búsqueda -->
-        <div class="toolbar">
-            <div class="search-box">
+        <div class="barraHerramientasCatalogo">
+
+            <div class="buscadorCatalogo">
                 <i class="bi bi-search" aria-hidden="true"></i>
-                <input type="text" id="searchInput" class="form-control" placeholder="Buscar servicios...">
+                <input type="text" id="buscadorCatalogo" placeholder="Buscar mangas, figuras, merch...">
             </div>
+
+            <!-- Navegación rápida por categoría -->
+            <nav class="navCategoriasCatalogo">
+                <a href="#seccion-manga" class="enlaceCategoriaCatalogo categoria-manga">
+                    <i class="bi bi-book"></i>
+                    Mangas
+                </a>
+                <a href="#seccion-figura" class="enlaceCategoriaCatalogo categoria-figura">
+                    <i class="bi bi-person-standing"></i>
+                    Figuras
+                </a>
+                <a href="#seccion-merch" class="enlaceCategoriaCatalogo categoria-merch">
+                    <i class="bi bi-bag-heart"></i>
+                    Merch
+                </a>
+            </nav>
         </div>
 
         <!-- Cantidad visible -->
-        <div class="results-count">
+        <div class="contadorResultadosCatalogo">
             Mostrando
-            <span id="visibleCount">0</span>
-            servicios
+            <span id="contadorCatalogoVisibles">0</span>
+            productos
         </div>
 
-        <!-- Tarjetas -->
-        <div class="row g-4" id="servicesGrid"></div>
-    </section>
+        <!-- secciones de categorias -->
+        <div id="contenedorCatalogoProductos">
 
+            <!-- mangas-->
+            <section class="seccionCategoriaCatalogo categoria-manga" id="seccion-manga">
+                <div class="cabeceraSeccionCatalogo">
+                    <div class="infoSeccionCatalogo">
+                        <div class="iconoSeccionCatalogo">
+                            <i class="bi bi-book"></i>
+                        </div>
+                        <div class="textoSeccionCatalogo">
+                            <h2>Mangas</h2>
+                            <p id="contadorSeccionManga">0 productos disponibles</p>
+                        </div>
+                    </div>
+
+                    <!-- imagen categoria mangas -->
+                    <div class="contenedorImagenSeccion">
+                        <img src="../assets/img/catalogo-mangas.jpg" alt="" class="imagenFondoSeccion">
+                    </div>
+                </div>
+                <div class="row g-4" id="productosCategoriaManga"></div>
+            </section>
+
+            <!-- figuras-->
+            <section class="seccionCategoriaCatalogo categoria-figura" id="seccion-figura">
+                <div class="cabeceraSeccionCatalogo">
+                    <div class="infoSeccionCatalogo">
+                        <div class="iconoSeccionCatalogo">
+                            <i class="bi bi-person-standing"></i>
+                        </div>
+                        <div class="textoSeccionCatalogo">
+                            <h2>Figuras</h2>
+                            <p id="contadorSeccionFigura">0 productos disponibles</p>
+                        </div>
+                    </div>
+
+                    <!-- imagen categoria figuras -->
+                    <div class="contenedorImagenSeccion">
+                        <img src="../assets/img/catalogo-figuras.jpg" alt="" class="imagenFondoSeccion">
+                    </div>
+                </div>
+                <div class="row g-4" id="productosCategoriaFigura"></div>
+            </section>
+
+            <!-- merch-->
+            <section class="seccionCategoriaCatalogo categoria-merch" id="seccion-merch">
+                <div class="cabeceraSeccionCatalogo">
+                    <div class="infoSeccionCatalogo">
+                        <div class="iconoSeccionCatalogo">
+                            <i class="bi bi-bag-heart"></i>
+                        </div>
+                        <div class="textoSeccionCatalogo">
+                            <h2>Merch</h2>
+                            <p id="contadorSeccionMerch">0 productos disponibles</p>
+                        </div>
+                    </div>
+
+                    <!-- imagen categoria merch -->
+                    <div class="contenedorImagenSeccion">
+                        <img src="../assets/img/catalogo-merch.jpg" alt="" class="imagenFondoSeccion">
+                    </div>
+                </div>
+                <div class="row g-4" id="productosCategoriaMerch"></div>
+            </section>
+        </div>
+    </section>
     <script src="../js/catalogo.js"></script>
     <script src="../js/footer.js"></script>
-
+    <script src="../js/carrito.js"></script>
 </body>
-
 </html>

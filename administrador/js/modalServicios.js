@@ -1,341 +1,521 @@
-let listaServicios = [];
-let filtroActual = "todos";
-let textoBusqueda = "";
-let indiceServicioEditar = null;
+// localStorage
+const CLAVE_PRODUCTOS_KUMO = "kumo_productos";
+function cargarProductos() {
+    try {
+        const datosGuardados =
+            localStorage.getItem(CLAVE_PRODUCTOS_KUMO);
+
+        if (datosGuardados) {
+            return JSON.parse(datosGuardados);
+        }
+
+    } catch (error) {
+        console.error(
+            "No se pudieron leer los productos guardados:",
+            error
+        );
+    }
+    return [];
+}
+
+function guardarProductos(lista = productos) {
+    try {
+        localStorage.setItem(
+            CLAVE_PRODUCTOS_KUMO,
+            JSON.stringify(lista)
+        );
+        return true;
+
+    } catch (error) {
+        console.error(
+            "No se pudieron guardar los productos:",
+            error
+        );
+
+        alert(
+            "No se pudo guardar el producto: el almacenamiento local está lleno " +
+            "o la imagen es demasiado pesada. Intenta con una imagen más liviana " +
+            "o elimina algún producto."
+        );
+
+        return false;
+    }
+}
+
+// Redimensiona y comprime una imagen antes de convertirla a base64,
+// para no llenar el localStorage con imágenes muy pesadas.
+function comprimirImagen(archivo, anchoMaximo = 800, calidad = 0.72) {
+    return new Promise((resolve, reject) => {
+        const lector = new FileReader();
+        lector.onload = function () {
+            const imagen = new Image();
+            imagen.onload = function () {
+                const escala = Math.min(1, anchoMaximo / imagen.width);
+                const canvas = document.createElement("canvas");
+                canvas.width = imagen.width * escala;
+                canvas.height = imagen.height * escala;
+
+                const contexto = canvas.getContext("2d");
+                contexto.drawImage(imagen, 0, 0, canvas.width, canvas.height);
+                resolve(canvas.toDataURL("image/jpeg", calidad));
+            };
+
+            imagen.onerror = reject;
+            imagen.src = lector.result;
+        };
+        lector.onerror = reject;
+        lector.readAsDataURL(archivo);
+    });
+}
+
+// Base de datos
+let productos = cargarProductos();
 
 // Referencias HTML
-const contenedorServicios = document.getElementById("servicesGrid");
-const contadorTotal = document.getElementById("totalCount");
-const contadorVisibles = document.getElementById("visibleCount");
-const buscadorServicios = document.getElementById("searchInput");
+const contenedorProductos = document.getElementById("contenedorProductos");
+const totalProductos = document.getElementById("totalProductos");
+const productosVisibles = document.getElementById("productosVisibles");
+const buscadorProductos = document.getElementById("buscadorProductos");
+const filtroTodos = document.getElementById("filtroTodos");
+const filtroMangas = document.getElementById("filtroMangas");
+const filtroFiguras = document.getElementById("filtroFiguras");
+const filtroMerch = document.getElementById("filtroMerch");
+const limpiarFiltros = document.getElementById("limpiarFiltros");
 
-// Botones principales
-const botonAgregarServicio = document.querySelector(".btn-add");
-const botonFiltroTodos = document.getElementById("filterAll");
-const botonFiltroActivos = document.getElementById("filterActive");
-const botonFiltroInactivos = document.getElementById("filterInactive");
-const botonLimpiarFiltros = document.getElementById("clearFilters");
+//modales
+const modalAgregar = document.getElementById("modalAgregarProducto");
+const modalEditar = document.getElementById("modalEditarProducto");
+const cerrarAgregar = document.getElementById("cerrarModalAgregar");
+const cerrarEditar = document.getElementById("cerrarModalEditar");
 
-// Ventana agregar
-const modalAgregarServicio = document.getElementById("modalAgregarServicio");
-const cerrarModalAgregar = document.getElementById("cerrarModalAgregar");
-const formularioAgregarServicio = document.getElementById("formularioAgregarServicio");
+// formularios
+const formularioAgregar = document.getElementById("formularioAgregarProducto");
+const formularioEditar = document.getElementById("formularioEditarProducto");
 
-// Ventana editar
-const modalEditarServicio = document.getElementById("modalEditarServicio");
-const cerrarModalEditar = document.getElementById("cerrarModalEditar");
-const formularioEditarServicio = document.getElementById("formularioEditarServicio");
+// estado filtros
+let categoriaSeleccionada = "todos";
+let textoBusqueda = "";
 
-// ======================
-// MENÚ
-// ======================
-const menuBtn = document.getElementById("menuBtn");
-const menu = document.getElementById("menu");
+//iconos categorias
+function obtenerIconoCategoria(categoria) {
+    switch (categoria) {
+        case "manga":
+            return "bi bi-book";
 
-if (menuBtn && menu) {
-    menuBtn.addEventListener("click", () => {
-        menu.classList.toggle("activo");
-    });
-}
+        case "figura":
+            return "bi bi-controller";
 
-// Devuelve una imagen temporal cuando el usuario selecciona un archivo.
-function convertirImagenBase64(archivo) {
+        case "merch":
+            return "bi bi-bag-heart";
 
-    return new Promise((resolve) => {
-
-        if (!archivo) {
-            resolve("../../assets/img/persona.png");
-            return;
-        }
-
-        const lector = new FileReader();
-
-        lector.onload = function (e) {
-            resolve(e.target.result);
-        };
-
-        lector.readAsDataURL(archivo);
-
-    });
-
-}
-
-// Pasa a pesos colombianos
-function formatearPrecio(precio) {
-    return Number(precio).toLocaleString(
-        "es-CO",
-        {
-            style: "currency",
-            currency: "COP",
-            minimumFractionDigits: 0
-        }
-    );
-}
-
-// Actualizacion de contadores
-function actualizarContadores() {
-    contadorTotal.textContent = listaServicios.length;
-    const serviciosVisibles = document.querySelectorAll(".service-card");
-    contadorVisibles.textContent = serviciosVisibles.length;
-}
-
-// Activa el boton del filtro
-function activarBotonFiltro(botonSeleccionado) {
-    document
-        .querySelectorAll(".btn-filter")
-        .forEach(boton => {
-            boton.classList.remove("active");
-        });
-    botonSeleccionado.classList.add("active");
-}
-
-// Renderizado de servicios - genera automáticamente las tarjetas.
-function renderizarServicios() {
-    contenedorServicios.innerHTML = "";
-    const serviciosFiltrados = listaServicios.filter(servicio => {
-        const coincideBusqueda =
-            servicio.nombre
-                .toLowerCase()
-                .includes(textoBusqueda.toLowerCase()) ||
-            servicio.descripcion
-                .toLowerCase()
-                .includes(textoBusqueda.toLowerCase());
-
-        let coincideFiltro = true;
-        if (filtroActual === "activos") {
-            coincideFiltro = servicio.activo;
-        }
-        if (filtroActual === "inactivos") {
-            coincideFiltro = !servicio.activo;
-        }
-        return coincideBusqueda && coincideFiltro;
-    });
-
-    if (serviciosFiltrados.length === 0) {
-        contenedorServicios.innerHTML = `
-            <div class="mensajeSinServicios">
-                <h3>No se encontraron servicios.</h3>
-                <p>Intenta cambiar el filtro o agregar uno nuevo.</p>
-            </div>
-        `;
-        actualizarContadores();
-        return;
+        default:
+            return "bi bi-box";
     }
+}
 
-    // Crear cada tarjeta
-    serviciosFiltrados.forEach((servicio) => {
-        const tarjeta = document.createElement("div");
-        tarjeta.className = "col-lg-6 col-md-6 col-12";
+// Nombre categoria
+function obtenerNombreCategoria(categoria) {
+    switch (categoria) {
 
-        const iconoToggle = servicio.activo
-            ? '<i class="bi bi-toggle-on toggle-icon active"></i>'
-            : '<i class="bi bi-toggle-off toggle-icon inactive"></i>';
+        case "manga":
+            return "Mangas";
 
-        // 🌟 CORRECCIÓN CRÍTICA: Envolvemos el ID en comillas simples '${servicio.id}' para evitar errores de redondeo de enteros
-        tarjeta.innerHTML = `
-            <div class="service-card ${servicio.activo ? "card-activo" : "card-inactivo"}">
-                <div class="row align-items-center">
-                    <div class="col-4 text-center">
-                        <div class="service-img-container">
-                            <img src="${servicio.imagen}" alt="${servicio.nombre}">
-                        </div>
-                    </div>
-                    <div class="col-8">
-                        <h3 class="service-card-title">${servicio.nombre}</h3>
-                        <p class="service-card-desc"> ${servicio.descripcion} </p>
-                        <div class="service-card-price"> ${formatearPrecio(servicio.precio)} </div>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <div class="estado" onclick="cambiarEstadoServicio('${servicio.id}')">
-                                <span class="me-2"> ${servicio.activo ? "Activo" : "Inactivo"} </span>
-                                ${iconoToggle}
-                            </div>
-                            <button class="btn btn-outline-primary btn-sm rounded-3" onclick="abrirModalEditarServicio('${servicio.id}')"> 
-                                <i class="bi bi-pencil-square"></i> Editar
-                            </button>
-                        </div>
+        case "figura":
+            return "Figuras";
+
+        case "merch":
+            return "Merch";
+
+        default:
+            return categoria;
+    }
+}
+
+//creacion de tarjetas
+function crearTarjetaProducto(producto) {
+    return `
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="tarjetaProductoAdmin ${producto.activo ? "productoActivo" : "productoInactivo"}">
+            <div class="contenedorImagenProducto">
+                <img src="${producto.imagen}" alt="${producto.nombre}">
+                <span class="badgeCategoriaProducto categoria-${producto.categoria}">
+                    ${obtenerNombreCategoria(producto.categoria)}
+                </span>
+            </div>
+            <div class="contenidoTarjetaProducto">
+                <h3 class="tituloProductoAdmin">
+                    ${producto.nombre}
+                </h3>
+                <p class="descripcionProductoAdmin">
+                    ${producto.descripcion}
+                </p>
+                <div class="informacionProducto">
+                    <div class="datoProducto">
+                        <i class="bi bi-box-seam"></i>
+                        <span>
+                            Stock: ${producto.stock}
+                        </span>
                     </div>
                 </div>
+                <div class="precioProductoAdmin">
+                    $${producto.precio.toLocaleString("es-CO")}
+                </div>
+                <div class="estadoProducto">
+                    <span>
+                        Activo
+                    </span>
+                    <i
+                        class="bi ${producto.activo ? "bi-toggle-on" : "bi-toggle-off"} toggleEstadoProducto"
+                        onclick="cambiarEstado(${producto.id})">
+                    </i>
+                </div>
+                <div class="accionesProducto">
+                    <button
+                        class="btn botonEditarProducto"
+                        onclick="abrirEditar(${producto.id})">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </button>
+                </div>
             </div>
-        `;
-        contenedorServicios.appendChild(tarjeta);
-    });
-
-    actualizarContadores();
+        </div>
+    </div>
+    `;
 }
 
-// Ventana agregar servicio
-botonAgregarServicio.addEventListener("click", () => {
-    formularioAgregarServicio.reset();
-    modalAgregarServicio.classList.add("activo");
-});
-
-// Cerrar ventana con x
-cerrarModalAgregar.addEventListener("click", () => {
-    modalAgregarServicio.classList.remove("activo");
-});
-
-// Cerrar modal haciendo clic fuera
-window.addEventListener("click", (evento) => {
-    if (evento.target === modalAgregarServicio) {
-        modalAgregarServicio.classList.remove("activo");
+// crear seccion categoria
+function crearSeccionCategoria(nombre, categoria, listaProductos) {
+    if (listaProductos.length === 0) {
+        return "";
     }
-});
 
-// Función para guardar un nuevo servicio
-formularioAgregarServicio.addEventListener("submit", async function (evento) {
-    evento.preventDefault();
-    const archivoImagen = document.getElementById("imagenServicioAgregar").files[0];
-    const nombreServicio = document.getElementById("nombreServicioAgregar").value.trim();
-    const descripcionServicio = document.getElementById("descripcionServicioAgregar").value.trim();
-    const precioServicio = document.getElementById("precioServicioAgregar").value;
-    const imagenBase64 = await convertirImagenBase64(archivoImagen);
+    let html = `
+    <section class="categoriaProductos">
+        <div class="tituloCategoriaProducto">
+            <i class="${obtenerIconoCategoria(categoria)}"></i>
+            <h2>${nombre}</h2>
+        </div>
+        <div class="row">
+    `;
 
-    const nuevoServicio = {
-        id: Date.now().toString(),
-        imagen: imagenBase64,
-        nombre: nombreServicio,
-        descripcion: descripcionServicio,
-        precio: Number(precioServicio),
+    listaProductos.forEach(producto => {
+        html += crearTarjetaProducto(producto);
+    });
+
+    html += `
+        </div>
+    </section>
+    `;
+    return html;
+}
+
+// ordenar productos
+function ordenarProductos(lista) {
+    return lista.sort((a, b) => {
+        if (a.activo === b.activo) {
+            return a.nombre.localeCompare(b.nombre);
+        }
+        return a.activo ? -1 : 1;
+    });
+}
+
+// renderizado productos
+function renderizarProductos() {
+    contenedorProductos.innerHTML = "";
+
+    let lista = [...productos];
+
+    // buscar
+    if (textoBusqueda !== "") {
+        lista = lista.filter(producto =>
+            producto.nombre
+                .toLowerCase()
+                .includes(textoBusqueda)
+
+            ||
+            producto.descripcion
+                .toLowerCase()
+                .includes(textoBusqueda)
+        );
+    }
+
+    // filtrar categoria
+    if (categoriaSeleccionada !== "todos") {
+        lista = lista.filter(producto =>
+            producto.categoria === categoriaSeleccionada
+        );
+    }
+
+    // separar categoria
+    const mangas = ordenarProductos(
+        lista.filter(producto =>
+            producto.categoria === "manga"
+        )
+    );
+
+    const figuras = ordenarProductos(
+        lista.filter(producto =>
+            producto.categoria === "figura"
+        )
+    );
+
+    const merch = ordenarProductos(
+        lista.filter(producto =>
+            producto.categoria === "merch"
+        )
+    );
+
+    // pintar
+    contenedorProductos.innerHTML +=
+        crearSeccionCategoria(
+            "Mangas",
+            "manga",
+            mangas
+        );
+
+    contenedorProductos.innerHTML +=
+        crearSeccionCategoria(
+            "Figuras",
+            "figura",
+            figuras
+        );
+
+    contenedorProductos.innerHTML +=
+        crearSeccionCategoria(
+            "Merch",
+            "merch",
+            merch
+        );
+
+    // contadores
+    contadorProductosTotal.textContent =
+        productos.length;
+    contadorProductosVisibles.textContent =
+        lista.length;
+}
+
+// agregar productos
+formularioAgregarProducto.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    const archivo = imagenProductoAgregar.files[0];
+
+    const imagenFinal = archivo
+        ? await comprimirImagen(archivo)
+        : "../../assets/img/sin-imagen.png";
+
+    const nuevoProducto = {
+        id: Date.now(),
+        nombre:
+            nombreProductoAgregar.value.trim(),
+        descripcion:
+            descripcionProductoAgregar.value.trim(),
+        categoria:
+            categoriaProductoAgregar.value,
+        precio:
+            Number(precioProductoAgregar.value),
+        stock:
+            Number(stockProductoAgregar.value),
+        imagen: imagenFinal,
         activo: true
     };
 
-    listaServicios.push(nuevoServicio);
+    productos.push(nuevoProducto);
 
-    // 🌟 LA REGLA DEL PROFESOR: Guardar la lista actualizada de inmediato en el LocalStorage
-    localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
+    const guardadoExitoso = guardarProductos();
 
-    console.clear();
-    console.table(listaServicios);
-
-    renderizarServicios();
-    formularioAgregarServicio.reset();
-    modalAgregarServicio.classList.remove("activo");
-});
-
-// Función para poder editar un servicio
-function abrirModalEditarServicio(idServicio) {
-    indiceServicioEditar = listaServicios.findIndex(servicio => servicio.id.toString() === idServicio.toString());
-    if (indiceServicioEditar === -1) {
-        return;
+    if (!guardadoExitoso) {
+        // El guardado falló (ej. localStorage lleno): revertimos
+        // el producto en memoria para que no quede desincronizado.
+        productos = cargarProductos();
     }
 
-    const servicio = listaServicios[indiceServicioEditar];
-    document.getElementById("nombreServicioEditar").value = servicio.nombre;
-    document.getElementById("descripcionServicioEditar").value = servicio.descripcion;
-    document.getElementById("precioServicioEditar").value = servicio.precio;
-    document.getElementById("imagenServicioEditar").value = "";
-    modalEditarServicio.classList.add("activo");
+    formularioAgregarProducto.reset();
+    modalAgregarProducto.classList.remove("activo");
+    renderizarProductos();
+});
+
+// abrir editar
+function abrirEditar(id) {
+    const producto = productos.find(
+        p => p.id === id
+    );
+    if (!producto) return;
+    idProductoEditar.value = producto.id;
+
+    nombreProductoEditar.value =
+        producto.nombre;
+
+    descripcionProductoEditar.value =
+        producto.descripcion;
+
+    categoriaProductoEditar.value =
+        producto.categoria;
+
+    precioProductoEditar.value =
+        producto.precio;
+
+    stockProductoEditar.value =
+        producto.stock;
+
+    modalEditarProducto.classList.add("activo");
 }
 
-// Cerrar ventana emergente
-cerrarModalEditar.addEventListener("click", () => {
-    modalEditarServicio.classList.remove("activo");
-});
+// Editar producto
+formularioEditarProducto.addEventListener("submit", async function (e) {
 
-window.addEventListener("click", (evento) => {
-    if (evento.target === modalEditarServicio) {
-        modalEditarServicio.classList.remove("activo");
+    e.preventDefault();
+
+    const id =
+        Number(idProductoEditar.value);
+
+    const producto = productos.find(
+
+        p => p.id === id
+    );
+
+    if (!producto) return;
+
+    producto.nombre =
+        nombreProductoEditar.value.trim();
+
+    producto.descripcion =
+        descripcionProductoEditar.value.trim();
+
+    producto.categoria =
+        categoriaProductoEditar.value;
+
+    producto.precio =
+        Number(precioProductoEditar.value);
+
+    producto.stock =
+        Number(stockProductoEditar.value);
+
+    const archivo =
+        imagenProductoEditar.files[0];
+
+    if (archivo) {
+        producto.imagen = await comprimirImagen(archivo);
     }
-});
 
-// Guardar los cambios
-formularioEditarServicio.addEventListener("submit", async function (evento) {
-    evento.preventDefault();
-    if (indiceServicioEditar === null) {
-        return;
+    const guardadoExitoso = guardarProductos();
+
+    if (!guardadoExitoso) {
+        // El guardado falló (ej. localStorage lleno): recargamos
+        // desde el storage real para no quedar desincronizados.
+        productos = cargarProductos();
     }
 
-    const servicio = listaServicios[indiceServicioEditar];
-    servicio.nombre = document.getElementById("nombreServicioEditar").value.trim();
-    servicio.descripcion = document.getElementById("descripcionServicioEditar").value.trim();
-    servicio.precio = Number(document.getElementById("precioServicioEditar").value);
+    renderizarProductos();
+    modalEditarProducto.classList.remove("activo");
+});
 
-    const nuevaImagen = document.getElementById("imagenServicioEditar").files[0];
+// Activar / Desactivar
+function cambiarEstado(id) {
+    const producto = productos.find(
+        p => p.id === id
+    );
+    if (!producto) return;
 
-    if (nuevaImagen) {
-        servicio.imagen = await convertirImagenBase64(nuevaImagen);
+    producto.activo = !producto.activo;
+
+    const guardadoExitoso = guardarProductos();
+
+    if (!guardadoExitoso) {
+        productos = cargarProductos();
     }
 
-    // 🌟 REGLA DEL PROFESOR: Guardar los cambios de la edición
-    localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
+    renderizarProductos();
+}
 
-    console.clear();
-    console.table(listaServicios);
-
-    renderizarServicios();
-    modalEditarServicio.classList.remove("activo");
-    indiceServicioEditar = null;
+// MODAL PRODUCTOS - KUMO
+// Buscador
+buscadorProductos.addEventListener("input", function () {
+    textoBusqueda = this.value.trim().toLowerCase();
+    renderizarProductos();
 });
 
-// Buscador de servicios
-buscadorServicios.addEventListener("input", function () {
-    textoBusqueda = this.value.trim();
-    renderizarServicios();
+// Filtros
+filtroTodos.addEventListener("click", () => {
+    categoriaSeleccionada = "todos";
+    renderizarProductos();
 });
 
-// FILTROS                                     
-botonFiltroTodos.addEventListener("click", () => {
-    filtroActual = "todos";
-    activarBotonFiltro(botonFiltroTodos);
-    renderizarServicios();
+filtroMangas.addEventListener("click", () => {
+    categoriaSeleccionada = "manga";
+    renderizarProductos();
 });
 
-botonFiltroActivos.addEventListener("click", () => {
-    filtroActual = "activos";
-    activarBotonFiltro(botonFiltroActivos);
-    renderizarServicios();
+filtroFiguras.addEventListener("click", () => {
+    categoriaSeleccionada = "figura";
+    renderizarProductos();
 });
 
-botonFiltroInactivos.addEventListener("click", () => {
-    filtroActual = "inactivos";
-    activarBotonFiltro(botonFiltroInactivos);
-    renderizarServicios();
+filtroMerch.addEventListener("click", () => {
+    categoriaSeleccionada = "merch";
+    renderizarProductos();
 });
 
-botonLimpiarFiltros.addEventListener("click", () => {
+// Limpiar filtros
+limpiarFiltros.addEventListener("click", () => {
+    categoriaSeleccionada = "todos";
     textoBusqueda = "";
-    filtroActual = "todos";
-    buscadorServicios.value = "";
-    activarBotonFiltro(botonFiltroTodos);
-    renderizarServicios();
+    buscadorProductos.value = "";
+    renderizarProductos();
 });
 
-// Activar y desactivar servicio
-function cambiarEstadoServicio(idServicio) {
-    const servicio = listaServicios.find(servicio => servicio.id.toString() === idServicio.toString());
-    if (!servicio) {
-        return;
+// Abrir modal agregar
+botonAgregarProducto.addEventListener("click", () => {
+    formularioAgregarProducto.reset();
+    modalAgregarProducto.classList.add("activo");
+});
+
+// Cerrar modal agregar
+cerrarModalAgregar.addEventListener("click", () => {
+    modalAgregarProducto.classList.remove("activo");
+});
+
+modalAgregarProducto.addEventListener("click", (e) => {
+    if (e.target === modalAgregarProducto) {
+        modalAgregarProducto.classList.remove("activo");
     }
+});
 
-    servicio.activo = !servicio.activo;
+// Cerrar modal editar
+cerrarModalEditar.addEventListener("click", () => {
+    modalEditarProducto.classList.remove("activo");
+});
 
-    // 🌟 REGLA DEL PROFESOR: Guardar el nuevo estado activo/inactivo
-    localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
+modalEditarProducto.addEventListener("click", (e) => {
 
-    console.clear();
-    console.table(listaServicios);
-    renderizarServicios();
+    if (e.target === modalEditarProducto) {
+        modalEditarProducto.classList.remove("activo");
+    }
+});
+
+// Actualizar contadores
+function actualizarContadores() {
+    contadorProductosTotal.textContent = productos.length;
+
+    let visibles = productos;
+    if (categoriaSeleccionada !== "todos") {
+        visibles = visibles.filter(
+            producto => producto.categoria === categoriaSeleccionada
+        );
+    }
+    if (textoBusqueda !== "") {
+        visibles = visibles.filter(producto =>
+            producto.nombre.toLowerCase().includes(textoBusqueda) ||
+            producto.descripcion.toLowerCase().includes(textoBusqueda)
+        );
+    }
+    contadorProductosVisibles.textContent = visibles.length;
 }
 
-// Inicialización del sistema 
-document.addEventListener("DOMContentLoaded", () => {
-    activarBotonFiltro(botonFiltroTodos);
-
-    const guardados = localStorage.getItem("listaServicios");
-
-    if (guardados) {
-        listaServicios = JSON.parse(guardados);
-
-    } else {
-        listaServicios = []
-
-        localStorage.setItem("listaServicios", JSON.stringify(listaServicios));
-    }
-
-    renderizarServicios();
+const renderOriginal = renderizarProductos;
+renderizarProductos = function () {
+    renderOriginal();
     actualizarContadores();
-});
+};
 
-// Exponer funciones globales de forma limpia
-window.abrirModalEditarServicio = abrirModalEditarServicio;
-window.cambiarEstadoServicio = cambiarEstadoServicio;
+// Render inicial
+renderizarProductos();

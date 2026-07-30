@@ -345,7 +345,7 @@ function inicializarInteracciones() {
                 e.preventDefault();      // Evita que se abra el offcanvas
                 e.stopPropagation();     // Evita que el evento se propague
                 // Redirigir al login
-                window.location.href = '../inicio_sesion/inicio_sesion.html';
+                window.location.href = '../inicio/index.html';
             }
             // Si está logueado, el offcanvas se abre normalmente (no hacemos nada)
         });
@@ -373,12 +373,208 @@ function marcarEnlaceActivo() {
     });
 }
 
+
 function manejarBusqueda() {
+    console.log("🔍 Inicializando buscador con sugerencias...");
+    
     const input = document.getElementById("searchInputNav");
     const icon = document.getElementById("searchIcon");
 
-    if (!input) return;
+    if (!input) {
+        console.warn("⚠️ No se encontró #searchInputNav, reintentando...");
+        setTimeout(manejarBusqueda, 500);
+        return;
+    }
 
+    console.log("✅ Input encontrado:", input);
+
+    // =============================================
+    // CREAR CONTENEDOR DE SUGERENCIAS
+    // =============================================
+    let sugerenciasContainer = document.getElementById("sugerenciasContainer");
+    if (!sugerenciasContainer) {
+        sugerenciasContainer = document.createElement("div");
+        sugerenciasContainer.id = "sugerenciasContainer";
+        sugerenciasContainer.style.cssText = `
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            max-height: 350px;
+            overflow-y: auto;
+            z-index: 9999;
+            display: none;
+            margin-top: 4px;
+            border: 1px solid rgba(0,0,0,0.05);
+        `;
+        input.parentNode.style.position = 'relative';
+        input.parentNode.appendChild(sugerenciasContainer);
+        console.log("✅ Contenedor de sugerencias CREADO:", sugerenciasContainer);
+    } else {
+        console.log("✅ Contenedor de sugerencias ya existe");
+    }
+
+    // =============================================
+    // FUNCIÓN PARA BUSCAR PRODUCTOS
+    // =============================================
+    function buscarProductos(termino) {
+    console.log(`🔎 Buscando productos que contengan: "${termino}"`);
+    
+    let productos = [];
+    
+    // 1. Buscar en listaServicios (admin)
+    const listaServicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
+    console.log(`📦 listaServicios: ${listaServicios.length} productos`);
+    
+    // 2. Buscar en kumo_productos (catálogo)
+    const kumoProductos = JSON.parse(localStorage.getItem("kumo_productos")) || [];
+    console.log(`📦 kumo_productos: ${kumoProductos.length} productos`);
+    
+    // 3. Buscar en carrito (por si hay productos)
+    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    console.log(`📦 carrito: ${carrito.length} productos`);
+    
+    // 4. Unificar todos los productos
+    const todosLosProductos = [...listaServicios, ...kumoProductos, ...carrito];
+    
+    // 5. Eliminar duplicados por id
+    const idsUnicos = new Set();
+    const productosUnicos = todosLosProductos.filter(producto => {
+        if (!producto.id) return false;
+        if (idsUnicos.has(producto.id)) {
+            return false;
+        }
+        idsUnicos.add(producto.id);
+        return true;
+    });
+    
+    console.log(`📦 ${productosUnicos.length} productos únicos disponibles`);
+    
+    if (productosUnicos.length === 0) {
+        console.warn('⚠️ No hay productos en localStorage');
+        console.log('💡 Agrega productos desde el panel de administración');
+        return [];
+    }
+    
+    if (!termino || termino.length < 1) {
+        console.log('❌ Término vacío');
+        return [];
+    }
+    
+    const terminoLower = termino.toLowerCase();
+    
+    // Filtrar productos
+    const resultados = productosUnicos.filter(producto => {
+        const nombre = (producto.nombre || '').toLowerCase();
+        const descripcion = (producto.descripcion || '').toLowerCase();
+        return nombre.includes(terminoLower) || descripcion.includes(terminoLower);
+    });
+    
+    console.log(`✅ ${resultados.length} productos encontrados para "${termino}"`);
+    
+    // Mostrar los nombres de los resultados
+    resultados.forEach(p => {
+        console.log(`   - ${p.nombre}`);
+    });
+    
+    return resultados;
+}
+
+// =============================================
+// FUNCIÓN PARA MOSTRAR SUGERENCIAS (MEJORADA)
+// =============================================
+function mostrarSugerencias(resultados, termino) {
+    console.log('📋 Mostrando sugerencias...');
+    console.log('📋 Resultados:', resultados);
+    
+    if (!sugerenciasContainer) {
+        console.warn('⚠️ No hay contenedor de sugerencias');
+        return;
+    }
+    
+    if (resultados.length === 0 || !termino || termino.length < 1) {
+        console.log('❌ No hay resultados o término vacío, ocultando sugerencias');
+        sugerenciasContainer.style.display = 'none';
+        return;
+    }
+
+    const resultadosMostrar = resultados.slice(0, 6);
+    console.log(`📋 Mostrando ${resultadosMostrar.length} sugerencias`);
+    
+    sugerenciasContainer.innerHTML = `
+        <div style="padding: 8px 12px; background: #f8f9fa; border-bottom: 1px solid #eee; font-size: 0.75rem; color: #888; font-weight: 600; display: flex; justify-content: space-between;">
+            <span>🔍 ${resultados.length} resultado${resultados.length > 1 ? 's' : ''}</span>
+            <span style="cursor: pointer; color: #FD0C7D;" onclick="document.getElementById('sugerenciasContainer').style.display='none';">✕</span>
+        </div>
+        ${resultadosMostrar.map(producto => {
+            const imagenUrl = producto.imagen || '../assets/img/logo.png';
+            return `
+            <div class="sugerencia-item" 
+                 style="
+                    padding: 10px 14px;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    border-bottom: 1px solid #f0f0f0;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                " 
+                 onmouseover="this.style.background='#f5f0ff'" 
+                 onmouseout="this.style.background='transparent'"
+                 onclick="window.location.href='../catalogo/catalogo.html?buscar=${encodeURIComponent(producto.nombre)}'">
+                
+                <img src="${imagenUrl}" 
+                     alt="${producto.nombre}" 
+                     style="width: 40px; height: 40px; object-fit: cover; border-radius: 8px; background: #f0f0f0; border: 1px solid #eee;"
+                     onerror="this.src='../assets/img/logo.png'">
+                
+                <div style="flex: 1; min-width: 0;">
+                    <div style="font-weight: 600; color: #282121; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        ${producto.nombre}
+                    </div>
+                    <div style="font-size: 0.75rem; color: #888; display: flex; gap: 12px; align-items: center;">
+                        <span>${producto.categoria || 'Producto'}</span>
+                        <span style="color: #8316ED; font-weight: 700;">${formatearPrecioSugerencia(producto.precio)}</span>
+                    </div>
+                </div>
+                <div style="color: #8316ED; font-size: 0.8rem;">
+                    <i class="bi bi-arrow-right"></i>
+                </div>
+            </div>
+        `}).join('')}
+        
+        ${resultados.length > 6 ? `
+            <div style="padding: 10px 14px; text-align: center; background: #f8f9fa; border-radius: 0 0 12px 12px;">
+                <a href="../catalogo/catalogo.html?buscar=${encodeURIComponent(termino)}" 
+                   style="color: #8316ED; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
+                    Ver todos los ${resultados.length} resultados →
+                </a>
+            </div>
+        ` : ''}
+    `;
+    
+    sugerenciasContainer.style.display = 'block';
+    console.log('✅ Sugerencias mostradas correctamente');
+}
+
+    // =============================================
+    // FORMATEAR PRECIO PARA SUGERENCIAS
+    // =============================================
+    function formatearPrecioSugerencia(precio) {
+        if (!precio) return '$0';
+        return Number(precio).toLocaleString('es-CO', {
+            style: 'currency',
+            currency: 'COP',
+            minimumFractionDigits: 0
+        });
+    }
+
+    // =============================================
+    // FUNCIÓN PARA EJECUTAR BÚSQUEDA
+    // =============================================
     function ejecutarBusqueda() {
         const termino = input.value.trim();
         const path = window.location.pathname;
@@ -387,6 +583,12 @@ function manejarBusqueda() {
             rutaCatalogo = '../../catalogo/catalogo.html';
         }
 
+        console.log(`🔍 Ejecutando búsqueda: "${termino}"`);
+        
+        if (sugerenciasContainer) {
+            sugerenciasContainer.style.display = 'none';
+        }
+        
         if (termino === "") {
             window.location.href = rutaCatalogo;
         } else {
@@ -394,19 +596,75 @@ function manejarBusqueda() {
         }
     }
 
-    input.addEventListener("keypress", (e) => {
+    // =============================================
+    // EVENTO: mientras escribe (input)
+    // =============================================
+    input.addEventListener("input", function() {
+        const termino = this.value.trim();
+        console.log(`✏️ Input event: "${termino}"`);
+        
+        if (termino.length < 1) {
+            console.log("❌ Término vacío, ocultando sugerencias");
+            if (sugerenciasContainer) {
+                sugerenciasContainer.style.display = 'none';
+            }
+            return;
+        }
+
+        console.log(`🔎 Buscando productos para: "${termino}"`);
+        const resultados = buscarProductos(termino);
+        console.log(`✅ ${resultados.length} productos encontrados`);
+        
+        mostrarSugerencias(resultados, termino);
+    });
+
+    // =============================================
+    // EVENTO: tecla Enter
+    // =============================================
+    input.addEventListener("keydown", function(e) {
+        console.log(`⌨️ keydown: "${e.key}"`);
         if (e.key === "Enter") {
+            console.log("✅ Enter presionado, ejecutando búsqueda...");
             e.preventDefault();
             ejecutarBusqueda();
         }
     });
 
+    // =============================================
+    // EVENTO: clic en icono de búsqueda
+    // =============================================
     if (icon) {
-        icon.addEventListener("click", (e) => {
+        console.log("✅ Icono de búsqueda encontrado");
+        icon.addEventListener("click", function(e) {
+            console.log("🖱️ Clic en icono de búsqueda");
             e.preventDefault();
             ejecutarBusqueda();
         });
     }
+
+    // =============================================
+    // CERRAR SUGERENCIAS AL HACER CLIC FUERA
+    // =============================================
+    document.addEventListener("click", function(e) {
+        if (!e.target.closest('.search-wrapper') && sugerenciasContainer) {
+            console.log("👆 Clic fuera, ocultando sugerencias");
+            sugerenciasContainer.style.display = 'none';
+        }
+    });
+
+    // =============================================
+    // PREVENIR ENVÍO DE FORMULARIO
+    // =============================================
+    const form = input.closest('form');
+    if (form) {
+        form.addEventListener("submit", function(e) {
+            e.preventDefault();
+            console.log("🚫 Submit prevenido");
+            ejecutarBusqueda();
+        });
+    }
+
+    console.log("✅ Buscador con sugerencias configurado");
 }
 
 // =============================================

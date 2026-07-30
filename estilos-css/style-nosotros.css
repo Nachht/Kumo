@@ -392,6 +392,8 @@ body .hero-nosotros {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
+
+
 .team-social:hover {
     background: #8316ED;
     color: #ffffff;

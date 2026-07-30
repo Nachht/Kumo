@@ -4,12 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestionar servicios</title>
+    <title>Gestión de Productos | Kumo</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" href="../../assets/img/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="../css/admin-servicios.css">
     <link rel="stylesheet" href="../footer/footer_admin.css">
 
@@ -38,146 +40,160 @@ SECCIÓN PRINCIPAL DE SERVICIOS
 ============================================ -->
     <section class="services-container" aria-label="Gestión de servicios">
 
-        <!-- ============================================
-    ENCABEZADO DE LA SECCIÓN
-    ============================================ -->
-        <header class="page-header">
-            <div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+        <!-- Encabezado -->
+        <header class="encabezadoProductos">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
                 <div>
-                    <h1>
-                        Gestión de Servicios
-                    </h1>
-                    <p>Administra los servicios que se mostrarán en los apartados del usuario.</p>
+                    <h1> Gestión de Productos </h1>
+                    <p> Administra mangas, figuras y merchandising disponibles en la tienda.</p>
                 </div>
+
                 <div>
-                    <span class="badge bg-primary bg-opacity-10 text-primary p-2">
-                        <i class="bi bi-info-circle" aria-hidden="true"></i>
-                        Total: <span id="totalCount" aria-label="Total de servicios">8</span> servicios
+                    <span class="badge badgeProductos">
+                        <i class="bi bi-box-seam"></i> Total: <span id="contadorProductosTotal"> 0 </span> productos
                     </span>
                 </div>
             </div>
         </header>
 
-        <!-- ============================================
-    BARRA DE HERRAMIENTAS
-    ============================================ -->
-        <div class="toolbar" role="toolbar" aria-label="Barra de herramientas de servicios">
+        <!-- Barra superior -->
 
-            <!-- Buscador -->
-            <div class="search-box" role="search">
-                <i class="bi bi-search" aria-hidden="true"></i>
-                <input type="text" id="searchInput" class="form-control" placeholder="Buscar servicios..."
-                    aria-label="Buscar servicios por nombre o descripción" />
+        <div class="barraHerramientasProductos">
+
+            <div class="buscadorProductos">
+                <i class="bi bi-search"></i>
+                <input type="text" id="buscadorProductos" placeholder="Buscar productos...">
             </div>
 
             <!-- Filtros -->
-            <div class="filter-group" role="group" aria-label="Filtros de estado">
-                <button class="btn btn-filter btn-outline-secondary" id="filterAll" aria-pressed="true">
-                    <i class="bi bi-list" aria-hidden="true"></i> Todos
+
+            <div class="grupoFiltrosProductos">
+                <button id="filtroTodos" class="btn btnFiltroProducto">
+                    <i class="bi bi-grid"></i> Todos</button>
+                <button id="filtroMangas" class="btn btnFiltroProducto"> <i class="bi bi-book"></i> Mangas</button>
+                <button id="filtroFiguras" class="btn btnFiltroProducto"><i class="bi bi-person-standing"></i> Figuras
                 </button>
-                <button class="btn btn-filter btn-outline-success" id="filterActive" aria-pressed="false">
-                    <i class="bi bi-check-circle" aria-hidden="true"></i> Activos
-                </button>
-                <button class="btn btn-filter btn-outline-danger" id="filterInactive" aria-pressed="false">
-                    <i class="bi bi-x-circle" aria-hidden="true"></i> Inactivos
-                </button>
-                <button class="btn btn-filter btn-outline-secondary" id="clearFilters">
-                    <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Limpiar
-                </button>
+                <button id="filtroMerch" class="btn btnFiltroProducto"> <i class="bi bi-bag"></i> Merch </button>
+                <button id="limpiarFiltros" class="btn btnFiltroProducto"> <i class="bi bi-arrow-counterclockwise"></i>
+                    Limpiar </button>
             </div>
 
-            <!-- Botón Agregar -->
-            <button class="btn btn-add" data-bs-toggle="modal" data-bs-target="#addServiceModal"
-                aria-label="Agregar nuevo servicio">
-                <i class="bi bi-plus-lg" aria-hidden="true"></i> Agregar servicio
-            </button>
+            <!-- Agregar -->
+            <button class="btn botonAgregarProducto" id="botonAgregarProducto"><i class="bi bi-plus-lg"></i> Agregar
+                producto </button>
         </div>
 
-        <!-- CONTADOR DE RESULTADOS -->
-        <div class="results-count" aria-live="polite">
-            Mostrando <span id="visibleCount" aria-label="Servicios visibles">8</span> servicios
+        <!-- Contador -->
+        <div class="contadorResultadosProductos"> Mostrando <span id="contadorProductosVisibles"> 0 </span> productos
         </div>
 
-        <!-- Cards de servicios -->
-        <div class="row g-4" id="servicesGrid"></div>
-
+        <!-- Categorías -->
+        <div id="contenedorProductos"></div>
     </section>
 
-    <!-- Ventana agregar -->
-    <div id="modalAgregarServicio" class="fondoModal">
+
+    <!-- MODAL AGREGAR PRODUCTO -->
+    <div id="modalAgregarProducto" class="fondoModal">
         <div class="ventanaModal">
+
             <div class="encabezadoModal">
-                <h2>Agregar servicio</h2>
-                <button id="cerrarModalAgregar" class="botonCerrarModal">&times;</button>
+                <h2> Agregar producto </h2>
+                <button id="cerrarModalAgregar" class="botonCerrarModal"> &times; </button>
             </div>
 
-            <form id="formularioAgregarServicio">
+            <form id="formularioAgregarProducto">
                 <div class="grupoCampo">
-                    <label for="imagenServicioAgregar">Imagen</label>
-                    <input type="file" id="imagenServicioAgregar" accept="image/*">
+                    <label for="imagenProductoAgregar"> Imagen </label>
+                    <input type="file" id="imagenProductoAgregar" accept="image/*">
                 </div>
 
                 <div class="grupoCampo">
-                    <label for="nombreServicioAgregar">Nombre del servicio</label>
-                    <input type="text" id="nombreServicioAgregar" required>
+                    <label for="nombreProductoAgregar"> Nombre </label>
+                    <input type="text" id="nombreProductoAgregar" required>
                 </div>
 
                 <div class="grupoCampo">
-                    <label for="descripcionServicioAgregar">Descripción</label>
-                    <textarea id="descripcionServicioAgregar" rows="4" required></textarea>
+                    <label for="descripcionProductoAgregar"> Descripción</label>
+                    <textarea id="descripcionProductoAgregar" rows="4" required></textarea>
                 </div>
 
                 <div class="grupoCampo">
-                    <label for="precioServicioAgregar">Precio</label>
-                    <input type="number" id="precioServicioAgregar" required>
+                    <label for="categoriaProductoAgregar"> Categoría </label>
+                    <select id="categoriaProductoAgregar" required>
+                        <option value=""> Selecciona una categoría </option>
+                        <option value="manga"> Manga </option>
+                        <option value="figura"> Figura </option>
+                        <option value="merch"> Merch </option>
+                    </select>
                 </div>
 
-                <button type="submit" class="botonGuardarServicio">
-                    Guardar servicio
-                </button>
+                <div class="grupoCampo">
+                    <label for="precioProductoAgregar"> Precio </label>
+                    <input type="number" id="precioProductoAgregar" required>
+                </div>
+
+                <div class="grupoCampo">
+                    <label for="stockProductoAgregar"> Stock disponible </label>
+                    <input type="number" id="stockProductoAgregar" required>
+                </div>
+
+                <button type="submit" class="botonGuardarProducto"> Guardar producto </button>
             </form>
         </div>
     </div>
 
-    <!-- Ventana editar servicio -->
-    <div id="modalEditarServicio" class="fondoModal">
+
+    <!-- MODAL EDITAR PRODUCTO -->
+    <div id="modalEditarProducto" class="fondoModal">
         <div class="ventanaModal">
+
             <div class="encabezadoModal">
-                <h2>Editar servicio</h2>
-                <button id="cerrarModalEditar" class="botonCerrarModal">&times;</button>
+                <h2> Editar producto </h2>
+                <button id="cerrarModalEditar" class="botonCerrarModal"> &times; </button>
             </div>
 
-            <form id="formularioEditarServicio">
-
-                <input type="hidden" id="idServicioEditar">
+            <form id="formularioEditarProducto">
+                <input type="hidden" id="idProductoEditar">
 
                 <div class="grupoCampo">
-                    <label for="imagenServicioEditar">Imagen</label>
-                    <input type="file" id="imagenServicioEditar" accept="image/*">
+                    <label for="imagenProductoEditar"> Imagen </label>
+                    <input type="file" id="imagenProductoEditar" accept="image/*">
                 </div>
 
                 <div class="grupoCampo">
-                    <label for="nombreServicioEditar">Nombre del servicio</label>
-                    <input type="text" id="nombreServicioEditar" required>
+                    <label for="nombreProductoEditar"> Nombre </label>
+                    <input type="text" id="nombreProductoEditar" required>
                 </div>
 
                 <div class="grupoCampo">
-                    <label for="descripcionServicioEditar">Descripción</label>
-                    <textarea id="descripcionServicioEditar" rows="4" required></textarea>
+                    <label for="descripcionProductoEditar"> Descripción </label>
+                    <textarea id="descripcionProductoEditar" rows="4" required></textarea>
                 </div>
 
                 <div class="grupoCampo">
-                    <label for="precioServicioEditar">Precio</label>
-                    <input type="number" id="precioServicioEditar" required>
+                    <label for="categoriaProductoEditar"> Categoría </label>
+                    <select id="categoriaProductoEditar" required>
+                        <option value="manga"> Manga </option>
+                        <option value="figura"> Figura </option>
+                        <option value="merch"> Merch </option>
+                    </select>
                 </div>
 
-                <button type="submit" class="botonGuardarServicio">
-                    Actualizar servicio
-                </button>
+                <div class="grupoCampo">
+                    <label for="precioProductoEditar"> Precio </label>
+                    <input type="number" id="precioProductoEditar" required>
+                </div>
 
+                <div class="grupoCampo">
+                    <label for="stockProductoEditar"> Stock disponible </label>
+                    <input type="number" id="stockProductoEditar" required>
+                </div>
+
+                <button type="submit" class="botonGuardarProducto"> Actualizar producto </button>
             </form>
         </div>
     </div>
+
     <div id="footer-container"></div>
 
     <script src="../navbar/navbar-admin.js"></script>

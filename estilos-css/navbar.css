@@ -1,7 +1,6 @@
 /* ========================================== */
-/* NAVBAR ANIME ECOMMERCE - KUMO              */
-/* FUENTE: Nunito (400 y 700)                 */
-/* PALETA: #8316ED #FD0C7D #E0E0E0 #D5D5D5 #282121 */
+/* NAVBAR KUMO - ESTILO CLARO                 */
+/* ARMONIZADO CON EL FOOTER                   */
 /* ========================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
@@ -16,10 +15,10 @@
 
 /* ===== NAVBAR PRINCIPAL ===== */
 .navbar-kumo {
-    background: #282121;
+    background: #ffffff;  /* ✅ Fondo claro */
     padding: 16px 0 0 0;
     border-bottom: 4px solid #8316ED;
-    box-shadow: 0 4px 30px rgba(131, 22, 237, 0.3);
+    box-shadow: 0 4px 30px rgba(131, 22, 237, 0.15);
     position: sticky;
     top: 0;
     z-index: 1050;
@@ -27,7 +26,7 @@
 }
 
 .navbar-kumo.scrolled {
-    box-shadow: 0 4px 40px rgba(131, 22, 237, 0.5);
+    box-shadow: 0 4px 40px rgba(131, 22, 237, 0.2);
 }
 
 .container-kumo {
@@ -64,24 +63,24 @@
 
 .logo-img:hover {
     transform: rotate(-6deg) scale(1.08);
-    filter: drop-shadow(0 0 20px rgba(131, 22, 237, 0.4));
+    filter: drop-shadow(0 0 20px rgba(131, 22, 237, 0.3));
 }
 
 .logo-text {
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
     font-size: 2rem;
-    color: #FFFFFF;
+    color: #282121;  /* ✅ Texto oscuro */
     letter-spacing: 2px;
     text-transform: uppercase;
     transition: all 0.4s ease;
-    text-shadow: 0 0 20px rgba(131, 22, 237, 0.2);
+    text-shadow: 0 0 20px rgba(131, 22, 237, 0.05);
 }
 
 .logo-text:hover {
     color: #8316ED;
     transform: scale(1.02);
-    text-shadow: 0 0 40px rgba(131, 22, 237, 0.4);
+    text-shadow: 0 0 40px rgba(131, 22, 237, 0.2);
 }
 
 /* ===== BUSCADOR ===== */
@@ -97,7 +96,7 @@
     left: 16px;
     top: 50%;
     transform: translateY(-50%);
-    color: #D5D5D5;
+    color: #888;
     font-size: 1.1rem;
     transition: color 0.3s ease;
 }
@@ -107,7 +106,7 @@
     padding: 12px 16px 12px 48px;
     border: 2px solid #D5D5D5;
     border-radius: 40px;
-    background: #E0E0E0;
+    background: #f5f5f5;
     color: #282121;
     font-family: 'Nunito', sans-serif;
     font-weight: 400;
@@ -117,15 +116,15 @@
 }
 
 .search-wrapper input::placeholder {
-    color: #282121;
+    color: #999;
     font-weight: 400;
-    opacity: 0.5;
+    opacity: 0.7;
 }
 
 .search-wrapper input:focus {
     border-color: #8316ED;
-    box-shadow: 0 0 30px rgba(131, 22, 237, 0.2);
-    background: #FFFFFF;
+    box-shadow: 0 0 30px rgba(131, 22, 237, 0.1);
+    background: #ffffff;
     transform: scale(1.02);
 }
 
@@ -145,7 +144,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #D5D5D5;
+    color: #282121;  /* ✅ Texto oscuro */
     text-decoration: none;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
@@ -154,30 +153,29 @@
     padding: 6px 12px;
     border-radius: 30px;
     position: relative;
-
 }
 
 .icon-link i {
     font-size: 1.9rem;
-    color: #D5D5D5;
+    color: #282121;  /* ✅ Iconos oscuros */
     transition: all 0.4s ease;
 }
 
 .icon-link span {
-    color: #D5D5D5;
+    color: #282121;  /* ✅ Texto oscuro */
     transition: color 0.3s ease;
     font-size: 1.6rem;
 }
 
 .icon-link:hover {
-    background: rgba(131, 22, 237, 0.12);
+    background: rgba(131, 22, 237, 0.08);
     transform: translateY(-2px);
 }
 
 .icon-link:hover i {
     color: #8316ED;
     transform: scale(1.2) rotate(-5deg);
-    text-shadow: 0 0 30px rgba(131, 22, 237, 0.3);
+    text-shadow: 0 0 30px rgba(131, 22, 237, 0.2);
 }
 
 .icon-link:hover span {
@@ -214,7 +212,7 @@
     display: none;
     background: none;
     border: none;
-    color: #D5D5D5;
+    color: #282121;  /* ✅ Oscuro */
     font-size: 2rem;
     cursor: pointer;
     padding: 4px 8px;
@@ -238,7 +236,7 @@
 }
 
 .menu-link {
-    color: #D5D5D5;
+    color: #282121;  /* ✅ Texto oscuro */
     text-decoration: none;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
@@ -272,7 +270,7 @@
 }
 
 .menu-link:hover {
-    color: #FFFFFF;
+    color: #8316ED;  /* ✅ Morado al hover */
     transform: translateY(-3px);
 }
 
@@ -288,22 +286,138 @@
     width: 100%;
 }
 
-/* Efecto de destello al hover */
-.menu-link::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle, rgba(131, 22, 237, 0.1), transparent 60%);
-    opacity: 0;
-    transition: all 0.6s ease;
-    pointer-events: none;
+/* ========================================== */
+/* MENÚ DE USUARIO - ESTILOS                  */
+/* ========================================== */
+
+.user-menu-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.menu-link:hover::before {
-    opacity: 1;
+/* === BOTÓN DEL USUARIO LOGUEADO === */
+.btn-user-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    padding: 6px 16px 6px 12px;
+    color: #282121;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-user-dropdown:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
+.btn-user-dropdown i {
+    font-size: 1.2rem;
+    color: #8316ED;
+}
+
+.btn-user-dropdown .user-name {
+    max-width: 120px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.9rem;
+}
+
+.btn-user-dropdown .bi-chevron-down {
+    font-size: 0.9rem;
+    color: rgba(0, 0, 0, 0.3);
+}
+
+/* === BOTONES LOGIN / REGISTRO === */
+.btn-login {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: transparent;
+    color: #282121 !important;
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-login:hover {
+    border-color: #8316ED;
+    background: rgba(131, 22, 237, 0.05);
+    color: #8316ED !important;
+}
+
+.btn-registro {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
+    color: #fff !important;
+    border: none;
+    padding: 6px 18px;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-registro:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(253, 12, 125, 0.3);
+}
+
+/* === DROPDOWN MENU === */
+.dropdown-menu {
+    border-radius: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    padding: 8px;
+    min-width: 200px;
+    background: #ffffff;
+}
+
+.dropdown-item {
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: #282121;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background: rgba(131, 22, 237, 0.08);
+    color: #8316ED;
+}
+
+.dropdown-item i {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.dropdown-item.text-danger {
+    color: #FD0C7D !important;
+}
+
+.dropdown-item.text-danger:hover {
+    background: rgba(253, 12, 125, 0.1);
+    color: #FD0C7D !important;
+}
+
+.dropdown-divider {
+    border-color: rgba(0, 0, 0, 0.06);
 }
 
 /* ========================================== */
@@ -351,7 +465,7 @@
         width: 100%;
         text-align: center;
         border-radius: 12px;
-        background: rgba(255, 255, 255, 0.05);
+        background: rgba(0, 0, 0, 0.03);
         transition: all 0.3s ease;
     }
 
@@ -359,12 +473,8 @@
         display: none;
     }
 
-    .menu-link::before {
-        display: none;
-    }
-
     .menu-link:hover {
-        background: rgba(131, 22, 237, 0.15);
+        background: rgba(131, 22, 237, 0.08);
         transform: none;
     }
 
@@ -382,6 +492,22 @@
 
     .logo-img {
         height: 38px;
+    }
+
+    .user-menu-container {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .btn-user-dropdown .user-name {
+        max-width: 80px;
+    }
+
+    .btn-login,
+    .btn-registro {
+        font-size: 0.75rem;
+        padding: 4px 12px;
     }
 }
 
@@ -415,165 +541,7 @@
         font-size: 0.85rem;
         padding: 10px 12px;
     }
-}
 
-
-/* ========================================== */
-/* MENÚ DE USUARIO - ESTILOS                  */
-/* ========================================== */
-
-.user-menu-container {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-}
-
-/* === BOTÓN DEL USUARIO LOGUEADO === */
-.btn-user-dropdown {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 50px;
-    padding: 6px 16px 6px 12px;
-    color: #fff;
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.btn-user-dropdown:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.25);
-}
-
-.btn-user-dropdown i {
-    font-size: 1.2rem;
-    color: #FD0C7D;
-}
-
-.btn-user-dropdown .user-name {
-    max-width: 120px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-size: 0.9rem;
-}
-
-.btn-user-dropdown .bi-chevron-down {
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.4);
-}
-
-/* === BOTONES LOGIN / REGISTRO === */
-.btn-login {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: transparent;
-    color: #fff !important;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    padding: 6px 18px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.btn-login:hover {
-    border-color: #FD0C7D;
-    background: rgba(253, 12, 125, 0.1);
-}
-
-.btn-registro {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: linear-gradient(90deg, #8316ED, #FD0C7D);
-    color: #fff !important;
-    border: none;
-    padding: 6px 18px;
-    border-radius: 50px;
-    font-weight: 600;
-    font-size: 0.85rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.btn-registro:hover {
-    transform: scale(1.05);
-    box-shadow: 0 4px 15px rgba(253, 12, 125, 0.3);
-}
-
-/* === DROPDOWN MENU === */
-.dropdown-menu {
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
-    padding: 8px;
-    min-width: 200px;
-    background: #1a1a2e;
-}
-
-.dropdown-item {
-    border-radius: 8px;
-    padding: 8px 12px;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.dropdown-item:hover {
-    background: rgba(131, 22, 237, 0.2);
-    color: #fff;
-}
-
-.dropdown-item i {
-    margin-right: 10px;
-    font-size: 1.1rem;
-}
-
-.dropdown-item.text-danger {
-    color: #FD0C7D !important;
-}
-
-.dropdown-item.text-danger:hover {
-    background: rgba(253, 12, 125, 0.15);
-    color: #FD0C7D !important;
-}
-
-.dropdown-divider {
-    border-color: rgba(255, 255, 255, 0.06);
-}
-
-/* ========================================== */
-/* RESPONSIVE                                 */
-/* ========================================== */
-
-@media (max-width: 992px) {
-    .user-menu-container {
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .btn-user-dropdown .user-name {
-        max-width: 80px;
-    }
-
-    .btn-login,
-    .btn-registro {
-        font-size: 0.75rem;
-        padding: 4px 12px;
-    }
-}
-
-@media (max-width: 576px) {
     .btn-user-dropdown {
         padding: 4px 12px 4px 8px;
         font-size: 0.8rem;
@@ -590,101 +558,20 @@
     }
 }
 
-
 /* ========================================== */
-/* OFFCANVAS DEL CARRITO - ESTILOS            */
+/* OFFCANVAS - Z-INDEX CORREGIDO              */
 /* ========================================== */
 
-.text-fucsia {
-    color: #FF007F;
+/* Asegurar que el offcanvas esté por encima de todo */
+.offcanvas {
+    z-index: 1060 !important;
 }
 
-.text-fucsia-neon {
-    color: #FF007F;
-    text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+.offcanvas-backdrop {
+    z-index: 1050 !important;
 }
 
-.btn-neon-fucsia {
-    background: linear-gradient(135deg, #FF007F, #D4006A);
-    color: white;
-    border: none;
-    transition: all 0.3s ease;
-    font-weight: 700;
-}
-
-.btn-neon-fucsia:hover {
-    transform: scale(1.02);
-    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
-    color: white;
-}
-
-.btn-outline-fucsia {
-    background: transparent;
-    color: #FF007F;
-    border: 2px solid #FF007F;
-    transition: all 0.3s ease;
-}
-
-.btn-outline-fucsia:hover {
-    background: #FF007F;
-    color: white;
-}
-
-.link-hover-fucsia:hover {
-    color: #FF007F !important;
-}
-
-.offcanvas-footer {
-    position: sticky;
-    bottom: 0;
-    background: #1b1618;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Estilos para las tarjetas dentro del offcanvas */
-.style-tarjeta-producto {
-    background: rgba(255, 255, 255, 0.05) !important;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
-    transition: all 0.3s ease;
-}
-
-.style-tarjeta-producto:hover {
-    background: rgba(255, 255, 255, 0.08) !important;
-    transform: translateX(-3px);
-}
-
-.style-tarjeta-producto .text-dark {
-    color: #fff !important;
-}
-
-.style-tarjeta-producto .text-muted {
-    color: rgba(255, 255, 255, 0.6) !important;
-}
-
-.style-tarjeta-producto .btn-dark {
-    background: rgba(255, 255, 255, 0.1);
-    border: none;
-    color: #fff;
-}
-
-.style-tarjeta-producto .btn-dark:hover {
-    background: rgba(255, 255, 255, 0.2);
-}
-
-/* Botones de cantidad en el offcanvas */
-.style-tarjeta-producto .btn-restar,
-.style-tarjeta-producto .btn-sumar {
-    color: #fff !important;
-}
-
-.style-tarjeta-producto .btn-restar:hover,
-.style-tarjeta-producto .btn-sumar:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-}
-
-
-/* Fondo y contenedor del offcanvas */
+/* Asegurar que el offcanvas tenga fondo oscuro */
 .offcanvas {
     background-color: #1b1618 !important;
     color: white !important;
@@ -694,7 +581,7 @@
     border-left: 2px solid #ff007f !important;
 }
 
-/* Títulos del offcanvas */
+/* Títulos */
 .offcanvas-title {
     color: #FF007F !important;
 }
@@ -702,40 +589,4 @@
 /* Botón de cerrar */
 .btn-close-white {
     filter: invert(1) grayscale(100%) brightness(200%) !important;
-}
-
-/* Asegurar que el offcanvas esté por encima del navbar */
-.offcanvas {
-    z-index: 1060 !important;
-}
-
-.offcanvas-backdrop {
-    z-index: 1050 !important;
-}
-
-/* Color del subtotal en el offcanvas */
-#subtotalCarrito {
-    color: #FF007F !important;
-}
-
-/* Asegurar que el texto sea blanco en el offcanvas */
-.offcanvas-body {
-    color: white !important;
-}
-
-.offcanvas-body .text-white {
-    color: white !important;
-}
-
-.offcanvas-body .text-white-50 {
-    color: rgba(255, 255, 255, 0.5) !important;
-}
-
-/* Botón "Vaciar Carrito" en el offcanvas */
-#btnVaciarCarrito {
-    color: rgba(255, 255, 255, 0.5) !important;
-}
-
-#btnVaciarCarrito:hover {
-    color: #FF007F !important;
 }

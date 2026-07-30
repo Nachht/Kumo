@@ -1,5 +1,5 @@
 // =============================================
-// CARRITO.JS - VERSIÓN CORREGIDA
+// CARRITO.JS - VERSIÓN COMPLETA
 // =============================================
 
 console.log('📦 carrito.js cargado');
@@ -35,60 +35,127 @@ function actualizarBadge() {
 }
 
 // ===== RENDERIZAR TODO EL CARRITO =====
+// ===== RENDERIZAR TODO EL CARRITO =====
 function renderizarCarrito() {
     console.log('🔄 Renderizando carrito...');
     
     const carrito = cargarCarrito();
     console.log('📦 Carrito:', carrito);
     
+    // =============================================
+    // 1. RENDERIZAR OFFCANVAS (contenedorArticulos)
+    // =============================================
     const contenedor = document.getElementById("contenedorArticulos");
-    console.log('📦 Contenedor encontrado:', contenedor);
+    console.log('📦 Contenedor offcanvas:', contenedor);
 
-    if (!contenedor) {
-        console.warn('⚠️ No se encontró #contenedorArticulos');
-        return;
-    }
+    if (contenedor) {
+        contenedor.innerHTML = "";
 
-    contenedor.innerHTML = "";
-
-    if (carrito.length === 0) {
-        contenedor.innerHTML = `
-            <div class="text-center py-5 w-100">
-                <i class="bi bi-cart-x text-white-50" style="font-size: 3.5rem;"></i>
-                <h5 class="mt-3 text-white fw-bold">Tu carrito está vacío</h5>
-                <p class="text-white-50 small">Explora nuestro catálogo y agrega figuras.</p>
-            </div>
-        `;
-        console.log('✅ Carrito vacío renderizado');
-    } else {
-        carrito.forEach((articulo, index) => {
-            const tarjeta = document.createElement("div");
-            tarjeta.className = "card border-0 rounded-3 p-3 text-dark style-tarjeta-producto mb-2";
-            tarjeta.style.backgroundColor = "white";
-
-            tarjeta.innerHTML = `
-                <div class="d-flex align-items-center gap-3">
-                    <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-2 object-fit-cover" style="width: 70px; height: 70px;">
-                    
-                    <div class="flex-grow-1">
-                        <h6 class="fw-bold m-0 mb-1 text-dark text-truncate" style="max-width: 130px;">${articulo.nombre}</h6>
-                        <span class="text-muted small d-block">${formatearPrecio(articulo.precio)}</span>
-                    </div>
-
-                    <div class="control-cantidad d-flex align-items-center border rounded bg-light px-1">
-                        <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-dark" data-index="${index}">−</button>
-                        <span class="px-2 fw-bold small text-dark">${articulo.cantidad}</span>
-                        <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-dark" data-index="${index}">+</button>
-                    </div>
-
-                    <button class="btn p-0 border-0 text-danger ms-1 btn-eliminar" data-index="${index}" title="Eliminar">
-                        <i class="bi bi-trash fs-5"></i>
-                    </button>
+        if (carrito.length === 0) {
+            contenedor.innerHTML = `
+                <div class="text-center py-5 w-100">
+                    <i class="bi bi-cart-x text-white-50" style="font-size: 3.5rem;"></i>
+                    <h5 class="mt-3 text-white fw-bold">Tu carrito está vacío</h5>
+                    <p class="text-white-50 small">Explora nuestro catálogo y agrega figuras.</p>
                 </div>
             `;
-            contenedor.appendChild(tarjeta);
+            console.log('✅ Offcanvas: carrito vacío');
+        } else {
+            carrito.forEach((articulo, index) => {
+                const tarjeta = document.createElement("div");
+                tarjeta.className = "card border-0 rounded-3 p-3 text-dark style-tarjeta-producto mb-2";
+                tarjeta.style.backgroundColor = "white";
+
+                tarjeta.innerHTML = `
+                    <div class="d-flex align-items-center gap-3">
+                        <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-2 object-fit-cover" style="width: 70px; height: 70px;">
+                        
+                        <div class="flex-grow-1">
+                            <h6 class="fw-bold m-0 mb-1 text-dark text-truncate" style="max-width: 130px;">${articulo.nombre}</h6>
+                            <span class="text-muted small d-block">${formatearPrecio(articulo.precio)}</span>
+                        </div>
+
+                        <div class="control-cantidad d-flex align-items-center border rounded bg-light px-1">
+                            <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-dark" data-index="${index}">−</button>
+                            <span class="px-2 fw-bold small text-dark">${articulo.cantidad}</span>
+                            <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-dark" data-index="${index}">+</button>
+                        </div>
+
+                        <button class="btn p-0 border-0 text-danger ms-1 btn-eliminar" data-index="${index}" title="Eliminar">
+                            <i class="bi bi-trash fs-5"></i>
+                        </button>
+                    </div>
+                `;
+                contenedor.appendChild(tarjeta);
+            });
+            console.log(`✅ Offcanvas: ${carrito.length} productos renderizados`);
+        }
+    } else {
+        console.warn('⚠️ No se encontró #contenedorArticulos');
+    }
+
+    // =============================================
+    // 2. RENDERIZAR PÁGINA PRINCIPAL (tablaCarritoPrincipal)
+    // =============================================
+    const tablaPrincipal = document.getElementById("tablaCarritoPrincipal");
+    console.log('📦 Contenedor página principal:', tablaPrincipal);
+
+    if (tablaPrincipal) {
+        console.log('✅ Renderizando página principal...');
+        tablaPrincipal.innerHTML = "";
+
+        if (carrito.length === 0) {
+            tablaPrincipal.innerHTML = `
+                <div class="card border-0 shadow-sm p-5 text-center bg-white rounded-4">
+                    <i class="bi bi-cart-x text-muted d-block mb-3 fs-1 opacity-50"></i>
+                    <h4 class="text-dark fw-bold mb-2">Tu carrito está vacío</h4>
+                    <p class="text-secondary mb-4 small">Explora el catálogo para agregar nuevos productos.</p>
+                    <a href="../catalogo/catalogo.html" class="btn btn-gradient-kumo text-white px-4 py-2 fw-bold text-uppercase rounded-pill mx-auto">
+                        Ir al Catálogo
+                    </a>
+                </div>
+            `;
+            console.log('✅ Página principal: carrito vacío');
+        } else {
+            carrito.forEach((articulo, index) => {
+                const tarjeta = document.createElement("div");
+                tarjeta.className = "card border-0 shadow-sm p-3 mb-3 bg-white rounded-4";
+
+                tarjeta.innerHTML = `
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="d-flex align-items-center gap-3">
+                            <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-3 object-fit-cover bg-light" style="width: 75px; height: 75px;">
+                            <div>
+                                <h5 class="fw-bold m-0 text-dark">${articulo.nombre}</h5>
+                                <span class="text-secondary small">${formatearPrecio(articulo.precio)}</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-center gap-4">
+                            <div class="d-flex align-items-center rounded-pill px-2 border bg-light">
+                                <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-dark" data-index="${index}">−</button>
+                                <span class="px-3 fw-bold text-dark">${articulo.cantidad}</span>
+                                <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-dark" data-index="${index}">+</button>
+                            </div>
+
+                            <span class="fw-bold fs-5 text-fucsia">${formatearPrecio(articulo.precio * articulo.cantidad)}</span>
+
+                            <button class="btn p-0 border-0 text-danger btn-eliminar ms-2" data-index="${index}" title="Eliminar producto">
+                                <i class="bi bi-trash3 fs-5"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                tablaPrincipal.appendChild(tarjeta);
+            });
+            console.log(`✅ Página principal: ${carrito.length} productos renderizados`);
+        }
+    } else {
+        console.warn('⚠️ No se encontró #tablaCarritoPrincipal en la página');
+        console.warn('⚠️ Los IDs disponibles son:');
+        document.querySelectorAll('[id]').forEach(el => {
+            console.log(`   - #${el.id}`);
         });
-        console.log(`✅ ${carrito.length} productos renderizados`);
     }
 
     actualizarTotales(carrito);
@@ -115,7 +182,6 @@ document.addEventListener("click", (e) => {
     } else if (btnComprar) {
         ejecutarCompra();
     } else if (btnAbrirCart) {
-        // Esperar a que el offcanvas se abra y luego renderizar
         setTimeout(renderizarCarrito, 300);
     }
 });
@@ -191,44 +257,16 @@ function ejecutarCompra() {
 }
 
 // =============================================
-// ✅ ESCUCHAR EVENTO NAVBARCARGADO
+// ✅ FORZAR ESTILOS DEL OFFCANVAS
 // =============================================
-document.addEventListener("navbarCargado", () => {
-    console.log('✅ Evento navbarCargado recibido en carrito.js');
-    renderizarCarrito();
-});
-
-// =============================================
-// ✅ ESCUCHAR APERTURA DEL OFFCANVAS
-// =============================================
-document.addEventListener("show.bs.offcanvas", (e) => {
-    if (e.target.id === "carritoKumo") {
-        console.log('✅ Offcanvas abriéndose, renderizando...');
-        renderizarCarrito();
-    }
-});
-
-// =============================================
-// ✅ EXPONER FUNCIONES GLOBALMENTE (para depuración)
-// =============================================
-window.renderizarCarrito = renderizarCarrito;
-window.cargarCarrito = cargarCarrito;
-window.actualizarBadge = actualizarBadge;
-
-console.log('✅ carrito.js cargado correctamente');
-
-
-
 function forzarEstilosOffcanvas() {
     const offcanvas = document.getElementById('carritoKumo');
     if (!offcanvas) return;
     
-    // Asegurar que el offcanvas tenga fondo oscuro
     offcanvas.style.backgroundColor = '#1b1618';
     offcanvas.style.color = 'white';
     offcanvas.style.borderLeft = '2px solid #ff007f';
     
-    // Asegurar que el subtotal tenga color fucsia
     const subtotal = document.getElementById('subtotalCarrito');
     if (subtotal) {
         subtotal.style.color = '#FF007F';
@@ -237,17 +275,45 @@ function forzarEstilosOffcanvas() {
     console.log('✅ Estilos del offcanvas forzados');
 }
 
-// Llamar a la función después de renderizar
+// =============================================
+// ✅ EVENTOS DE CARGA Y ACTUALIZACIÓN
+// =============================================
+
+// 1. Cuando el navbar se carga
 document.addEventListener("navbarCargado", () => {
-    console.log('✅ Evento navbarCargado recibido en carrito.js');
+    console.log('✅ navbarCargado recibido');
     renderizarCarrito();
     setTimeout(forzarEstilosOffcanvas, 100);
 });
 
+// 2. Cuando se abre el offcanvas
 document.addEventListener("show.bs.offcanvas", (e) => {
     if (e.target.id === "carritoKumo") {
-        console.log('✅ Offcanvas abriéndose, renderizando...');
+        console.log('✅ Offcanvas abriéndose');
         renderizarCarrito();
         setTimeout(forzarEstilosOffcanvas, 150);
     }
 });
+
+// 3. Cuando cambia el localStorage (desde otra pestaña)
+window.addEventListener('storage', function(e) {
+    if (e.key === 'carrito') {
+        console.log('🔄 Carrito actualizado en localStorage (otra pestaña)');
+        renderizarCarrito();
+    }
+});
+
+// 4. Cuando el DOM se carga
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📄 DOM cargado');
+    renderizarCarrito();
+});
+
+// =============================================
+// ✅ EXPONER FUNCIONES GLOBALMENTE
+// =============================================
+window.renderizarCarrito = renderizarCarrito;
+window.cargarCarrito = cargarCarrito;
+window.actualizarBadge = actualizarBadge;
+
+console.log('✅ carrito.js cargado correctamente');
