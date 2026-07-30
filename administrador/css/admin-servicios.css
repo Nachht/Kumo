@@ -9,6 +9,17 @@ body {
     background: #F5F7FB;
 }
 
+
+.contenido-principal {
+    flex: 1;
+}
+
+/* El footer se queda abajo */
+footer {
+    margin-top: auto;
+}
+
+
 .services-container {
     max-width: 1400px;
     margin: 40px auto;

@@ -4,136 +4,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contáctenos</title>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../estilos-css/contactenos.css">
+    <title>Contáctanos - Kumo</title>
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Google Fonts (Nunito) -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
     <link rel="icon" href="../assets/img/logo.png">
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="../estilos-css/contactenos.css">
+
 </head>
 
 <body>
 
-    <!-- ====== HEADER (RENDERIZADO POR JS) ====== -->
+    <!-- ====== NAVBAR ====== -->
     <script src="../js/navbar.js"></script>
 
-    <section class="contacto">
+    <!-- ========================================== -->
+    <!-- SECCIÓN CONTACTO - CON BOOTSTRAP GRID      -->
+    <!-- ========================================== -->
+    <main class="contacto">
 
-        <header class="page-header">
-    <div class="container-header">
+        <div class="container">
+            <div class="row g-4">
 
-        <!-- Breadcrumb alineado a la derecha -->
-        <nav aria-label="breadcrumb" class="breadcrumb-nav-right">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item">
-                    <a href="/inicio/index.html">
-                        <i class="bi bi-house-door"></i> Inicio
-                    </a>
-                </li>
-                <li class="breadcrumb-item active" aria-current="page">
-                    <i class="bi bi-envelope"></i> Contacto
-                </li>
-            </ol>
-        </nav>
+                <!-- ========================================== -->
+                <!-- COLUMNA IZQUIERDA: HEADER + INFO (col-lg-6) -->
+                <!-- ========================================== -->
+                <aside class="col-lg-5 col-xl-5 contacto-info" aria-label="Información de contacto">
 
-        <!-- Título y subtítulo -->
-        <div class="header-content">
-            <h1 class="page-title">
-                <i class="bi bi-envelope-fill"></i> Contáctenos
-            </h1>
-            <p class="page-subtitle">
-                Estamos aquí para ayudarte. Escríbenos y te responderemos lo antes posible.
-            </p>
-        </div>
+                    <!-- === BANNER / HEADER === -->
+                    <div class="info-header">
+                        <div class="manga-badge">✦ CONTACTO ✦</div>
+                        <h1 class="info-title">
+                            <span class="title-icon">📬</span>
+                            ¡Hablemos!
+                        </h1>
+                        <p class="info-subtitle">
+                            ¿Tienes dudas sobre tu pedido, algún producto o simplemente quieres saludar?
+                        </p>
+                        <div class="speed-lines">
+                            <span></span><span></span><span></span><span></span>
+                        </div>
+                    </div>
 
+                    <!-- === BOCADILLO MANGA === -->
+                    <div class="manga-speech-bubble">
+                        <p>💬 <strong>¡Escríbenos!</strong> Estamos listos para ayudarte.</p>
+                    </div>
+
+                    <!-- === DATOS DE CONTACTO === -->
+                    <div class="info-items">
+                        <div class="info-item">
+                            <span class="info-icon"><i class="bi bi-envelope-paper-fill"></i></span>
+                            <div>
+                                <span class="info-label">Correo</span>
+                                <strong>kumo@tiendaanime.com</strong>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon"><i class="bi bi-telephone-inbound-fill"></i></span>
+                            <div>
+                                <span class="info-label">Teléfono</span>
+                                <strong>+57 300 123 4567</strong>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon"><i class="bi bi-geo-alt-fill"></i></span>
+                            <div>
+                                <span class="info-label">Ubicación</span>
+                                <strong>Bogotá, Colombia</strong>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-icon"><i class="bi bi-clock-fill"></i></span>
+                            <div>
+                                <span class="info-label">Horario</span>
+                                <strong>Lun - Vie: 9am - 6pm</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- === IMAGEN MANGA === -->
+                    <div class="manga-image-container">
+                        <img src="../assets/img/contactenos.jpg" 
+                             alt="contactenos manga Kumo" 
+                             class="manga-image">
+                        <div class="manga-image-badge">✦ Kumo ✦</div>
+                    </div>
+
+                </aside>
+
+                <!-- ========================================== -->
+                <!-- COLUMNA DERECHA: FORMULARIO (col-lg-7)     -->
+                <!-- ========================================== -->
+                <section class="col-lg-7 col-xl-7 contacto-form" aria-label="Formulario de contacto">
+
+                    <div class="formulario-card">
+
+                        <div class="form-header">
+                            <h2 class="form-titulo">
+                                <i class="bi bi-chat-dots-fill"></i> Escríbenos
+                            </h2>
+                            <p class="form-subtitulo">
+                                ¡Cuéntanos qué necesitas!
+                            </p>
+                        </div>
+
+                        <form id="formularioContacto" novalidate>
+
+                            <div class="campo-group">
+    <label for="nombre">Nombre completo</label>
+    <div class="grupoInput">
+        <span class="iconoInput">
+            <i class="bi bi-person-fill"></i>
+        </span>
+        <input type="text" id="nombre" name="nombre" placeholder="escriba su nombre" autocomplete="name" required>
     </div>
-</header>
+    <small id="errorNombre"></small>
+</div>
 
-        <div class="contenedor">
+<!-- CORREO -->
+<div class="campo-group">
+    <label for="correo">Correo electrónico</label>
+    <div class="grupoInput">
+        <span class="iconoInput">
+            <i class="bi bi-envelope-fill"></i>
+        </span>
+        <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" autocomplete="email" required>
+    </div>
+    <small id="errorCorreo"></small>
+</div>
 
-            <!-- INFORMACIÓN -->
-            <div class="informacion">
+<!-- TELÉFONO -->
+<div class="campo-group">
+    <label for="telefono">Teléfono</label>
+    <div class="grupoInput">
+        <span class="iconoInput">
+            <i class="bi bi-telephone-fill"></i>
+        </span>
+        <input type="tel" id="telefono" name="telefono" placeholder="Escriba su teléfono" autocomplete="tel" required>
+    </div>
+    <small id="errorTelefono"></small>
+</div>
 
-                <div class="imagen">
-                    <img src="../assets/img/contacto.png" alt="Sobre de contacto">
-                </div>
+<!-- ASUNTO -->
+<div class="campo-group">
+    <label for="asunto">Asunto</label>
+    <div class="grupoInput">
+        <span class="iconoInput">
+            <i class="bi bi-tag-fill"></i>
+        </span>
+        <select id="asunto" name="asunto" required>
+            <option value="">Selecciona un motivo...</option>
+            <option value="consulta">Consulta sobre un producto</option>
+            <option value="pedido">Estado de mi pedido</option>
+            <option value="devolucion">Cambio o devolución</option>
+            <option value="sugerencia">Sugerencia de producto</option>
+            <option value="colaboracion">Colaboraciones</option>
+            <option value="otro">Otro</option>
+        </select>
+    </div>
+    <small id="errorAsunto"></small>
+</div>
 
-                <div class="datos">
+<!-- MENSAJE -->
+<div class="campo-group">
+    <label for="mensaje">Mensaje</label>
+    <div class="grupoInput">
+        <span class="iconoInput">
+            <i class="bi bi-chat-fill"></i>
+        </span>
+        <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea>
+    </div>
+    <small id="errorMensaje"></small>
+</div>
+                            <!-- BOTÓN -->
+                            <button type="submit" id="btnEnviar" class="manga-btn">
+                                <span class="btn-text"> Enviar mensaje</span>
+                                <span class="btn-effect"></span>
+                            </button>
 
-                    <p>
-                        📧 Correo electrónico
-                        <br>
-                        oneclickservice@gmail.com
-                    </p>
+                            <!-- MENSAJE GENERAL -->
+                            <p id="mensajeFormulario"></p>
 
-                    <p>
-                        ☎ Teléfono
-                        <br>
-                        +57 3001234567
-                    </p>
+                        </form>
 
-                    <p>
-                        📍 Ubicación
-                        <br>
-                        Bogotá, Colombia
-                    </p>
+                    </div>
 
-                </div>
-
-            </div>
-
-            <!-- FORMULARIO -->
-            <div class="formulario">
-
-                <!-- 🔥 FORM CON FORMSPREE -->
-                <form id="formulario" action="https://formspree.io/f/mrewbabj" method="POST">
-
-                    <!-- NOMBRE -->
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" placeholder="Mínimo 10 - Máximo 50 caracteres">
-
-                    <small id="errorNombre"></small>
-
-                    <!-- CORREO -->
-                    <label for="correo">Correo electrónico</label>
-                    <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com">
-
-                    <small id="errorCorreo"></small>
-
-                    <!-- TELÉFONO -->
-                    <label for="telefono">Teléfono</label>
-                    <input type="text" id="telefono" name="telefono" placeholder="Entre 7 y 10 números">
-
-                    <small id="errorTelefono"></small>
-
-                    <!-- MENSAJE -->
-                    <label for="mensaje">Mensaje</label>
-                    <textarea id="mensaje" name="mensaje" placeholder="Mínimo 15 - Máximo 100 caracteres"></textarea>
-
-                    <small id="errorMensaje"></small>
-
-                    <!-- PDF -->
-                    <label for="archivo">Adjuntar documento PDF</label>
-                    <input type="file" id="archivo" name="archivo" accept=".pdf,application/pdf">
-
-                    <small id="errorArchivo"></small>
-
-                    <!-- BOTÓN -->
-                    <button type="submit">
-                        Enviar Mensaje
-                    </button>
-
-                    <!-- MENSAJE GENERAL -->
-                    <p id="mensajeFormulario"></p>
-
-                </form>
+                </section>
 
             </div>
-
         </div>
 
-    </section>
+    </main>
 
-    <script src="../JS/contactenos.js"></script>
+    <!-- ====== FOOTER ====== -->
     <script src="../js/footer.js"></script>
+
+    <!-- ====== SCRIPTS ====== -->
+    <script src="../js/contactenos.js"></script>
 
 </body>
 

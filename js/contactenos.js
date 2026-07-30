@@ -1,214 +1,262 @@
-// ================= VARIABLES =================
+document.addEventListener("DOMContentLoaded", () => {
 
-const formulario = document.getElementById("formulario");
+    // ==========================================
+    // MENÚ LATERAL
+    // ==========================================
+    const menuBtn = document.getElementById("menuBtn");
+    const menu = document.getElementById("menu");
 
-const nombre = document.getElementById("nombre");
-const correo = document.getElementById("correo");
-const telefono = document.getElementById("telefono");
-const mensaje = document.getElementById("mensaje");
-const archivo = document.getElementById("archivo");
-
-const errorNombre = document.getElementById("errorNombre");
-const errorCorreo = document.getElementById("errorCorreo");
-const errorTelefono = document.getElementById("errorTelefono");
-const errorMensaje = document.getElementById("errorMensaje");
-const errorArchivo = document.getElementById("errorArchivo");
-
-const mensajeFormulario =
-    document.getElementById("mensajeFormulario");
-
-// ================= MENÚ =================
-
-const menuBtn = document.getElementById("menuBtn");
-const menu = document.getElementById("menu");
-
-menuBtn.addEventListener("click", () => {
-    menu.classList.toggle("activo");
-});
-
-// ================= VALIDACIÓN =================
-
-formulario.addEventListener("submit", function (e) {
-
-    e.preventDefault(); // SIEMPRE validamos primero
-
-    let valido = true;
-
-    mensajeFormulario.textContent = "";
-    mensajeFormulario.className = "";
-
-    // LIMPIAR MENSAJES
-    document.querySelectorAll("small").forEach(campo => {
-        campo.textContent = "";
-    });
-
-    // LIMPIAR ESTILOS
-    document.querySelectorAll("input, textarea").forEach(campo => {
-        campo.classList.remove("errorInput");
-        campo.classList.remove("successInput");
-    });
-
-    if (archivo) {
-        archivo.classList.remove("errorInput");
-        archivo.classList.remove("successInput");
+    if (menuBtn && menu) {
+        menuBtn.addEventListener("click", () => {
+            menu.classList.toggle("activo");
+        });
     }
 
-    // ================= NOMBRE =================
+    // ==========================================
+    // ELEMENTOS DEL FORMULARIO
+    // ==========================================
+    const formulario = document.getElementById("formularioContacto");
+    const nombre = document.getElementById("nombre");
+    const correo = document.getElementById("correo");
+    const telefono = document.getElementById("telefono");
+    const asunto = document.getElementById("asunto");
+    const mensaje = document.getElementById("mensaje");
 
-    const nombreValor = nombre.value.trim();
+    const errorNombre = document.getElementById("errorNombre");
+    const errorCorreo = document.getElementById("errorCorreo");
+    const errorTelefono = document.getElementById("errorTelefono");
+    const errorAsunto = document.getElementById("errorAsunto");
+    const errorMensaje = document.getElementById("errorMensaje");
 
-    if (nombreValor === "") {
-        errorNombre.textContent = "❌ El nombre es obligatorio";
-        nombre.classList.add("errorInput");
-        valido = false;
+    const mensajeFormulario = document.getElementById("mensajeFormulario");
 
-    } else if (nombreValor.length < 10) {
-        errorNombre.textContent = "❌ Mínimo 10 caracteres";
-        nombre.classList.add("errorInput");
-        valido = false;
+    // ==========================================
+    // CARGAR DATOS GUARDADOS (localStorage)
+    // ==========================================
+    function cargarDatosGuardados() {
+        const datos = JSON.parse(localStorage.getItem("contactoKumo")) || {};
 
-    } else if (nombreValor.length > 50) {
-        errorNombre.textContent = "❌ Máximo 50 caracteres";
-        nombre.classList.add("errorInput");
-        valido = false;
-
-    } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombreValor)) {
-        errorNombre.textContent = "❌ Solo letras y espacios";
-        nombre.classList.add("errorInput");
-        valido = false;
-
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])/.test(nombreValor)) {
-        errorNombre.textContent = "❌ Debe contener mayúsculas y minúsculas";
-        nombre.classList.add("errorInput");
-        valido = false;
-
-    } else {
-        errorNombre.textContent = "✔ Nombre válido";
-        nombre.classList.add("successInput");
+        if (datos.nombre) nombre.value = datos.nombre;
+        if (datos.correo) correo.value = datos.correo;
+        if (datos.telefono) telefono.value = datos.telefono;
+        if (datos.asunto) asunto.value = datos.asunto;
+        if (datos.mensaje) mensaje.value = datos.mensaje;
     }
 
-    // ================= CORREO =================
+    cargarDatosGuardados();
 
-    const correoValor = correo.value.trim();
-
-    const regexCorreo =
-        /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|co|org|net|edu|gov|info|biz)$/i;
-
-    if (correoValor === "") {
-        errorCorreo.textContent = "❌ El correo es obligatorio";
-        correo.classList.add("errorInput");
-        valido = false;
-
-    } else if (!correoValor.includes("@")) {
-        errorCorreo.textContent = "❌ Debe contener el símbolo @";
-        correo.classList.add("errorInput");
-        valido = false;
-
-    } else if (!regexCorreo.test(correoValor)) {
-        errorCorreo.textContent =
-            "❌ Ingrese un correo válido (ejemplo@gmail.com)";
-        correo.classList.add("errorInput");
-        valido = false;
-
-    } else {
-        errorCorreo.textContent = "✔ Correo válido";
-        correo.classList.add("successInput");
+    // ==========================================
+    // GUARDAR EN LOCALSTORAGE
+    // ==========================================
+    function guardarDatos() {
+        const datos = {
+            nombre: nombre.value.trim(),
+            correo: correo.value.trim(),
+            telefono: telefono.value.trim(),
+            asunto: asunto.value,
+            mensaje: mensaje.value.trim()
+        };
+        localStorage.setItem("contactoKumo", JSON.stringify(datos));
     }
 
-    // ================= TELÉFONO =================
+    nombre.addEventListener("input", guardarDatos);
+    correo.addEventListener("input", guardarDatos);
+    telefono.addEventListener("input", guardarDatos);
+    asunto.addEventListener("change", guardarDatos);
+    mensaje.addEventListener("input", guardarDatos);
 
-    const telefonoValor = telefono.value.trim();
 
-    if (telefonoValor === "") {
-        errorTelefono.textContent = "❌ El teléfono es obligatorio";
-        telefono.classList.add("errorInput");
-        valido = false;
+    // ==========================================
+    // FUNCIONES DE VALIDACIÓN
+    // ==========================================
 
-    } else if (!/^\d+$/.test(telefonoValor)) {
-        errorTelefono.textContent = "❌ Solo se permiten números";
-        telefono.classList.add("errorInput");
-        valido = false;
+    function validarNombre() {
+        const valor = nombre.value.trim();
+        let valido = true;
 
-    } else if (telefonoValor.length < 7) {
-        errorTelefono.textContent = "❌ Mínimo 7 dígitos";
-        telefono.classList.add("errorInput");
-        valido = false;
-
-    } else if (telefonoValor.length > 10) {
-        errorTelefono.textContent = "❌ Máximo 10 dígitos";
-        telefono.classList.add("errorInput");
-        valido = false;
-
-    } else {
-        errorTelefono.textContent = "✔ Teléfono válido";
-        telefono.classList.add("successInput");
-    }
-
-    // ================= MENSAJE =================
-
-    const mensajeValor = mensaje.value.trim();
-
-    if (mensajeValor === "") {
-        errorMensaje.textContent = "❌ El mensaje es obligatorio";
-        mensaje.classList.add("errorInput");
-        valido = false;
-
-    } else if (mensajeValor.length < 15) {
-        errorMensaje.textContent = "❌ Mínimo 15 caracteres";
-        mensaje.classList.add("errorInput");
-        valido = false;
-
-    } else if (mensajeValor.length > 100) {
-        errorMensaje.textContent = "❌ Máximo 100 caracteres";
-        mensaje.classList.add("errorInput");
-        valido = false;
-
-    } else {
-        errorMensaje.textContent = "✔ Mensaje válido";
-        mensaje.classList.add("successInput");
-    }
-
-    // ================= PDF (OPCIONAL) =================
-
-    if (archivo) {
-
-        if (archivo.files.length !== 0) {
-
-            const pdf = archivo.files[0];
-
-            if (pdf.type !== "application/pdf") {
-                errorArchivo.textContent = "❌ Solo PDF";
-                archivo.classList.add("errorInput");
-                valido = false;
-
-            } else if (pdf.size > 5000000) {
-                errorArchivo.textContent = "❌ Máx 5MB";
-                archivo.classList.add("errorInput");
-                valido = false;
-
-            } else {
-                errorArchivo.textContent = "✔ PDF válido";
-                archivo.classList.add("successInput");
-            }
+        if (valor === "") {
+            errorNombre.textContent = "❌ El nombre es obligatorio";
+            nombre.classList.add("errorInput");
+            nombre.classList.remove("successInput");
+            valido = false;
+        } else if (valor.length < 3) {
+            errorNombre.textContent = "❌ Mínimo 3 caracteres";
+            nombre.classList.add("errorInput");
+            nombre.classList.remove("successInput");
+            valido = false;
+        } else if (valor.length > 50) {
+            errorNombre.textContent = "❌ Máximo 50 caracteres";
+            nombre.classList.add("errorInput");
+            nombre.classList.remove("successInput");
+            valido = false;
+        } else if (!/^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/.test(valor)) {
+            errorNombre.textContent = "❌ Solo letras y espacios";
+            nombre.classList.add("errorInput");
+            nombre.classList.remove("successInput");
+            valido = false;
+        } else {
+            errorNombre.textContent = "✔ Nombre válido";
+            nombre.classList.remove("errorInput");
+            nombre.classList.add("successInput");
         }
+        return valido;
     }
 
-    // ================= ENVÍO FORMSPREE =================
+    function validarCorreo() {
+        const valor = correo.value.trim();
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|co|org|net|edu|info|biz)$/i;
+        let valido = true;
 
-    if (!valido) {
-
-        mensajeFormulario.textContent =
-            "❌ Corrija los campos marcados en rojo.";
-
-        mensajeFormulario.classList.add("mensajeError");
-        return;
+        if (valor === "") {
+            errorCorreo.textContent = "❌ El correo es obligatorio";
+            correo.classList.add("errorInput");
+            correo.classList.remove("successInput");
+            valido = false;
+        } else if (!regex.test(valor)) {
+            errorCorreo.textContent = "❌ Ingresa un correo válido (ejemplo@correo.com)";
+            correo.classList.add("errorInput");
+            correo.classList.remove("successInput");
+            valido = false;
+        } else {
+            errorCorreo.textContent = "✔ Correo válido";
+            correo.classList.remove("errorInput");
+            correo.classList.add("successInput");
+        }
+        return valido;
     }
 
-    // ✔ SI TODO ESTÁ BIEN → ENVIAR A FORMSPREE
-    mensajeFormulario.textContent = "✔ Enviando mensaje...";
-    mensajeFormulario.classList.add("mensajeExito");
+    function validarTelefono() {
+        const valor = telefono.value.trim();
+        let valido = true;
 
-    // permitir envío real
-    formulario.submit();
+        if (valor === "") {
+            errorTelefono.textContent = "❌ El teléfono es obligatorio";
+            telefono.classList.add("errorInput");
+            telefono.classList.remove("successInput");
+            valido = false;
+        } else if (!/^\d+$/.test(valor)) {
+            errorTelefono.textContent = "❌ Solo números";
+            telefono.classList.add("errorInput");
+            telefono.classList.remove("successInput");
+            valido = false;
+        } else if (valor.length < 7) {
+            errorTelefono.textContent = "❌ Mínimo 7 dígitos";
+            telefono.classList.add("errorInput");
+            telefono.classList.remove("successInput");
+            valido = false;
+        } else if (valor.length > 10) {
+            errorTelefono.textContent = "❌ Máximo 10 dígitos";
+            telefono.classList.add("errorInput");
+            telefono.classList.remove("successInput");
+            valido = false;
+        } else {
+            errorTelefono.textContent = "✔ Teléfono válido";
+            telefono.classList.remove("errorInput");
+            telefono.classList.add("successInput");
+        }
+        return valido;
+    }
+
+    function validarAsunto() {
+        const valor = asunto.value;
+        let valido = true;
+
+        if (valor === "") {
+            errorAsunto.textContent = "❌ Selecciona un asunto";
+            asunto.classList.add("errorInput");
+            asunto.classList.remove("successInput");
+            valido = false;
+        } else {
+            errorAsunto.textContent = "✔ Asunto seleccionado";
+            asunto.classList.remove("errorInput");
+            asunto.classList.add("successInput");
+        }
+        return valido;
+    }
+
+    function validarMensaje() {
+        const valor = mensaje.value.trim();
+        let valido = true;
+
+        if (valor === "") {
+            errorMensaje.textContent = "❌ El mensaje es obligatorio";
+            mensaje.classList.add("errorInput");
+            mensaje.classList.remove("successInput");
+            valido = false;
+        } else if (valor.length < 10) {
+            errorMensaje.textContent = "❌ Mínimo 10 caracteres";
+            mensaje.classList.add("errorInput");
+            mensaje.classList.remove("successInput");
+            valido = false;
+        } else if (valor.length > 300) {
+            errorMensaje.textContent = "❌ Máximo 300 caracteres";
+            mensaje.classList.add("errorInput");
+            mensaje.classList.remove("successInput");
+            valido = false;
+        } else {
+            errorMensaje.textContent = "✔ Mensaje válido";
+            mensaje.classList.remove("errorInput");
+            mensaje.classList.add("successInput");
+        }
+        return valido;
+    }
+
+    // ==========================================
+    // ENVÍO DEL FORMULARIO (SIN FORMSPREE)
+    // ==========================================
+    formulario.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const nombreOk = validarNombre();
+        const correoOk = validarCorreo();
+        const telefonoOk = validarTelefono();
+        const asuntoOk = validarAsunto();
+        const mensajeOk = validarMensaje();
+
+        if (!nombreOk || !correoOk || !telefonoOk || !asuntoOk || !mensajeOk) {
+            mensajeFormulario.textContent = "❌ Corrige los campos marcados en rojo antes de enviar.";
+            mensajeFormulario.className = "mensajeError";
+            return;
+        }
+
+        mensajeFormulario.textContent = "📨 Enviando mensaje...";
+        mensajeFormulario.className = "mensajeExito";
+
+        // Simular envío (delay de 1s)
+        setTimeout(() => {
+
+            // ===== ALERT DE ÉXITO =====
+            alert("✅ ¡Mensaje enviado con éxito!\n\nNos pondremos en contacto contigo pronto. 💜");
+
+            // Limpiar formulario
+            formulario.reset();
+
+            // Limpiar validaciones
+            document.querySelectorAll("small").forEach(campo => {
+                campo.textContent = "";
+            });
+            document.querySelectorAll("input, textarea, select").forEach(campo => {
+                campo.classList.remove("successInput", "errorInput");
+            });
+
+            mensajeFormulario.textContent = "";
+            mensajeFormulario.className = "";
+
+            // Eliminar datos guardados
+            localStorage.removeItem("contactoKumo");
+
+            // Guardar en historial
+            const historial = JSON.parse(localStorage.getItem("contactoKumoHistorial")) || [];
+            historial.push({
+                fecha: new Date().toLocaleString(),
+                nombre: nombre.value.trim(),
+                correo: correo.value.trim(),
+                asunto: asunto.value
+            });
+            localStorage.setItem("contactoKumoHistorial", JSON.stringify(historial));
+
+        }, 1000);
+
+    });
 
 });
