@@ -25,7 +25,7 @@ function cargarBootstrap() {
 }
 
 // =============================================
-// 2. FUNCIONES DE AUTENTICACIÓN (TUYAS)
+// 2. FUNCIONES DE AUTENTICACIÓN
 // =============================================
 
 function obtenerUsuarioLogueado() {
@@ -52,49 +52,69 @@ function cerrarSesion() {
 }
 
 // =============================================
-// 3. OFFCANVAS DEL CARRITO (AGREGADO DE TU COMPAÑERA)
+// 3. OFFCANVAS DEL CARRITO (VERSIÓN COMPLETA Y ESTILIZADA)
 // =============================================
 
 function prepararOffcanvasCarrito() {
     if (!document.getElementById("carritoKumo")) {
         const offcanvasHTML = `
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoKumo" aria-labelledby="carritoKumoLabel">
-                <!-- ENCABEZADO CON VACIAR -->
-                <div class="offcanvas-header border-bottom border-secondary border-opacity-25 d-flex justify-content-between align-items-center">
-                    <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia-neon m-0" id="carritoKumoLabel">
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="carritoKumo" aria-labelledby="carritoKumoLabel"
+                style="background-color: #1b1618; color: white; width: 380px; border-left: 2px solid #ff007f;">
+
+                <div class="offcanvas-header pt-4 pb-2 px-4 border-bottom border-secondary border-opacity-25">
+                    <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia" id="carritoKumoLabel"
+                        style="letter-spacing: 1px;">
                         CARRITO (<span id="cantidadArticulos">0</span>)
                     </h6>
-                    <div class="d-flex align-items-center gap-2">
-                        <button id="btnVaciarCarrito" class="btn btn-link text-white-50 text-decoration-none p-0 small fw-bold text-uppercase btn-vaciar-offcanvas">
-                            <i class="bi bi-trash3 me-1"></i> Vaciar
-                        </button>
-                        <button type="button" class="btn-close btn-close-white ms-2" id="cerrarOffcanvasManual" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"
+                        style="font-size: 0.8rem;"></button>
                 </div>
-                <!-- CUERPO DE PRODUCTOS -->
-                <div class="offcanvas-body">
+
+                <div class="offcanvas-body px-4 pt-3">
                     <div id="contenedorArticulos" class="d-flex flex-column gap-2"></div>
-                </div>
-                <!-- PIE DE PÁGINA FIJO CON BOTONES -->
-                <div class="offcanvas-footer">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
-                        <span class="small fw-bold text-white-50 text-uppercase" style="font-size: 0.75rem;">Subtotal</span>
-                        <span id="subtotalCarrito" class="fw-bold fs-5 text-fucsia-neon">$0</span>
+
+                    <div class="text-start mt-3">
+                        <button id="btnVaciarCarrito"
+                            class="btn btn-link text-white-50 text-decoration-none p-0 small fw-bold text-uppercase"
+                            style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                            Vaciar Carrito
+                        </button>
                     </div>
+                </div>
+
+                <div class="offcanvas-footer p-4 border-top border-secondary border-opacity-25">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="small fw-bold text-white-50 text-uppercase" style="letter-spacing: 0.5px;">Subtotal</span>
+                        <span id="subtotalCarrito" class="fw-bold fs-4 text-fucsia">$0</span>
+                    </div>
+
                     <div class="d-flex flex-column gap-2 text-center">
-                        <button id="btnComprar" class="btn btn-fucsia-led w-100 rounded-pill">COMPRAR</button>
-                        <a href="../carrito/carrito.html" class="btn btn-outline-fucsia-led w-100 rounded-pill">VER CARRITO COMPLETO</a>
-                        <button type="button" class="btn btn-link text-decoration-none text-uppercase fw-bold p-0 mt-1 btn-seguir-viendo" data-bs-dismiss="offcanvas">SEGUIR VIENDO</button>
+                        <button id="btnComprar" class="btn btn-neon-fucsia w-100 py-2.5 fw-bold text-uppercase rounded-3">
+                            Comprar
+                        </button>
+
+                        <a href="../carrito/carrito.html"
+                            class="btn btn-outline-fucsia w-100 py-2 fw-bold text-uppercase rounded-3 mt-1"
+                            style="font-size: 0.75rem; letter-spacing: 1px;">
+                            Ver carrito completo
+                        </a>
+
+                        <button type="button"
+                            class="btn btn-link text-white-50 text-decoration-none text-uppercase fw-bold p-0 mt-1"
+                            data-bs-dismiss="offcanvas" style="font-size: 0.75rem; letter-spacing: 0.5px;">
+                            Seguir viendo
+                        </button>
                     </div>
                 </div>
             </div>
         `;
         document.body.insertAdjacentHTML("beforeend", offcanvasHTML);
+        console.log('✅ Offcanvas del carrito preparado');
     }
 }
 
 // =============================================
-// 4. CARGAR NAVBAR (TU VERSIÓN CON RUTAS DINÁMICAS)
+// 4. CARGAR NAVBAR
 // =============================================
 
 function cargarNavbar() {
@@ -121,7 +141,7 @@ function cargarNavbar() {
         .then(data => {
             document.body.insertAdjacentHTML("afterbegin", data);
             
-            // AGREGADO: Preparar Offcanvas del carrito
+            // Preparar Offcanvas del carrito
             prepararOffcanvasCarrito();
             
             setTimeout(() => {
@@ -135,7 +155,7 @@ function cargarNavbar() {
 }
 
 // =============================================
-// 5. CREAR BADGE DEL CARRITO (TU VERSIÓN)
+// 5. CREAR BADGE DEL CARRITO
 // =============================================
 
 function crearBadge() {
@@ -163,7 +183,7 @@ function crearBadge() {
 }
 
 // =============================================
-// 6. ACTUALIZAR BADGE DEL CARRITO (TU VERSIÓN)
+// 6. ACTUALIZAR BADGE DEL CARRITO
 // =============================================
 
 function actualizarBadgeCarrito() {
@@ -200,7 +220,7 @@ function actualizarBadgeCarrito() {
 }
 
 // =============================================
-// 7. ACTUALIZAR MENÚ DE USUARIO (TU VERSIÓN)
+// 7. ACTUALIZAR MENÚ DE USUARIO
 // =============================================
 
 function actualizarMenuUsuario() {
@@ -253,7 +273,7 @@ function actualizarMenuUsuario() {
 }
 
 // =============================================
-// 8. INICIALIZAR DROPDOWNS (TU VERSIÓN)
+// 8. INICIALIZAR DROPDOWNS
 // =============================================
 
 function inicializarDropdowns() {
@@ -277,7 +297,7 @@ function inicializarDropdowns() {
 }
 
 // =============================================
-// 9. INICIALIZAR INTERACCIONES (TU VERSIÓN + Offcanvas)
+// 9. INICIALIZAR INTERACCIONES
 // =============================================
 
 function inicializarInteracciones() {
@@ -310,38 +330,33 @@ function inicializarInteracciones() {
     manejarBusqueda();
     marcarEnlaceActivo();
 
-    // ===== REDIRECCIÓN DEL CARRITO (TU VERSIÓN CON VERIFICACIÓN DE LOGIN) =====
+    // =============================================
+    // CARRITO - Offcanvas con verificación de login
+    // =============================================
     const carritoBtn = document.querySelector('.btn-cart-offcanvas');
     if (carritoBtn) {
-        carritoBtn.removeAttribute('data-bs-toggle');
-        carritoBtn.removeAttribute('data-bs-target');
-        carritoBtn.removeAttribute('aria-controls');
+        // ✅ NO eliminar data-bs-toggle ni data-bs-target
+        // El offcanvas se abre normalmente con Bootstrap
         
+        // Agregar verificación de login ANTES de abrir el offcanvas
         carritoBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            if (estaLogueado()) {
-                window.location.href = '../carrito/carrito.html';
-            } else {
-                window.location.href = '../inicio/index.html';
+            // Si NO está logueado, prevenir la apertura del offcanvas
+            if (!estaLogueado()) {
+                e.preventDefault();      // Evita que se abra el offcanvas
+                e.stopPropagation();     // Evita que el evento se propague
+                // Redirigir al login
+                window.location.href = '../inicio_sesion/inicio_sesion.html';
             }
+            // Si está logueado, el offcanvas se abre normalmente (no hacemos nada)
         });
-        console.log('✅ Redirección del carrito configurada (con verificación de login)');
-    }
-
-    // ===== MANEJAR APERTURA DEL OFFCANVAS DESDE EL NAVBAR =====
-    // Si el botón del carrito tiene data-bs-toggle, lo manejamos
-    const btnCarritoOffcanvas = document.querySelector('.btn-cart-offcanvas');
-    if (btnCarritoOffcanvas && !btnCarritoOffcanvas.hasAttribute('data-bs-toggle')) {
-        // Si no tiene el atributo, no hacemos nada porque ya manejamos la redirección
-        console.log('ℹ️ El carrito usa redirección en lugar de offcanvas');
+        console.log('✅ Offcanvas del carrito configurado (solo para logueados)');
     }
 
     setTimeout(inicializarDropdowns, 200);
 }
 
 // =============================================
-// 10. FUNCIONES AUXILIARES (TU VERSIÓN)
+// 10. FUNCIONES AUXILIARES
 // =============================================
 
 function marcarEnlaceActivo() {

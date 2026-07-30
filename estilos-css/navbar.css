@@ -589,3 +589,153 @@
         padding: 4px 10px;
     }
 }
+
+
+/* ========================================== */
+/* OFFCANVAS DEL CARRITO - ESTILOS            */
+/* ========================================== */
+
+.text-fucsia {
+    color: #FF007F;
+}
+
+.text-fucsia-neon {
+    color: #FF007F;
+    text-shadow: 0 0 10px rgba(255, 0, 127, 0.3);
+}
+
+.btn-neon-fucsia {
+    background: linear-gradient(135deg, #FF007F, #D4006A);
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+    font-weight: 700;
+}
+
+.btn-neon-fucsia:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px rgba(255, 0, 127, 0.4);
+    color: white;
+}
+
+.btn-outline-fucsia {
+    background: transparent;
+    color: #FF007F;
+    border: 2px solid #FF007F;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-fucsia:hover {
+    background: #FF007F;
+    color: white;
+}
+
+.link-hover-fucsia:hover {
+    color: #FF007F !important;
+}
+
+.offcanvas-footer {
+    position: sticky;
+    bottom: 0;
+    background: #1b1618;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Estilos para las tarjetas dentro del offcanvas */
+.style-tarjeta-producto {
+    background: rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    transition: all 0.3s ease;
+}
+
+.style-tarjeta-producto:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    transform: translateX(-3px);
+}
+
+.style-tarjeta-producto .text-dark {
+    color: #fff !important;
+}
+
+.style-tarjeta-producto .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.style-tarjeta-producto .btn-dark {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: #fff;
+}
+
+.style-tarjeta-producto .btn-dark:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Botones de cantidad en el offcanvas */
+.style-tarjeta-producto .btn-restar,
+.style-tarjeta-producto .btn-sumar {
+    color: #fff !important;
+}
+
+.style-tarjeta-producto .btn-restar:hover,
+.style-tarjeta-producto .btn-sumar:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+
+/* Fondo y contenedor del offcanvas */
+.offcanvas {
+    background-color: #1b1618 !important;
+    color: white !important;
+}
+
+.offcanvas-end {
+    border-left: 2px solid #ff007f !important;
+}
+
+/* Títulos del offcanvas */
+.offcanvas-title {
+    color: #FF007F !important;
+}
+
+/* Botón de cerrar */
+.btn-close-white {
+    filter: invert(1) grayscale(100%) brightness(200%) !important;
+}
+
+/* Asegurar que el offcanvas esté por encima del navbar */
+.offcanvas {
+    z-index: 1060 !important;
+}
+
+.offcanvas-backdrop {
+    z-index: 1050 !important;
+}
+
+/* Color del subtotal en el offcanvas */
+#subtotalCarrito {
+    color: #FF007F !important;
+}
+
+/* Asegurar que el texto sea blanco en el offcanvas */
+.offcanvas-body {
+    color: white !important;
+}
+
+.offcanvas-body .text-white {
+    color: white !important;
+}
+
+.offcanvas-body .text-white-50 {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Botón "Vaciar Carrito" en el offcanvas */
+#btnVaciarCarrito {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
+#btnVaciarCarrito:hover {
+    color: #FF007F !important;
+}
