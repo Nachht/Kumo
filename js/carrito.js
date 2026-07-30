@@ -1,19 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ===== ELEMENTOS DOM =====
-    const contenedor = document.getElementById("contenedorArticulos");
-    const tablaPrincipal = document.getElementById("tablaCarritoPrincipal");
-    const cantidadSpan = document.getElementById("cantidadArticulos");
-    const subtotalSpan = document.getElementById("subtotalCarrito");
-    const botonComprar = document.getElementById("btnComprar");
-    const botonComprarPagina = document.getElementById("btnComprarPagina");
-    const botonVaciarOffcanvas = document.getElementById("btnVaciarCarrito");
-    const botonVaciarPagina = document.getElementById("btnVaciarPagina");
-
-    // Elementos de la página de resumen principal
-    const resumenCantidad = document.getElementById("resumenCantidad");
-    const resumenTotal = document.getElementById("resumenTotal");
-
     // ===== CARGAR CARRITO =====
     function cargarCarrito() {
         return JSON.parse(localStorage.getItem("carrito")) || [];
@@ -38,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const carrito = cargarCarrito();
         const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
 
-        const badgeNavbar = document.getElementById("contadorCartNavbar");
+        const badgeNavbar = document.getElementById("badge");
         if (badgeNavbar) {
             badgeNavbar.textContent = totalItems;
         }
@@ -47,8 +33,10 @@ document.addEventListener("DOMContentLoaded", () => {
     // ===== RENDERIZAR TODO EL CARRITO =====
     function renderizarCarrito() {
         const carrito = cargarCarrito();
+        const contenedor = document.getElementById("contenedorArticulos");
+        const tablaPrincipal = document.getElementById("tablaCarritoPrincipal");
 
-        // 1. Renderizar Vista Offcanvas (Desplegable)
+        // 1. Renderizar Vista Offcanvas (Desplegable Lateral)
         if (contenedor) {
             contenedor.innerHTML = "";
 
@@ -63,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
             } else {
                 carrito.forEach((articulo, index) => {
                     const tarjeta = document.createElement("div");
-                    tarjeta.className = "card border-0 rounded-3 p-3 text-dark style-tarjeta-producto";
+                    tarjeta.className = "card border-0 rounded-3 p-3 text-dark style-tarjeta-producto mb-2";
                     tarjeta.style.backgroundColor = "white";
 
                     tarjeta.innerHTML = `
@@ -92,76 +80,84 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // 2. Renderizar Vista Principal de la Página (carrito.html)
-        // 2. Renderizar Vista Principal de la Página (carrito.html)
         if (tablaPrincipal) {
             tablaPrincipal.innerHTML = "";
 
             if (carrito.length === 0) {
                 tablaPrincipal.innerHTML = `
-            <div class="tarjeta-kumo-oscura p-5 text-center text-white-50">
-                <i class="bi bi-cart-x text-fucsia d-block mb-3 fs-1"></i>
-                <h4 class="text-white fw-bold mb-2">Tu carrito está vacío</h4>
-                <p class="mb-4 small">Explora el catálogo para agregar nuevos productos.</p>
-                <a href="../catalogo/catalogo.html" class="btn btn-neon-fucsia px-4 py-2 fw-bold text-uppercase rounded-3">
-                    Ir al Catálogo
-                </a>
-            </div>
-        `;
+                    <div class="card border-0 shadow-sm p-5 text-center bg-white rounded-4">
+                        <i class="bi bi-cart-x text-muted d-block mb-3 fs-1 opacity-50"></i>
+                        <h4 class="text-dark fw-bold mb-2">Tu carrito está vacío</h4>
+                        <p class="text-secondary mb-4 small">Explora el catálogo para agregar nuevos productos.</p>
+                        <a href="../catalogo/catalogo.html" class="btn btn-gradient-kumo text-white px-4 py-2 fw-bold text-uppercase rounded-pill mx-auto">
+                            Ir al Catálogo
+                        </a>
+                    </div>
+                `;
             } else {
                 carrito.forEach((articulo, index) => {
                     const tarjeta = document.createElement("div");
-                    // Usamos la clase de tarjeta oscura idéntica a la del resumen
-                    tarjeta.className = "tarjeta-kumo-oscura d-flex align-items-center justify-content-between p-3 mb-3";
+                    tarjeta.className = "card border-0 shadow-sm p-3 mb-3 bg-white rounded-4";
 
                     tarjeta.innerHTML = `
-                <div class="d-flex align-items-center gap-3">
-                    <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-3 object-fit-cover" style="width: 75px; height: 75px; background-color: #2a2628;">
-                    <div>
-                        <h5 class="fw-bold m-0 text-white">${articulo.nombre}</h5>
-                        <span class="text-white-50 small">${formatearPrecio(articulo.precio)}</span>
-                    </div>
-                </div>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <div class="d-flex align-items-center gap-3">
+                                <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-3 object-fit-cover bg-light" style="width: 75px; height: 75px;">
+                                <div>
+                                    <h5 class="fw-bold m-0 text-dark">${articulo.nombre}</h5>
+                                    <span class="text-secondary small">${formatearPrecio(articulo.precio)}</span>
+                                </div>
+                            </div>
 
-                <div class="d-flex align-items-center gap-4">
-                    <div class="control-cantidad-kumo d-flex align-items-center rounded-pill px-2" style="background-color: #282325; border: 1px solid #3d3538;">
-                        <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-fucsia" data-index="${index}">−</button>
-                        <span class="px-3 fw-bold text-white">${articulo.cantidad}</span>
-                        <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-fucsia" data-index="${index}">+</button>
-                    </div>
+                            <div class="d-flex align-items-center gap-4">
+                                <div class="d-flex align-items-center rounded-pill px-2 border bg-light">
+                                    <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-dark" data-index="${index}">−</button>
+                                    <span class="px-3 fw-bold text-dark">${articulo.cantidad}</span>
+                                    <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-dark" data-index="${index}">+</button>
+                                </div>
 
-                    <span class="fw-bold fs-5 text-fucsia">${formatearPrecio(articulo.precio * articulo.cantidad)}</span>
+                                <span class="fw-bold fs-5 text-fucsia">${formatearPrecio(articulo.precio * articulo.cantidad)}</span>
 
-                    <button class="btn p-0 border-0 text-fucsia btn-eliminar ms-2" data-index="${index}" title="Eliminar producto">
-                        <i class="bi bi-trash3 fs-5"></i>
-                    </button>
-                </div>
-            `;
+                                <button class="btn p-0 border-0 text-danger btn-eliminar ms-2" data-index="${index}" title="Eliminar producto">
+                                    <i class="bi bi-trash3 fs-5"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
                     tablaPrincipal.appendChild(tarjeta);
                 });
             }
         }
-        // ===== EVENTOS RE-ASIGNADOS =====
-        document.querySelectorAll(".btn-sumar").forEach(btn => {
-            btn.addEventListener("click", function () {
-                cambiarCantidad(parseInt(this.dataset.index), 1);
-            });
-        });
-
-        document.querySelectorAll(".btn-restar").forEach(btn => {
-            btn.addEventListener("click", function () {
-                cambiarCantidad(parseInt(this.dataset.index), -1);
-            });
-        });
-
-        document.querySelectorAll(".btn-eliminar").forEach(btn => {
-            btn.addEventListener("click", function () {
-                eliminarArticulo(parseInt(this.dataset.index));
-            });
-        });
 
         actualizarTotales(carrito);
         actualizarBadge();
     }
+
+    // ===== MANEJO DE EVENTOS GLOBAL (DELEGACIÓN) =====
+    document.addEventListener("click", (e) => {
+        const btnSumar = e.target.closest(".btn-sumar");
+        const btnRestar = e.target.closest(".btn-restar");
+        const btnEliminar = e.target.closest(".btn-eliminar");
+        
+        // Se incluyen selectores para offcanvas y página principal
+        const btnVaciar = e.target.closest("#btnVaciarCarrito, #btnVaciarPagina");
+        const btnComprar = e.target.closest("#btnComprar, #btnComprarPagina");
+        const btnAbrirCart = e.target.closest(".btn-cart-offcanvas");
+
+        if (btnSumar) {
+            cambiarCantidad(parseInt(btnSumar.dataset.index), 1);
+        } else if (btnRestar) {
+            cambiarCantidad(parseInt(btnRestar.dataset.index), -1);
+        } else if (btnEliminar) {
+            eliminarArticulo(parseInt(btnEliminar.dataset.index));
+        } else if (btnVaciar) {
+            vaciarTodo();
+        } else if (btnComprar) {
+            ejecutarCompra();
+        } else if (btnAbrirCart) {
+            renderizarCarrito();
+        }
+    });
 
     // ===== CAMBIAR CANTIDAD =====
     function cambiarCantidad(index, delta) {
@@ -187,28 +183,36 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===== VACIAR CARRITO COMPLETO =====
-    // ===== VACIAR CARRITO COMPLETO =====
     function vaciarTodo() {
+        const carrito = cargarCarrito();
+        if (carrito.length === 0) {
+            alert("El carrito ya está vacío.");
+            return;
+        }
+
         if (confirm("¿Seguro que deseas vaciar todo el carrito?")) {
             localStorage.removeItem("carrito");
             renderizarCarrito();
         }
     }
 
-    if (botonVaciarOffcanvas) botonVaciarOffcanvas.addEventListener("click", vaciarTodo);
-    if (botonVaciarPagina) botonVaciarPagina.addEventListener("click", vaciarTodo);
-
     // ===== ACTUALIZAR TOTALES =====
     function actualizarTotales(carrito) {
         const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
         const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
 
+        const subtotalSpan = document.getElementById("subtotalCarrito");
+        const cantidadSpan = document.getElementById("cantidadArticulos");
+        const resumenSubtotal = document.getElementById("resumenSubtotal");
+        const resumenTotal = document.getElementById("resumenTotal");
+        const totalItemsCount = document.getElementById("totalItemsCount");
+
         if (subtotalSpan) subtotalSpan.textContent = formatearPrecio(subtotal);
         if (cantidadSpan) cantidadSpan.textContent = totalItems;
 
-        // Actualizar resumen en la página si existe
-        if (resumenCantidad) resumenCantidad.textContent = totalItems;
+        if (resumenSubtotal) resumenSubtotal.textContent = formatearPrecio(subtotal);
         if (resumenTotal) resumenTotal.textContent = formatearPrecio(subtotal);
+        if (totalItemsCount) totalItemsCount.textContent = totalItems;
 
         localStorage.setItem("carritoTotal", JSON.stringify({ subtotal, total: subtotal }));
     }
@@ -227,9 +231,17 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    if (botonComprar) botonComprar.addEventListener("click", ejecutarCompra);
-    if (botonComprarPagina) botonComprarPagina.addEventListener("click", ejecutarCompra);
+    // ===== ESCUCHAR EVENTOS DE CARGA Y APERTURA =====
+    document.addEventListener("navbarCargado", () => {
+        renderizarCarrito();
+    });
 
-    // ===== INICIALIZAR =====
+    document.addEventListener("show.bs.offcanvas", (e) => {
+        if (e.target.id === "carritoKumo") {
+            renderizarCarrito();
+        }
+    });
+
+    // Renderizar inicialmente
     renderizarCarrito();
 });
