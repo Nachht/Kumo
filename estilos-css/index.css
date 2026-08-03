@@ -6,7 +6,7 @@
 }
 
 body {
-  background: #faf9ff;
+  background: linear-gradient(135deg, #fff9f9, #fdf0f7) !important;
   color: #1F1F1F;
 }
 
@@ -17,6 +17,7 @@ body {
   justify-content: space-between;
   margin: auto;
   height: 100%;
+  background: linear-gradient(135deg, #fff9f9, #fdf0f7);
 }
 
 /*Baner principal*/
@@ -36,7 +37,6 @@ body {
   border-radius: 0;
   box-shadow: none;
   overflow: hidden;
-  background: #fff;
 }
 
 .carruselKumo {
@@ -54,7 +54,7 @@ body {
   align-items: stretch;
   height: 520px;
   overflow: hidden;
-  background: white;
+  background: linear-gradient(135deg, #fff9f9, #fdf0f7);
   opacity: 0;
   visibility: hidden;
   transform: translateX(40px);

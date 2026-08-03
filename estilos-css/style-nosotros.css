@@ -4,7 +4,7 @@
 }
 
 body {
-    background: linear-gradient(135deg, #f8fafc, #eef2ff);
+    background: linear-gradient(135deg, #fff9f9, #fdf0f7);
 }
 
 .containerGeneral {
@@ -21,7 +21,6 @@ body {
 /*  ============================= NOSOTROS ============================= */
 
 .page-header {
-    background: linear-gradient(135deg, #faf9ff, #fdf0f7);
     padding: 60px 30px 50px;
     margin: 0 auto;
     max-width: 1200px;
@@ -398,7 +397,6 @@ body .hero-nosotros {
     background: #8316ED;
     color: #ffffff;
 }
-
 
 /*  ============================= RESPONSIVE ============================= */
 

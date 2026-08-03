@@ -4,50 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contáctanos - Kumo</title>
-
-    <!-- Bootstrap 5 CSS -->
+    <title>Contáctanos | Kumo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-    <!-- Google Fonts (Nunito) -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Favicon -->
     <link rel="icon" href="../assets/img/logo.png">
-
-    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="../estilos-css/contactenos.css">
 
 </head>
 
 <body>
-
-    <!-- ====== NAVBAR ====== -->
     <script src="../js/navbar.js"></script>
-
-    <!-- ========================================== -->
-    <!-- SECCIÓN CONTACTO - CON BOOTSTRAP GRID      -->
-    <!-- ========================================== -->
     <main class="contacto">
 
         <div class="container">
             <div class="row g-4">
 
-                <!-- ========================================== -->
                 <!-- COLUMNA IZQUIERDA: HEADER + INFO (col-lg-6) -->
-                <!-- ========================================== -->
-                <aside class="col-lg-5 col-xl-5 contacto-info" aria-label="Información de contacto">
+                <aside class="col-xl-6 col-lg-5 contacto-info" aria-label="Información de contacto">
 
                     <!-- === BANNER / HEADER === -->
                     <div class="info-header">
-                        <div class="manga-badge">✦ CONTACTO ✦</div>
-                        <h1 class="info-title">
-                            <span class="title-icon">📬</span>
-                            ¡Hablemos!
-                        </h1>
+                        <div class="info-title">
+                            <h1 class="title-icon">Contáctanos</h1>
+                        </div>
                         <p class="info-subtitle">
                             ¿Tienes dudas sobre tu pedido, algún producto o simplemente quieres saludar?
                         </p>
@@ -58,7 +39,7 @@
 
                     <!-- === BOCADILLO MANGA === -->
                     <div class="manga-speech-bubble">
-                        <p>💬 <strong>¡Escríbenos!</strong> Estamos listos para ayudarte.</p>
+                        <p><strong>¡Escríbenos!</strong> Estamos listos para ayudarte.</p>
                     </div>
 
                     <!-- === DATOS DE CONTACTO === -->
@@ -88,105 +69,92 @@
                             <span class="info-icon"><i class="bi bi-clock-fill"></i></span>
                             <div>
                                 <span class="info-label">Horario</span>
-                                <strong>Lun - Vie: 9am - 6pm</strong>
+                                <strong>Lun - Vie de 9am - 6pm</strong>
                             </div>
                         </div>
                     </div>
-
-                    <!-- === IMAGEN MANGA === -->
-                    <div class="manga-image-container">
-                        <img src="../assets/img/contactenos.jpg" 
-                             alt="contactenos manga Kumo" 
-                             class="manga-image">
-                        <div class="manga-image-badge">✦ Kumo ✦</div>
+                    <!-- PERSONAJE -->
+                    <div class="contacto-personaje">
+                        <img src="../assets/img/contactenos_perso.png" alt="Frieren" class="personaje-flotante">
                     </div>
-
                 </aside>
 
-                <!-- ========================================== -->
                 <!-- COLUMNA DERECHA: FORMULARIO (col-lg-7)     -->
-                <!-- ========================================== -->
-                <section class="col-lg-7 col-xl-7 contacto-form" aria-label="Formulario de contacto">
+                <section class="col-xl-6 col-lg-5 contacto-form" aria-label="Formulario de contacto">
 
                     <div class="formulario-card">
-
-                        <div class="form-header">
-                            <h2 class="form-titulo">
-                                <i class="bi bi-chat-dots-fill"></i> Escríbenos
-                            </h2>
-                            <p class="form-subtitulo">
-                                ¡Cuéntanos qué necesitas!
-                            </p>
-                        </div>
-
                         <form id="formularioContacto" novalidate>
 
                             <div class="campo-group">
-    <label for="nombre">Nombre completo</label>
-    <div class="grupoInput">
-        <span class="iconoInput">
-            <i class="bi bi-person-fill"></i>
-        </span>
-        <input type="text" id="nombre" name="nombre" placeholder="escriba su nombre" autocomplete="name" required>
-    </div>
-    <small id="errorNombre"></small>
-</div>
+                                <label for="nombre">Nombre completo</label>
+                                <div class="grupoInput">
+                                    <span class="iconoInput">
+                                        <i class="bi bi-person-fill"></i>
+                                    </span>
+                                    <input type="text" id="nombre" name="nombre" placeholder="Escriba su nombre"
+                                        autocomplete="name" required>
+                                </div>
+                                <small id="errorNombre"></small>
+                            </div>
 
-<!-- CORREO -->
-<div class="campo-group">
-    <label for="correo">Correo electrónico</label>
-    <div class="grupoInput">
-        <span class="iconoInput">
-            <i class="bi bi-envelope-fill"></i>
-        </span>
-        <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" autocomplete="email" required>
-    </div>
-    <small id="errorCorreo"></small>
-</div>
+                            <!-- CORREO -->
+                            <div class="campo-group">
+                                <label for="correo">Correo electrónico</label>
+                                <div class="grupoInput">
+                                    <span class="iconoInput">
+                                        <i class="bi bi-envelope-fill"></i>
+                                    </span>
+                                    <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com"
+                                        autocomplete="email" required>
+                                </div>
+                                <small id="errorCorreo"></small>
+                            </div>
 
-<!-- TELÉFONO -->
-<div class="campo-group">
-    <label for="telefono">Teléfono</label>
-    <div class="grupoInput">
-        <span class="iconoInput">
-            <i class="bi bi-telephone-fill"></i>
-        </span>
-        <input type="tel" id="telefono" name="telefono" placeholder="Escriba su teléfono" autocomplete="tel" required>
-    </div>
-    <small id="errorTelefono"></small>
-</div>
+                            <!-- TELÉFONO -->
+                            <div class="campo-group">
+                                <label for="telefono">Teléfono</label>
+                                <div class="grupoInput">
+                                    <span class="iconoInput">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </span>
+                                    <input type="tel" id="telefono" name="telefono" placeholder="Escriba su teléfono"
+                                        autocomplete="tel" required>
+                                </div>
+                                <small id="errorTelefono"></small>
+                            </div>
 
-<!-- ASUNTO -->
-<div class="campo-group">
-    <label for="asunto">Asunto</label>
-    <div class="grupoInput">
-        <span class="iconoInput">
-            <i class="bi bi-tag-fill"></i>
-        </span>
-        <select id="asunto" name="asunto" required>
-            <option value="">Selecciona un motivo...</option>
-            <option value="consulta">Consulta sobre un producto</option>
-            <option value="pedido">Estado de mi pedido</option>
-            <option value="devolucion">Cambio o devolución</option>
-            <option value="sugerencia">Sugerencia de producto</option>
-            <option value="colaboracion">Colaboraciones</option>
-            <option value="otro">Otro</option>
-        </select>
-    </div>
-    <small id="errorAsunto"></small>
-</div>
+                            <!-- ASUNTO -->
+                            <div class="campo-group">
+                                <label for="asunto">Asunto</label>
+                                <div class="grupoInput">
+                                    <span class="iconoInput">
+                                        <i class="bi bi-tag-fill"></i>
+                                    </span>
+                                    <select id="asunto" name="asunto" required>
+                                        <option value="">Selecciona un motivo...</option>
+                                        <option value="consulta">Consulta sobre un producto</option>
+                                        <option value="pedido">Estado de mi pedido</option>
+                                        <option value="devolucion">Cambio o devolución</option>
+                                        <option value="sugerencia">Sugerencia de producto</option>
+                                        <option value="colaboracion">Colaboraciones</option>
+                                        <option value="otro">Otro</option>
+                                    </select>
+                                </div>
+                                <small id="errorAsunto"></small>
+                            </div>
 
-<!-- MENSAJE -->
-<div class="campo-group">
-    <label for="mensaje">Mensaje</label>
-    <div class="grupoInput">
-        <span class="iconoInput">
-            <i class="bi bi-chat-fill"></i>
-        </span>
-        <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea>
-    </div>
-    <small id="errorMensaje"></small>
-</div>
+                            <!-- MENSAJE -->
+                            <div class="campo-group">
+                                <label for="mensaje">Mensaje</label>
+                                <div class="grupoInput">
+                                    <span class="iconoInput">
+                                        <i class="bi bi-chat-fill"></i>
+                                    </span>
+                                    <textarea id="mensaje" name="mensaje"
+                                        placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea>
+                                </div>
+                                <small id="errorMensaje"></small>
+                            </div>
                             <!-- BOTÓN -->
                             <button type="submit" id="btnEnviar" class="manga-btn">
                                 <span class="btn-text"> Enviar mensaje</span>
@@ -195,25 +163,16 @@
 
                             <!-- MENSAJE GENERAL -->
                             <p id="mensajeFormulario"></p>
-
                         </form>
-
                     </div>
-
                 </section>
-
             </div>
         </div>
-
     </main>
-
-    <!-- ====== FOOTER ====== -->
     <script src="../js/footer.js"></script>
     <script src="../js/carrito.js"></script>
-
-    <!-- ====== SCRIPTS ====== -->
     <script src="../js/contactenos.js"></script>
-    <script src="../js/carrito.js"></script> 
+    <script src="../js/carrito.js"></script>
 
 </body>
 

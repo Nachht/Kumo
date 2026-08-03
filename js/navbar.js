@@ -62,7 +62,7 @@ function prepararOffcanvasCarrito() {
                 style="background-color: #1b1618; color: white; width: 380px; border-left: 2px solid #ff007f;">
 
                 <div class="offcanvas-header pt-4 pb-2 px-4 border-bottom border-secondary border-opacity-25">
-                    <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia" id="carritoKumoLabel"
+                    <h6 class="offcanvas-title fw-bold text-uppercase small text-fucsia-neon" id="carritoKumoLabel"
                         style="letter-spacing: 1px;">
                         CARRITO (<span id="cantidadArticulos">0</span>)
                     </h6>
@@ -75,7 +75,7 @@ function prepararOffcanvasCarrito() {
 
                     <div class="text-start mt-3">
                         <button id="btnVaciarCarrito"
-                            class="btn btn-link text-white-50 text-decoration-none p-0 small fw-bold text-uppercase"
+                            class="btn btn-link btn-vaciar-offcanvas text-decoration-none p-0 small fw-bold text-uppercase"
                             style="font-size: 0.75rem; letter-spacing: 0.5px;">
                             Vaciar Carrito
                         </button>
@@ -85,22 +85,22 @@ function prepararOffcanvasCarrito() {
                 <div class="offcanvas-footer p-4 border-top border-secondary border-opacity-25">
                     <div class="d-flex justify-content-between align-items-center mb-3">
                         <span class="small fw-bold text-white-50 text-uppercase" style="letter-spacing: 0.5px;">Subtotal</span>
-                        <span id="subtotalCarrito" class="fw-bold fs-4 text-fucsia">$0</span>
+                        <span id="subtotalCarrito" class="fw-bold fs-4 text-fucsia-neon">$0</span>
                     </div>
 
                     <div class="d-flex flex-column gap-2 text-center">
-                        <button id="btnComprar" class="btn btn-neon-fucsia w-100 py-2.5 fw-bold text-uppercase rounded-3">
+                        <button id="btnComprar" class="btn btn-fucsia-led w-100 py-2.5 fw-bold text-uppercase rounded-3">
                             Comprar
                         </button>
 
                         <a href="../carrito/carrito.html"
-                            class="btn btn-outline-fucsia w-100 py-2 fw-bold text-uppercase rounded-3 mt-1"
+                            class="btn btn-outline-fucsia-led w-100 py-2 fw-bold text-uppercase rounded-3 mt-1"
                             style="font-size: 0.75rem; letter-spacing: 1px;">
                             Ver carrito completo
                         </a>
 
                         <button type="button"
-                            class="btn btn-link text-white-50 text-decoration-none text-uppercase fw-bold p-0 mt-1"
+                            class="btn btn-link btn-seguir-viendo text-decoration-none text-uppercase fw-bold p-0 mt-1"
                             data-bs-dismiss="offcanvas" style="font-size: 0.75rem; letter-spacing: 0.5px;">
                             Seguir viendo
                         </button>

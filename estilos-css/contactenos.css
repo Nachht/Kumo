@@ -1,111 +1,42 @@
-/* ========================================== */
 /* CONTACTO KUMO - ESTILO MANGA CLÁSICO       */
-/* PALETA: #282121 #8316ED #FD0C7D #E0E0E0    */
-/* ========================================== */
-
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-
 }
 
 body {
     font-family: 'Nunito', sans-serif;
-    background: #faf9ff;
+    background: linear-gradient(135deg, #fdf9ff, #fbf0fd);
     color: #1F1F1F;
     overflow-x: hidden;
 }
 
-/* ========================================== */
-/* MENÚ LATERAL                               */
-/* ========================================== */
-.menu-btn {
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    width: 70px;
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 1000;
-    padding: 10px;
-}
-
-.menu-btn img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-}
-
-.menu {
-    position: fixed;
-    top: 0;
-    left: -250px;
-    width: 250px;
-    height: 100vh;
-    background: #282121;
-    display: flex;
-    flex-direction: column;
-    padding-top: 100px;
-    transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    z-index: 999;
-}
-
-.menu.activo {
-    left: 0;
-}
-
-.menu a {
-    color: white;
-    text-decoration: none;
-    padding: 18px;
-    font-weight: 700;
-    transition: 0.3s;
-}
-
-.menu a:hover {
-    background: #8316ED;
-}
-
-/* ========================================== */
 /* CONTACTO - SECCIÓN PRINCIPAL               */
-/* ========================================== */
 .contacto {
     width: 95%;
     max-width: 1200px;
     margin: auto;
-    padding: 40px 0 60px 0;
+    padding: 10px 0 60px 0;
 }
 
-
-
-/* ========================================== */
 /* COLUMNA IZQUIERDA - HEADER + INFO          */
-/* ========================================== */
 .contacto-info {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: white;
-/* 
+    /* 
     box-shadow: 6px 6px 0 rgba(40, 33, 33, 0.12); */
 
-    overflow: hidden;           /* ← IMPORTANTE: esconde el desborde */
+    overflow: hidden;
+    /* ← IMPORTANTE: esconde el desborde */
 }
 
-
-/* ========================================== */
 /* HEADER / VIÑETA MANGA                      */
-/* ========================================== */
 .info-header {
-    
-    padding: 30px 30px 28px 30px;
-    
+    padding: 20px 20px 0px 20px;
     position: relative;
     overflow: hidden;
 }
@@ -141,41 +72,47 @@ body {
     animation: speed-line 1.2s ease-in-out infinite;
 }
 
-.speed-lines span:nth-child(2) { height: 80px; animation-delay: 0.2s; }
-.speed-lines span:nth-child(3) { height: 50px; animation-delay: 0.4s; }
-.speed-lines span:nth-child(4) { height: 70px; animation-delay: 0.6s; }
-
-@keyframes speed-line {
-    0%, 100% { opacity: 0.15; transform: rotate(-15deg) scaleY(1); }
-    50% { opacity: 0.4; transform: rotate(-15deg) scaleY(1.3); }
+.speed-lines span:nth-child(2) {
+    height: 80px;
+    animation-delay: 0.2s;
 }
 
-/* ===== BADGE MANGA ===== */
-.manga-badge {
-    display: inline-block;
-    background: #FD0C7D;
-    color: white;
-    font-size: 0.7rem;
-    font-weight: 900;
-    padding: 4px 16px;
-    
-    letter-spacing: 2px;
-    margin-bottom: 12px;
-    
-    box-shadow: 3px 3px 0 #282121;
-    position: relative;
-    z-index: 2;
+.speed-lines span:nth-child(3) {
+    height: 50px;
+    animation-delay: 0.4s;
+}
+
+.speed-lines span:nth-child(4) {
+    height: 70px;
+    animation-delay: 0.6s;
+}
+
+@keyframes speed-line {
+
+    0%,
+    100% {
+        opacity: 0.15;
+        transform: rotate(-15deg) scaleY(1);
+    }
+
+    50% {
+        opacity: 0.4;
+        transform: rotate(-15deg) scaleY(1.3);
+    }
 }
 
 /* ===== TÍTULO ===== */
-.info-title {
-    color: #8316ED;
+.info-title h1 {
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
     font-size: 2rem;
     font-weight: 900;
-    margin: 0 0 6px 0;
+    margin: 25px 0 25px 0;
     position: relative;
     z-index: 2;
-    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
 }
 
 .info-title .title-icon {
@@ -184,7 +121,7 @@ body {
 
 /* ===== SUBTÍTULO ===== */
 .info-subtitle {
-    color: #282121;
+    color: #030303;
     font-size: 0.95rem;
     font-weight: 400;
     margin: 0;
@@ -193,21 +130,12 @@ body {
     z-index: 2;
 }
 
-.info-subtitle strong {
-    color: #FD0C7D;
-    font-weight: 800;
-}
-
-/* ========================================== */
 /* BOCADILLO MANGA                            */
-/* ========================================== */
 .manga-speech-bubble {
-    background: white;
     padding: 16px 22px;
     margin: 0 20px;
-
     position: relative;
-    box-shadow: 4px 4px 0 rgba(40, 33, 33, 0.08);
+
 }
 
 .manga-speech-bubble::before {
@@ -223,7 +151,7 @@ body {
     position: absolute;
     top: -10px;
     left: 33px;
-    
+
 }
 
 .manga-speech-bubble p {
@@ -231,15 +159,15 @@ body {
     font-weight: 700;
     color: #282121;
     font-size: 0.95rem;
+    text-align: center;
 }
 
 .manga-speech-bubble p strong {
     color: #8316ED;
 }
 
-/* ========================================== */
+
 /* DATOS DE CONTACTO                          */
-/* ========================================== */
 .info-items {
     display: flex;
     flex-direction: column;
@@ -252,13 +180,10 @@ body {
     align-items: center;
     gap: 14px;
     padding: 12px 16px;
-
-
-    background: white;
     transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     cursor: default;
     position: relative;
-    
+
 }
 
 .info-item:hover {
@@ -297,26 +222,6 @@ body {
     font-weight: 800;
 }
 
-/* ========================================== */
-/* IMAGEN MANGA - CONTACTO KUMO               */
-/* ========================================== */
-.manga-image-container {
-    position: relative;
-    margin: 0 20px 20px 20px;
-    padding: 0;
-
-
-    box-shadow: 4px 4px 0 rgba(40, 33, 33, 0.1);
-    overflow: hidden;
-    transition: all 0.3s ease;
-    background: #faf9ff;
-}
-
-.manga-image-container:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 rgba(40, 33, 33, 0.15);
-}
-
 .manga-image {
     width: 100%;
     height: auto;
@@ -326,71 +231,14 @@ body {
     transition: transform 0.4s ease;
 }
 
-.manga-image-container:hover .manga-image {
-    transform: scale(1.03);
-}
-
-.manga-image-badge {
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    background: #FD0C7D;
-    color: white;
-    font-size: 0.65rem;
-    font-weight: 900;
-    padding: 4px 14px;
-
-
-    box-shadow: 3px 3px 0 #282121;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    z-index: 2;
-}
-
-.manga-image-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(131, 22, 237, 0.05) 0%, transparent 50%, rgba(253, 12, 125, 0.03) 100%);
-    pointer-events: none;
-}
-
-/* ========================================== */
-/* COLUMNA DERECHA - FORMULARIO               */
-/* ========================================== */
+/* COLUMNA DERECHA - FORMULARIO */
 .contacto-form {
     display: flex;
     flex-direction: column;
 }
 
 .formulario-card {
-    background: white;
     padding: 35px 40px;
-}
-
-.form-header {
-    text-align: center;
-    margin-bottom: 25px;
-}
-
-.form-titulo {
-    font-size: 1.5rem;
-    font-weight: 900;
-    color: #282121;
-    margin-bottom: 2px;
-}
-
-.form-titulo i {
-    color: #8316ED;
-    margin-right: 8px;
-}
-
-.form-subtitulo {
-    color: #a090b0;
-    font-size: 0.9rem;
 }
 
 /* ===== CAMPOS ===== */
@@ -418,7 +266,7 @@ body {
 .campo-group select {
     width: 100%;
     padding: 12px 14px;
-    
+
 
     background: #faf9ff;
     font-size: 0.9rem;
@@ -591,9 +439,8 @@ small.success {
     color: #43a047;
 }
 
-/* ========================================== */
+
 /* BOTÓN MANGA (ajustado)                     */
-/* ========================================== */
 .manga-btn {
     width: 100%;
     margin-top: 20px;
@@ -644,9 +491,8 @@ small.success {
     transform: scale(0.97);
 }
 
-/* ========================================== */
+
 /* MENSAJE FORMULARIO                         */
-/* ========================================== */
 #mensajeFormulario {
     margin-top: 16px;
     font-weight: 700;
@@ -663,13 +509,67 @@ small.success {
     color: #43a047;
 }
 
-/* ========================================== */
-/* RESPONSIVE - UNIFICADO                     */
-/* ========================================== */
+/* frieren  */
+.contacto-personaje {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -40px;
+    min-height: 160px;
+    position: relative;
+    overflow: visible;
+}
 
+.personaje-flotante {
+    width: 100%;
+    max-width: 600px;
+    pointer-events: none;
+    user-select: none;
+    filter:
+        drop-shadow(0 5px 10px rgb(255, 255, 255)) drop-shadow(0 5px 10px rgb(253, 253, 253));
+    animation:
+        flotar 5s ease-in-out infinite,
+        respirar 4.5s ease-in-out infinite;
+}
+
+/* movimiento principal */
+@keyframes flotar {
+    0% {
+        transform:
+            translateY(0) rotate(-2deg);
+    }
+
+    50% {
+        transform:
+            translateY(-18px) rotate(1deg);
+    }
+
+    100% {
+        transform:
+            translateY(0) rotate(-2deg);
+    }
+}
+
+/* efecto de vida */
+@keyframes respirar {
+
+    0%,
+    100% {
+        filter:
+            drop-shadow(0 5px 10px rgba(255, 255, 255, 0.507)) drop-shadow(0 5px 10px rgba(195, 0, 255, 0.623));
+    }
+
+    50% {
+        filter:
+            drop-shadow(0 5px 10px rgba(255, 0, 140, 0.637)) drop-shadow(0 5px 10px rgba(0, 0, 0, 0.493));
+    }
+}
+
+/* RESPONSIVE - UNIFICADO                     */
 /* === TABLET (992px) === */
 @media (max-width: 992px) {
-    
+
     .info-items {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -683,41 +583,46 @@ small.success {
     .contacto {
         padding: 20px 0 40px 0;
     }
+
     .contacto-info {
         padding: 0;
         border-width: 1.5px;
         /* box-shadow: 4px 4px 0 rgba(40,33,33,0.12); */
     }
+
     .info-header {
         padding: 20px 20px 18px 20px;
-        
+
         border-bottom-width: 1.5px;
     }
+
     .info-title {
         font-size: 1.6rem;
     }
+
     .info-subtitle {
         font-size: 0.9rem;
     }
+
     .formulario-card {
         padding: 25px 20px;
         border-width: 1.5px;
-        box-shadow: 4px 4px 0 rgba(40,33,33,0.08);
+        box-shadow: 4px 4px 0 rgba(40, 33, 33, 0.08);
     }
-    .form-titulo {
-        font-size: 1.3rem;
-    }
+
     .info-items {
         grid-template-columns: 1fr;
         padding: 0 15px 15px 15px;
         gap: 8px;
     }
+
     .manga-speech-bubble {
         margin: 0 15px;
         padding: 14px 18px;
         border-width: 1.5px;
-        box-shadow: 3px 3px 0 rgba(40,33,33,0.08);
+        box-shadow: 3px 3px 0 rgba(40, 33, 33, 0.08);
     }
+
     .manga-speech-bubble::before {
         top: -12px;
         left: 20px;
@@ -725,6 +630,7 @@ small.success {
         border-right-width: 8px;
         border-bottom-width: 12px;
     }
+
     .manga-speech-bubble::after {
         top: -9px;
         left: 22px;
@@ -732,32 +638,34 @@ small.success {
         border-right-width: 6px;
         border-bottom-width: 9px;
     }
+
     .speed-lines {
         display: none;
     }
-    .manga-image-container {
-        margin: 0 15px 15px 15px;
-        border-width: 1.5px;
-        box-shadow: 3px 3px 0 rgba(40,33,33,0.08);
-    }
+
+
+
     .manga-image {
         max-height: 120px;
     }
-    .manga-image-badge {
-        font-size: 0.55rem;
-        padding: 3px 12px;
-        bottom: 8px;
-        right: 8px;
-        border-width: 1.5px;
-        box-shadow: 2px 2px 0 #282121;
-    }
+
+
     .manga-btn {
         border-width: 1.5px;
         box-shadow: 3px 3px 0;
     }
+
     .manga-btn:hover {
         transform: translate(-1px, -1px);
         box-shadow: 5px 5px 0;
+    }
+
+    .contacto-personaje {
+        min-height: 280px;
+    }
+
+    .personaje-flotante {
+        max-width: 340px;
     }
 }
 
@@ -766,32 +674,30 @@ small.success {
     .contacto {
         padding: 10px 0 30px 0;
     }
+
     .info-header {
         padding: 14px 14px 16px 14px;
 
     }
+
     .info-title {
         font-size: 1.2rem;
-        text-shadow: 2px 2px 0 rgba(0,0,0,0.2);
+        text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.2);
     }
+
     .info-subtitle {
         font-size: 0.78rem;
         line-height: 1.4;
     }
-    .manga-badge {
-        font-size: 0.5rem;
-        padding: 2px 10px;
-        border-width: 1.5px;
-        box-shadow: 2px 2px 0 #282121;
-        margin-bottom: 8px;
-    }
+
     .manga-speech-bubble {
         margin: 0 12px;
         padding: 10px 14px;
         border-width: 1.5px;
-        box-shadow: 2px 2px 0 rgba(40,33,33,0.08);
+        box-shadow: 2px 2px 0 rgba(40, 33, 33, 0.08);
 
     }
+
     .manga-speech-bubble::before {
         top: -10px;
         left: 16px;
@@ -799,6 +705,7 @@ small.success {
         border-right-width: 7px;
         border-bottom-width: 10px;
     }
+
     .manga-speech-bubble::after {
         top: -7px;
         left: 18px;
@@ -806,77 +713,70 @@ small.success {
         border-right-width: 5px;
         border-bottom-width: 7px;
     }
+
     .manga-speech-bubble p {
         font-size: 0.78rem;
     }
+
     .info-items {
         gap: 6px;
         padding: 0 12px 12px 12px;
     }
+
     .info-item {
         padding: 8px 10px;
         gap: 8px;
         border-width: 1.5px;
-        box-shadow: 2px 2px 0 rgba(40,33,33,0.08);
+        box-shadow: 2px 2px 0 rgba(40, 33, 33, 0.08);
 
     }
+
     .info-item:hover {
         transform: translate(-1px, -1px);
-        box-shadow: 3px 3px 0 rgba(40,33,33,0.12);
+        box-shadow: 3px 3px 0 rgba(40, 33, 33, 0.12);
     }
+
     .info-icon i {
         font-size: 1rem;
     }
+
     .info-item strong {
         font-size: 0.7rem;
     }
+
     .info-label {
         font-size: 0.5rem;
         letter-spacing: 1px;
     }
-    .manga-image-container {
-        margin: 0 12px 12px 12px;
-        border-width: 1.5px;
-        box-shadow: 2px 2px 0 rgba(40,33,33,0.08);
-    }
+
     .manga-image {
         max-height: 90px;
     }
-    .manga-image-badge {
-        font-size: 0.45rem;
-        padding: 2px 8px;
-        bottom: 5px;
-        right: 5px;
-        border-width: 1.5px;
-        box-shadow: 2px 2px 0 #282121;
-    }
+
+
     .formulario-card {
         padding: 14px 12px;
         border-width: 1.5px;
-        box-shadow: 3px 3px 0 rgba(40,33,33,0.08);
+        box-shadow: 3px 3px 0 rgba(40, 33, 33, 0.08);
     }
+
     .formulario-card:hover {
         transform: translate(-1px, -1px);
-        box-shadow: 5px 5px 0 rgba(40,33,33,0.06);
+        box-shadow: 5px 5px 0 rgba(40, 33, 33, 0.06);
     }
-    .form-titulo {
-        font-size: 1.1rem;
-    }
-    .form-subtitulo {
-        font-size: 0.75rem;
-    }
-    .form-header {
-        margin-bottom: 16px;
-    }
+
     .campo-group {
         margin-top: 10px;
     }
+
     .campo-group label {
         font-size: 0.7rem;
     }
+
     .campo-group label i {
         font-size: 0.8rem;
     }
+
     .campo-group input,
     .campo-group textarea,
     .campo-group select {
@@ -885,13 +785,16 @@ small.success {
         border-width: 1.5px;
 
     }
+
     .campo-group textarea {
         height: 70px;
     }
+
     .campo-group select {
         background-position: right 8px center;
         background-size: 10px;
     }
+
     .manga-btn {
         font-size: 0.8rem;
         padding: 10px;
@@ -900,19 +803,23 @@ small.success {
 
         margin-top: 14px;
     }
+
     .manga-btn:hover {
         transform: translate(-1px, -1px);
         box-shadow: 4px 4px 0;
     }
+
     .manga-btn:active {
         transform: translate(1px, 1px);
         box-shadow: 1px 1px 0;
     }
+
     #mensajeFormulario {
         font-size: 0.75rem;
         min-height: 20px;
         margin-top: 12px;
     }
+
     small {
         font-size: 0.6rem;
         min-height: 16px;
@@ -921,10 +828,18 @@ small.success {
     /* Ajuste de bordes generales en móvil */
     .contacto-info,
     .formulario-card,
-    .manga-speech-bubble,
-    .manga-image-container {
+    .manga-speech-bubble {
         border-width: 1.5px;
     }
+
+    .contacto-personaje {
+        min-height: 220px;
+    }
+
+    .personaje-flotante {
+        max-width: 280px;
+    }
+
     /* .contacto-info {
         box-shadow: 3px 3px 0 rgba(40,33,33,0.12);
     } */
