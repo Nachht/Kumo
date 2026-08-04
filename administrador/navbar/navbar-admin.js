@@ -1,19 +1,12 @@
-// ==========================================
-// ADMIN NAVBAR - KUMO (versión completa)
-// ==========================================
+document.addEventListener("DOMContentLoaded", function () {
 
-document.addEventListener("DOMContentLoaded", function() {
-
-    // =============================================
     // 1. FUNCIONES DE AUTENTICACIÓN
-    // =============================================
-    
     function obtenerUsuarioLogueado() {
         console.log("🔍 Buscando usuario en localStorage...");
-        
+
         const usuario = localStorage.getItem("usuarioActivo");
         console.log("📦 Valor en localStorage:", usuario);
-        
+
         if (usuario) {
             try {
                 const user = JSON.parse(usuario);
@@ -35,10 +28,8 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "../../inicio_sesion/inicio_sesion.html";
     }
 
-    // =============================================
-    // 2. GENERAR NAVBAR ADMIN
-    // =============================================
 
+    // 2. GENERAR NAVBAR ADMIN
     const navbarContainer = document.getElementById("navbar-container");
     if (!navbarContainer) {
         console.warn("⚠️ No se encontró #navbar-container");
@@ -50,12 +41,12 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log('👤 Usuario para navbar:', usuario);
 
         let userHTML = '';
-        
+
         if (usuario) {
             console.log('✅ Usuario logueado, generando menú...');
             const nombre = usuario.nombre || usuario.nombres || 'Administrador';
             const primerNombre = nombre.split(' ')[0];
-            
+
             userHTML = `
                 <div class="dropdown">
                     <button class="btn-user-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="
@@ -224,32 +215,27 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
     }
 
-    // =============================================
     // 3. INYECTAR NAVBAR
-    // =============================================
-
     console.log('🚀 Inyectando navbar admin...');
     navbarContainer.innerHTML = generarNavbarAdmin();
     console.log('✅ Navbar admin inyectado');
 
-    // =============================================
-    // 4. INICIALIZAR DROPDOWNS (Bootstrap)
-    // =============================================
 
+    // 4. INICIALIZAR DROPDOWNS (Bootstrap)
     function inicializarDropdownsAdmin() {
         console.log('🔄 Inicializando dropdowns admin...');
-        
+
         if (typeof bootstrap !== 'undefined' && bootstrap.Dropdown) {
             document.querySelectorAll('.dropdown-toggle').forEach(element => {
                 try {
                     const existing = bootstrap.Dropdown.getInstance(element);
                     if (existing) existing.dispose();
-                } catch(e) {}
-                
+                } catch (e) { }
+
                 try {
                     new bootstrap.Dropdown(element);
                     console.log('✅ Dropdown inicializado:', element);
-                } catch(e) {
+                } catch (e) {
                     console.warn('⚠️ Error en dropdown:', e);
                 }
             });
@@ -259,7 +245,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!document.querySelector('script[src*="bootstrap.bundle"]')) {
                 const script = document.createElement('script');
                 script.src = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js';
-                script.onload = function() {
+                script.onload = function () {
                     console.log('✅ Bootstrap cargado desde CDN');
                     inicializarDropdownsAdmin();
                 };
@@ -272,13 +258,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     setTimeout(inicializarDropdownsAdmin, 300);
 
-    // =============================================
     // 5. EXPONER FUNCIONES GLOBALMENTE
-    // =============================================
-
     window.cerrarSesion = cerrarSesion;
     window.obtenerUsuarioLogueado = obtenerUsuarioLogueado;
 
     console.log('✅ admin-navbar.js cargado correctamente');
-
 });

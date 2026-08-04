@@ -1,9 +1,6 @@
 console.log("✅ Hola navbar - JS cargado correctamente");
 
-// =============================================
-// 1. CARGAR BOOTSTRAP JS SI NO ESTÁ DISPONIBLE
-// =============================================
-
+// CARGAR BOOTSTRAP JS SI NO ESTÁ DISPONIBLE
 function cargarBootstrap() {
     if (typeof bootstrap !== 'undefined') {
         console.log('✅ Bootstrap ya está disponible');
@@ -24,10 +21,7 @@ function cargarBootstrap() {
     });
 }
 
-// =============================================
-// 2. FUNCIONES DE AUTENTICACIÓN
-// =============================================
-
+//FUNCIONES DE AUTENTICACIÓN
 function obtenerUsuarioLogueado() {
     const usuario = localStorage.getItem("usuarioActivo");
     if (usuario) {
@@ -51,10 +45,7 @@ function cerrarSesion() {
     window.location.reload();
 }
 
-// =============================================
-// 3. OFFCANVAS DEL CARRITO (VERSIÓN COMPLETA Y ESTILIZADA)
-// =============================================
-
+//OFFCANVAS DEL CARRITO (VERSIÓN COMPLETA Y ESTILIZADA)
 function prepararOffcanvasCarrito() {
     if (!document.getElementById("carritoKumo")) {
         const offcanvasHTML = `
@@ -113,18 +104,15 @@ function prepararOffcanvasCarrito() {
     }
 }
 
-// =============================================
-// 4. CARGAR NAVBAR
-// =============================================
-
+// CARGAR NAVBAR
 function cargarNavbar() {
     const path = window.location.pathname;
     let rutaNavbar = '../navbar/navbar-completo.html';
-    
+
     if (path.includes('/administrador/')) {
         rutaNavbar = '../../navbar/navbar-completo.html';
-    } else if (path.includes('/inicio/') || path.includes('/catalogo/') || 
-               path.includes('/nosotros/') || path.includes('/contactenos/')) {
+    } else if (path.includes('/inicio/') || path.includes('/catalogo/') ||
+        path.includes('/nosotros/') || path.includes('/contactenos/')) {
         rutaNavbar = '../navbar/navbar-completo.html';
     }
 
@@ -140,10 +128,13 @@ function cargarNavbar() {
         })
         .then(data => {
             document.body.insertAdjacentHTML("afterbegin", data);
-            
+
             // Preparar Offcanvas del carrito
             prepararOffcanvasCarrito();
-            
+
+            // Avisar a carrito.js que el navbar y el offcanvas ya están listos
+            document.dispatchEvent(new CustomEvent("navbarCargado"));
+
             setTimeout(() => {
                 actualizarMenuUsuario();
                 inicializarInteracciones();
@@ -154,10 +145,7 @@ function cargarNavbar() {
         .catch(err => console.warn("⚠️ No se pudo cargar el navbar:", err));
 }
 
-// =============================================
-// 5. CREAR BADGE DEL CARRITO
-// =============================================
-
+//CREAR BADGE DEL CARRITO
 function crearBadge() {
     const usuario = obtenerUsuarioLogueado();
     if (!usuario) {
@@ -182,14 +170,11 @@ function crearBadge() {
     }
 }
 
-// =============================================
 // 6. ACTUALIZAR BADGE DEL CARRITO
-// =============================================
-
 function actualizarBadgeCarrito() {
     const usuario = obtenerUsuarioLogueado();
     const carritoBtn = document.querySelector('.btn-cart-offcanvas');
-    
+
     if (!carritoBtn) return;
 
     let badge = carritoBtn.querySelector('.badge-number');
@@ -204,7 +189,7 @@ function actualizarBadgeCarrito() {
 
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
-    
+
     if (!badge) {
         badge = document.createElement('span');
         badge.className = 'badge-number';
@@ -219,13 +204,11 @@ function actualizarBadgeCarrito() {
     badge.textContent = totalItems;
 }
 
-// =============================================
-// 7. ACTUALIZAR MENÚ DE USUARIO
-// =============================================
 
+// ACTUALIZAR MENÚ DE USUARIO
 function actualizarMenuUsuario() {
     const usuario = obtenerUsuarioLogueado();
-    
+
     const cuentaLink = document.querySelector('.icon-link[href*="perfil"]');
     if (!cuentaLink) {
         console.warn('⚠️ No se encontró el enlace "Cuenta"');
@@ -235,11 +218,11 @@ function actualizarMenuUsuario() {
     const menuContainer = document.createElement('div');
     menuContainer.className = 'user-menu-container';
     menuContainer.style.cssText = 'display: flex; align-items: center; gap: 12px;';
-    
+
     if (usuario) {
         const nombre = usuario.nombre || usuario.nombres || 'Usuario';
         const primerNombre = nombre.split(' ')[0];
-        
+
         menuContainer.innerHTML = `
             <div class="dropdown">
                 <button class="btn-user-dropdown dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -268,25 +251,22 @@ function actualizarMenuUsuario() {
             </a>
         `;
     }
-    
+
     cuentaLink.replaceWith(menuContainer);
 }
 
-// =============================================
-// 8. INICIALIZAR DROPDOWNS
-// =============================================
-
+//INICIALIZAR DROPDOWNS
 function inicializarDropdowns() {
     if (typeof bootstrap !== 'undefined' && bootstrap.Dropdown) {
         document.querySelectorAll('.dropdown-toggle').forEach(element => {
             try {
                 const existing = bootstrap.Dropdown.getInstance(element);
                 if (existing) existing.dispose();
-            } catch(e) {}
-            
+            } catch (e) { }
+
             try {
                 new bootstrap.Dropdown(element);
-            } catch(e) {
+            } catch (e) {
                 console.warn('⚠️ Error al crear dropdown:', e);
             }
         });
@@ -296,10 +276,7 @@ function inicializarDropdowns() {
     }
 }
 
-// =============================================
-// 9. INICIALIZAR INTERACCIONES
-// =============================================
-
+// INICIALIZAR INTERACCIONES
 function inicializarInteracciones() {
     const hamburger = document.getElementById("hamburgerBtn");
     const navMenu = document.getElementById("navMenu");
@@ -330,16 +307,14 @@ function inicializarInteracciones() {
     manejarBusqueda();
     marcarEnlaceActivo();
 
-    // =============================================
     // CARRITO - Offcanvas con verificación de login
-    // =============================================
     const carritoBtn = document.querySelector('.btn-cart-offcanvas');
     if (carritoBtn) {
-        // ✅ NO eliminar data-bs-toggle ni data-bs-target
+        // NO eliminar data-bs-toggle ni data-bs-target
         // El offcanvas se abre normalmente con Bootstrap
-        
+
         // Agregar verificación de login ANTES de abrir el offcanvas
-        carritoBtn.addEventListener('click', function(e) {
+        carritoBtn.addEventListener('click', function (e) {
             // Si NO está logueado, prevenir la apertura del offcanvas
             if (!estaLogueado()) {
                 e.preventDefault();      // Evita que se abra el offcanvas
@@ -347,18 +322,14 @@ function inicializarInteracciones() {
                 // Redirigir al login
                 window.location.href = '../inicio/index.html';
             }
-            // Si está logueado, el offcanvas se abre normalmente (no hacemos nada)
+            // Si está logueado, el offcanvas se abre normalmente
         });
         console.log('✅ Offcanvas del carrito configurado (solo para logueados)');
     }
-
     setTimeout(inicializarDropdowns, 200);
 }
 
-// =============================================
-// 10. FUNCIONES AUXILIARES
-// =============================================
-
+// FUNCIONES AUXILIARES
 function marcarEnlaceActivo() {
     const path = window.location.pathname;
     const enlaces = document.querySelectorAll('.menu-link');
@@ -376,7 +347,7 @@ function marcarEnlaceActivo() {
 
 function manejarBusqueda() {
     console.log("🔍 Inicializando buscador con sugerencias...");
-    
+
     const input = document.getElementById("searchInputNav");
     const icon = document.getElementById("searchIcon");
 
@@ -388,9 +359,7 @@ function manejarBusqueda() {
 
     console.log("✅ Input encontrado:", input);
 
-    // =============================================
     // CREAR CONTENEDOR DE SUGERENCIAS
-    // =============================================
     let sugerenciasContainer = document.getElementById("sugerenciasContainer");
     if (!sugerenciasContainer) {
         sugerenciasContainer = document.createElement("div");
@@ -417,94 +386,90 @@ function manejarBusqueda() {
         console.log("✅ Contenedor de sugerencias ya existe");
     }
 
-    // =============================================
     // FUNCIÓN PARA BUSCAR PRODUCTOS
-    // =============================================
     function buscarProductos(termino) {
-    console.log(`🔎 Buscando productos que contengan: "${termino}"`);
-    
-    let productos = [];
-    
-    // 1. Buscar en listaServicios (admin)
-    const listaServicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
-    console.log(`📦 listaServicios: ${listaServicios.length} productos`);
-    
-    // 2. Buscar en kumo_productos (catálogo)
-    const kumoProductos = JSON.parse(localStorage.getItem("kumo_productos")) || [];
-    console.log(`📦 kumo_productos: ${kumoProductos.length} productos`);
-    
-    // 3. Buscar en carrito (por si hay productos)
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    console.log(`📦 carrito: ${carrito.length} productos`);
-    
-    // 4. Unificar todos los productos
-    const todosLosProductos = [...listaServicios, ...kumoProductos, ...carrito];
-    
-    // 5. Eliminar duplicados por id
-    const idsUnicos = new Set();
-    const productosUnicos = todosLosProductos.filter(producto => {
-        if (!producto.id) return false;
-        if (idsUnicos.has(producto.id)) {
-            return false;
+        console.log(`🔎 Buscando productos que contengan: "${termino}"`);
+
+        let productos = [];
+
+        // Buscar en listaServicios (admin)
+        const listaServicios = JSON.parse(localStorage.getItem("listaServicios")) || [];
+        console.log(`📦 listaServicios: ${listaServicios.length} productos`);
+
+        // Buscar en kumo_productos (catálogo)
+        const kumoProductos = JSON.parse(localStorage.getItem("kumo_productos")) || [];
+        console.log(`📦 kumo_productos: ${kumoProductos.length} productos`);
+
+        // Buscar en carrito (por si hay productos)
+        const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+        console.log(`📦 carrito: ${carrito.length} productos`);
+
+        // Unificar todos los productos
+        const todosLosProductos = [...listaServicios, ...kumoProductos, ...carrito];
+
+        // Eliminar duplicados por id
+        const idsUnicos = new Set();
+        const productosUnicos = todosLosProductos.filter(producto => {
+            if (!producto.id) return false;
+            if (idsUnicos.has(producto.id)) {
+                return false;
+            }
+            idsUnicos.add(producto.id);
+            return true;
+        });
+
+        console.log(`📦 ${productosUnicos.length} productos únicos disponibles`);
+
+        if (productosUnicos.length === 0) {
+            console.warn('⚠️ No hay productos en localStorage');
+            console.log('💡 Agrega productos desde el panel de administración');
+            return [];
         }
-        idsUnicos.add(producto.id);
-        return true;
-    });
-    
-    console.log(`📦 ${productosUnicos.length} productos únicos disponibles`);
-    
-    if (productosUnicos.length === 0) {
-        console.warn('⚠️ No hay productos en localStorage');
-        console.log('💡 Agrega productos desde el panel de administración');
-        return [];
-    }
-    
-    if (!termino || termino.length < 1) {
-        console.log('❌ Término vacío');
-        return [];
-    }
-    
-    const terminoLower = termino.toLowerCase();
-    
-    // Filtrar productos
-    const resultados = productosUnicos.filter(producto => {
-        const nombre = (producto.nombre || '').toLowerCase();
-        const descripcion = (producto.descripcion || '').toLowerCase();
-        return nombre.includes(terminoLower) || descripcion.includes(terminoLower);
-    });
-    
-    console.log(`✅ ${resultados.length} productos encontrados para "${termino}"`);
-    
-    // Mostrar los nombres de los resultados
-    resultados.forEach(p => {
-        console.log(`   - ${p.nombre}`);
-    });
-    
-    return resultados;
-}
 
-// =============================================
-// FUNCIÓN PARA MOSTRAR SUGERENCIAS (MEJORADA)
-// =============================================
-function mostrarSugerencias(resultados, termino) {
-    console.log('📋 Mostrando sugerencias...');
-    console.log('📋 Resultados:', resultados);
-    
-    if (!sugerenciasContainer) {
-        console.warn('⚠️ No hay contenedor de sugerencias');
-        return;
-    }
-    
-    if (resultados.length === 0 || !termino || termino.length < 1) {
-        console.log('❌ No hay resultados o término vacío, ocultando sugerencias');
-        sugerenciasContainer.style.display = 'none';
-        return;
+        if (!termino || termino.length < 1) {
+            console.log('❌ Término vacío');
+            return [];
+        }
+
+        const terminoLower = termino.toLowerCase();
+
+        // Filtrar productos
+        const resultados = productosUnicos.filter(producto => {
+            const nombre = (producto.nombre || '').toLowerCase();
+            const descripcion = (producto.descripcion || '').toLowerCase();
+            return nombre.includes(terminoLower) || descripcion.includes(terminoLower);
+        });
+
+        console.log(`✅ ${resultados.length} productos encontrados para "${termino}"`);
+
+        // Mostrar los nombres de los resultados
+        resultados.forEach(p => {
+            console.log(`   - ${p.nombre}`);
+        });
+
+        return resultados;
     }
 
-    const resultadosMostrar = resultados.slice(0, 6);
-    console.log(`📋 Mostrando ${resultadosMostrar.length} sugerencias`);
-    
-    sugerenciasContainer.innerHTML = `
+    // FUNCIÓN PARA MOSTRAR SUGERENCIAS (MEJORADA)
+    function mostrarSugerencias(resultados, termino) {
+        console.log('📋 Mostrando sugerencias...');
+        console.log('📋 Resultados:', resultados);
+
+        if (!sugerenciasContainer) {
+            console.warn('⚠️ No hay contenedor de sugerencias');
+            return;
+        }
+
+        if (resultados.length === 0 || !termino || termino.length < 1) {
+            console.log('❌ No hay resultados o término vacío, ocultando sugerencias');
+            sugerenciasContainer.style.display = 'none';
+            return;
+        }
+
+        const resultadosMostrar = resultados.slice(0, 6);
+        console.log(`📋 Mostrando ${resultadosMostrar.length} sugerencias`);
+
+        sugerenciasContainer.innerHTML = `
         <div style="padding: 8px 12px; background: #f8f9fa; border-bottom: 1px solid #eee; font-size: 0.75rem; color: #888; font-weight: 600; display: flex; justify-content: space-between;">
             <span>🔍 ${resultados.length} resultado${resultados.length > 1 ? 's' : ''}</span>
             <span style="cursor: pointer; color: #FD0C7D;" onclick="document.getElementById('sugerenciasContainer').style.display='none';">✕</span>
@@ -555,14 +520,12 @@ function mostrarSugerencias(resultados, termino) {
             </div>
         ` : ''}
     `;
-    
-    sugerenciasContainer.style.display = 'block';
-    console.log('✅ Sugerencias mostradas correctamente');
-}
 
-    // =============================================
+        sugerenciasContainer.style.display = 'block';
+        console.log('✅ Sugerencias mostradas correctamente');
+    }
+
     // FORMATEAR PRECIO PARA SUGERENCIAS
-    // =============================================
     function formatearPrecioSugerencia(precio) {
         if (!precio) return '$0';
         return Number(precio).toLocaleString('es-CO', {
@@ -572,9 +535,7 @@ function mostrarSugerencias(resultados, termino) {
         });
     }
 
-    // =============================================
     // FUNCIÓN PARA EJECUTAR BÚSQUEDA
-    // =============================================
     function ejecutarBusqueda() {
         const termino = input.value.trim();
         const path = window.location.pathname;
@@ -584,11 +545,11 @@ function mostrarSugerencias(resultados, termino) {
         }
 
         console.log(`🔍 Ejecutando búsqueda: "${termino}"`);
-        
+
         if (sugerenciasContainer) {
             sugerenciasContainer.style.display = 'none';
         }
-        
+
         if (termino === "") {
             window.location.href = rutaCatalogo;
         } else {
@@ -596,13 +557,11 @@ function mostrarSugerencias(resultados, termino) {
         }
     }
 
-    // =============================================
     // EVENTO: mientras escribe (input)
-    // =============================================
-    input.addEventListener("input", function() {
+    input.addEventListener("input", function () {
         const termino = this.value.trim();
         console.log(`✏️ Input event: "${termino}"`);
-        
+
         if (termino.length < 1) {
             console.log("❌ Término vacío, ocultando sugerencias");
             if (sugerenciasContainer) {
@@ -614,14 +573,12 @@ function mostrarSugerencias(resultados, termino) {
         console.log(`🔎 Buscando productos para: "${termino}"`);
         const resultados = buscarProductos(termino);
         console.log(`✅ ${resultados.length} productos encontrados`);
-        
+
         mostrarSugerencias(resultados, termino);
     });
 
-    // =============================================
     // EVENTO: tecla Enter
-    // =============================================
-    input.addEventListener("keydown", function(e) {
+    input.addEventListener("keydown", function (e) {
         console.log(`⌨️ keydown: "${e.key}"`);
         if (e.key === "Enter") {
             console.log("✅ Enter presionado, ejecutando búsqueda...");
@@ -630,34 +587,28 @@ function mostrarSugerencias(resultados, termino) {
         }
     });
 
-    // =============================================
     // EVENTO: clic en icono de búsqueda
-    // =============================================
     if (icon) {
         console.log("✅ Icono de búsqueda encontrado");
-        icon.addEventListener("click", function(e) {
+        icon.addEventListener("click", function (e) {
             console.log("🖱️ Clic en icono de búsqueda");
             e.preventDefault();
             ejecutarBusqueda();
         });
     }
 
-    // =============================================
     // CERRAR SUGERENCIAS AL HACER CLIC FUERA
-    // =============================================
-    document.addEventListener("click", function(e) {
+    document.addEventListener("click", function (e) {
         if (!e.target.closest('.search-wrapper') && sugerenciasContainer) {
             console.log("👆 Clic fuera, ocultando sugerencias");
             sugerenciasContainer.style.display = 'none';
         }
     });
 
-    // =============================================
     // PREVENIR ENVÍO DE FORMULARIO
-    // =============================================
     const form = input.closest('form');
     if (form) {
-        form.addEventListener("submit", function(e) {
+        form.addEventListener("submit", function (e) {
             e.preventDefault();
             console.log("🚫 Submit prevenido");
             ejecutarBusqueda();
@@ -667,11 +618,8 @@ function mostrarSugerencias(resultados, termino) {
     console.log("✅ Buscador con sugerencias configurado");
 }
 
-// =============================================
-// 11. ESCUCHAR CAMBIOS EN LOCALSTORAGE
-// =============================================
-
-window.addEventListener('storage', function(e) {
+//ESCUCHAR CAMBIOS EN LOCALSTORAGE
+window.addEventListener('storage', function (e) {
     if (e.key === 'carrito') {
         console.log('🔄 Carrito actualizado desde otra pestaña');
         actualizarBadgeCarrito();
@@ -682,19 +630,14 @@ window.addEventListener('storage', function(e) {
     }
 });
 
-// =============================================
-// 12. ACTUALIZAR BADGE CADA 1 SEGUNDO
-// =============================================
+// ACTUALIZAR BADGE CADA 1 SEGUNDO
 setInterval(actualizarBadgeCarrito, 1000);
 
-// =============================================
-// 13. INICIALIZAR
-// =============================================
-
+// INICIALIZAR
 console.log('🚀 Inicializando navbar...');
 
 window.cerrarSesion = cerrarSesion;
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     cargarNavbar();
 });

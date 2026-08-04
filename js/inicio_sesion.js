@@ -65,7 +65,6 @@ formulario.addEventListener("submit", function (e) {
         errorPassword.innerHTML = '<i class="bi bi-exclamation-circle-fill"></i> Debe ingresar su contraseña.';
         password.classList.add("errorInput");
         valido = false;
-
     }
 
     if (!valido) {
@@ -73,7 +72,6 @@ formulario.addEventListener("submit", function (e) {
         mensajeFormulario.className = "mensajeError";
         mensajeFormulario.innerHTML = '<i class="bi bi-exclamation-triangle-fill"></i> Complete los campos obligatorios.';
         return;
-
     }
 
 
@@ -99,7 +97,6 @@ formulario.addEventListener("submit", function (e) {
         password.classList.add("errorInput");
 
         return;
-
     }
 
     // Login exitoso
@@ -120,5 +117,4 @@ formulario.addEventListener("submit", function (e) {
     setTimeout(() => {
         window.location.href = "../inicio/index.html";
     }, 1500);
-
 });

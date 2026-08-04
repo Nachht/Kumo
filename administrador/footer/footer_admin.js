@@ -15,5 +15,4 @@ document.addEventListener("DOMContentLoaded", () => {
                     footer.innerHTML = data;
                 });
         });
-
 });

@@ -10,7 +10,7 @@
 
 /* ===== NAVBAR PRINCIPAL ===== */
 .navbar-kumo {
-    background: #ffffff;  /* ✅ Fondo claro */
+    background: #ffffff;
     padding: 16px 0 0 0;
     border-bottom: 4px solid #8316ED;
     box-shadow: 0 4px 30px rgba(131, 22, 237, 0.15);
@@ -65,7 +65,7 @@
     font-family: 'Nunito', sans-serif;
     font-weight: 900;
     font-size: 2rem;
-    color: #282121;  /* ✅ Texto oscuro */
+    color: #282121;
     letter-spacing: 2px;
     text-transform: uppercase;
     transition: all 0.4s ease;
@@ -139,7 +139,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    color: #282121;  /* ✅ Texto oscuro */
+    color: #282121;
     text-decoration: none;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
@@ -152,12 +152,12 @@
 
 .icon-link i {
     font-size: 1.9rem;
-    color: #282121;  /* ✅ Iconos oscuros */
+    color: #282121;  
     transition: all 0.4s ease;
 }
 
 .icon-link span {
-    color: #282121;  /* ✅ Texto oscuro */
+    color: #282121; 
     transition: color 0.3s ease;
     font-size: 1.6rem;
 }
@@ -207,7 +207,7 @@
     display: none;
     background: none;
     border: none;
-    color: #282121;  /* ✅ Oscuro */
+    color: #282121;
     font-size: 2rem;
     cursor: pointer;
     padding: 4px 8px;
@@ -231,7 +231,7 @@
 }
 
 .menu-link {
-    color: #282121;  /* ✅ Texto oscuro */
+    color: #282121;
     text-decoration: none;
     font-family: 'Nunito', sans-serif;
     font-weight: 700;
@@ -265,7 +265,7 @@
 }
 
 .menu-link:hover {
-    color: #8316ED;  /* ✅ Morado al hover */
+    color: #8316ED;
     transform: translateY(-3px);
 }
 
@@ -281,10 +281,8 @@
     width: 100%;
 }
 
-/* ========================================== */
-/* MENÚ DE USUARIO - ESTILOS                  */
-/* ========================================== */
 
+/* MENÚ DE USUARIO - ESTILOS                  */
 .user-menu-container {
     display: flex;
     align-items: center;
@@ -415,10 +413,7 @@
     border-color: rgba(0, 0, 0, 0.06);
 }
 
-/* ========================================== */
 /* RESPONSIVE                                 */
-/* ========================================== */
-
 @media (max-width: 992px) {
     .nav-top {
         flex-wrap: wrap;

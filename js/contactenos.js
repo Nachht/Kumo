@@ -1,20 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ==========================================
-    // MENÚ LATERAL
-    // ==========================================
-    const menuBtn = document.getElementById("menuBtn");
-    const menu = document.getElementById("menu");
-
-    if (menuBtn && menu) {
-        menuBtn.addEventListener("click", () => {
-            menu.classList.toggle("activo");
-        });
-    }
-
-    // ==========================================
     // ELEMENTOS DEL FORMULARIO
-    // ==========================================
     const formulario = document.getElementById("formularioContacto");
     const nombre = document.getElementById("nombre");
     const correo = document.getElementById("correo");
@@ -30,9 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const mensajeFormulario = document.getElementById("mensajeFormulario");
 
-    // ==========================================
     // CARGAR DATOS GUARDADOS (localStorage)
-    // ==========================================
     function cargarDatosGuardados() {
         const datos = JSON.parse(localStorage.getItem("contactoKumo")) || {};
 
@@ -45,9 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     cargarDatosGuardados();
 
-    // ==========================================
     // GUARDAR EN LOCALSTORAGE
-    // ==========================================
     function guardarDatos() {
         const datos = {
             nombre: nombre.value.trim(),
@@ -66,10 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
     mensaje.addEventListener("input", guardarDatos);
 
 
-    // ==========================================
     // FUNCIONES DE VALIDACIÓN
-    // ==========================================
-
     function validarNombre() {
         const valor = nombre.value.trim();
         let valido = true;
@@ -201,9 +180,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return valido;
     }
 
-    // ==========================================
     // ENVÍO DEL FORMULARIO (SIN FORMSPREE)
-    // ==========================================
     formulario.addEventListener("submit", function (e) {
         e.preventDefault();
 
@@ -256,7 +233,5 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("contactoKumoHistorial", JSON.stringify(historial));
 
         }, 1000);
-
     });
-
 });

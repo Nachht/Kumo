@@ -1,7 +1,3 @@
-// =============================================
-// CARRITO.JS - VERSIÓN COMPLETA
-// =============================================
-
 console.log('📦 carrito.js cargado');
 
 // ===== CARGAR CARRITO =====
@@ -35,16 +31,13 @@ function actualizarBadge() {
 }
 
 // ===== RENDERIZAR TODO EL CARRITO =====
-// ===== RENDERIZAR TODO EL CARRITO =====
 function renderizarCarrito() {
     console.log('🔄 Renderizando carrito...');
-    
+
     const carrito = cargarCarrito();
     console.log('📦 Carrito:', carrito);
-    
-    // =============================================
+
     // 1. RENDERIZAR OFFCANVAS (contenedorArticulos)
-    // =============================================
     const contenedor = document.getElementById("contenedorArticulos");
     console.log('📦 Contenedor offcanvas:', contenedor);
 
@@ -94,9 +87,7 @@ function renderizarCarrito() {
         console.warn('⚠️ No se encontró #contenedorArticulos');
     }
 
-    // =============================================
     // 2. RENDERIZAR PÁGINA PRINCIPAL (tablaCarritoPrincipal)
-    // =============================================
     const tablaPrincipal = document.getElementById("tablaCarritoPrincipal");
     console.log('📦 Contenedor página principal:', tablaPrincipal);
 
@@ -212,15 +203,37 @@ function eliminarArticulo(index) {
 // ===== VACIAR CARRITO COMPLETO =====
 function vaciarTodo() {
     const carrito = cargarCarrito();
+
     if (carrito.length === 0) {
-        alert("El carrito ya está vacío.");
+        mostrarModalKumo({
+            icono: "bi-cart-x-fill",
+            tipoIcono: "icono-vacio",
+            titulo: "Carrito vacío",
+            mensajeHTML: "Tu carrito ya está vacío, no hay nada que eliminar.",
+            botones: [
+                { texto: "Entendido", clase: "modal-kumo-btn-ok" }
+            ]
+        });
         return;
     }
 
-    if (confirm("¿Seguro que deseas vaciar todo el carrito?")) {
-        localStorage.removeItem("carrito");
-        renderizarCarrito();
-    }
+    mostrarModalKumo({
+        icono: "bi-trash3-fill",
+        tipoIcono: "",
+        titulo: "Vaciar carrito",
+        mensajeHTML: "¿Seguro que deseas eliminar todos los productos de tu carrito?",
+        botones: [
+            { texto: "Cancelar", clase: "modal-kumo-btn-cancelar" },
+            {
+                texto: "Vaciar",
+                clase: "modal-kumo-btn-confirmar",
+                accion: () => {
+                    localStorage.removeItem("carrito");
+                    renderizarCarrito();
+                }
+            }
+        ]
+    });
 }
 
 // ===== ACTUALIZAR TOTALES =====
@@ -242,43 +255,134 @@ function actualizarTotales(carrito) {
     if (totalItemsCount) totalItemsCount.textContent = totalItems;
 }
 
+// Crea el overlay del modal una sola vez y lo reutiliza
+function crearModalKumoSiNoExiste() {
+    if (document.getElementById("modalKumoOverlay")) return;
+
+    const overlay = document.createElement("div");
+    overlay.id = "modalKumoOverlay";
+    overlay.className = "modal-kumo-overlay";
+    overlay.innerHTML = `
+        <div class="modal-kumo-box">
+            <div id="modalKumoIcono" class="modal-kumo-icono">
+                <i class="bi bi-info-circle-fill"></i>
+            </div>
+            <h5 id="modalKumoTitulo" class="modal-kumo-titulo">Título</h5>
+            <p id="modalKumoMensaje" class="modal-kumo-mensaje">Mensaje</p>
+            <div id="modalKumoBotones" class="modal-kumo-botones"></div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    overlay.addEventListener("click", (e) => {
+        if (e.target === overlay) cerrarModalKumo();
+    });
+}
+
+function cerrarModalKumo() {
+    const overlay = document.getElementById("modalKumoOverlay");
+    if (overlay) overlay.classList.remove("activo");
+}
+
+function mostrarModalKumo({ icono = "bi-info-circle-fill", tipoIcono = "", titulo, mensajeHTML, botones }) {
+    crearModalKumoSiNoExiste();
+
+    const overlay = document.getElementById("modalKumoOverlay");
+    const iconoEl = document.getElementById("modalKumoIcono");
+    const tituloEl = document.getElementById("modalKumoTitulo");
+    const mensajeEl = document.getElementById("modalKumoMensaje");
+    const botonesEl = document.getElementById("modalKumoBotones");
+
+    iconoEl.className = `modal-kumo-icono ${tipoIcono}`;
+    iconoEl.innerHTML = `<i class="bi ${icono}"></i>`;
+    tituloEl.textContent = titulo;
+    mensajeEl.innerHTML = mensajeHTML;
+
+    botonesEl.innerHTML = "";
+    botones.forEach((btn) => {
+        const boton = document.createElement("button");
+        boton.className = btn.clase;
+        boton.textContent = btn.texto;
+        boton.addEventListener("click", () => {
+            cerrarModalKumo();
+            if (btn.accion) btn.accion();
+        });
+        botonesEl.appendChild(boton);
+    });
+
+    requestAnimationFrame(() => overlay.classList.add("activo"));
+}
+
 // ===== ACCIÓN COMPRAR =====
 function ejecutarCompra() {
     const carrito = cargarCarrito();
+
     if (carrito.length === 0) {
-        alert("🛒 Tu carrito está vacío. Agrega productos primero.");
+        mostrarModalKumo({
+            icono: "bi-cart-x-fill",
+            tipoIcono: "icono-vacio",
+            titulo: "Carrito vacío",
+            mensajeHTML: "No tienes productos en tu carrito. Agrega algunas figuras antes de continuar.",
+            botones: [
+                { texto: "Entendido", clase: "modal-kumo-btn-ok" }
+            ]
+        });
         return;
     }
 
     const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
-    if (confirm(`📋 RESUMEN DE TU PEDIDO\n─────────────────────\nTotal: ${formatearPrecio(subtotal)}\n\n¿Confirmas tu compra en KUMO?`)) {
-        alert("✅ ¡Compra confirmada! Nos pondremos en contacto contigo.");
-    }
+
+    mostrarModalKumo({
+        icono: "bi-bag-check-fill",
+        tipoIcono: "",
+        titulo: "Confirmar pedido",
+        mensajeHTML: `Estás a punto de confirmar tu compra en KUMO.<br><br>Total a pagar: <span class="modal-kumo-total">${formatearPrecio(subtotal)}</span>`,
+        botones: [
+            { texto: "Cancelar", clase: "modal-kumo-btn-cancelar" },
+            {
+                texto: "Confirmar",
+                clase: "modal-kumo-btn-confirmar",
+                accion: () => {
+                    // Pequeña espera para que la animación de cierre no choque con la de apertura
+                    setTimeout(() => {
+                        // La compra ya se confirmó: vaciamos el carrito y actualizamos la vista
+                        localStorage.removeItem("carrito");
+                        renderizarCarrito();
+
+                        mostrarModalKumo({
+                            icono: "bi-check-circle-fill",
+                            tipoIcono: "icono-exito",
+                            titulo: "¡Compra confirmada!",
+                            mensajeHTML: "Gracias por tu compra. Nos pondremos en contacto contigo muy pronto.",
+                            botones: [
+                                { texto: "Genial", clase: "modal-kumo-btn-ok" }
+                            ]
+                        });
+                    }, 300);
+                }
+            }
+        ]
+    });
 }
 
-// =============================================
-// ✅ FORZAR ESTILOS DEL OFFCANVAS
-// =============================================
+// FORZAR ESTILOS DEL OFFCANVAS
 function forzarEstilosOffcanvas() {
     const offcanvas = document.getElementById('carritoKumo');
     if (!offcanvas) return;
-    
+
     offcanvas.style.backgroundColor = '#1b1618';
     offcanvas.style.color = 'white';
     offcanvas.style.borderLeft = '2px solid #ff007f';
-    
+
     const subtotal = document.getElementById('subtotalCarrito');
     if (subtotal) {
         subtotal.style.color = '#FF007F';
     }
-    
+
     console.log('✅ Estilos del offcanvas forzados');
 }
 
-// =============================================
-// ✅ EVENTOS DE CARGA Y ACTUALIZACIÓN
-// =============================================
-
+// EVENTOS DE CARGA Y ACTUALIZACIÓN
 // 1. Cuando el navbar se carga
 document.addEventListener("navbarCargado", () => {
     console.log('✅ navbarCargado recibido');
@@ -296,7 +400,7 @@ document.addEventListener("show.bs.offcanvas", (e) => {
 });
 
 // 3. Cuando cambia el localStorage (desde otra pestaña)
-window.addEventListener('storage', function(e) {
+window.addEventListener('storage', function (e) {
     if (e.key === 'carrito') {
         console.log('🔄 Carrito actualizado en localStorage (otra pestaña)');
         renderizarCarrito();
@@ -304,14 +408,11 @@ window.addEventListener('storage', function(e) {
 });
 
 // 4. Cuando el DOM se carga
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     console.log('📄 DOM cargado');
     renderizarCarrito();
 });
 
-// =============================================
-// ✅ EXPONER FUNCIONES GLOBALMENTE
-// =============================================
 window.renderizarCarrito = renderizarCarrito;
 window.cargarCarrito = cargarCarrito;
 window.actualizarBadge = actualizarBadge;

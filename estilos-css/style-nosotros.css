@@ -17,9 +17,7 @@ body {
     margin: 0 auto;
 }
 
-
 /*  ============================= NOSOTROS ============================= */
-
 .page-header {
     padding: 60px 30px 50px;
     margin: 0 auto;
@@ -89,7 +87,6 @@ body .page-header .page-subtitle {
 
 
 /*  ============================= HERO ============================= */
-
 body .hero-nosotros {
     align-items: center;
     width: 100%;
@@ -181,7 +178,6 @@ body .hero-nosotros {
 
 
 /*  ============================= MISIÓN Y VISIÓN ============================= */
-
 .mision-vision-row {
     width: 100%;
     max-width: 900px;
@@ -262,7 +258,6 @@ body .hero-nosotros {
 
 
 /*  ============================= EQUIPO ============================= */
-
 #cards-equipo {
     padding: 20px;
 }
@@ -391,15 +386,12 @@ body .hero-nosotros {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
-
-
 .team-social:hover {
     background: #8316ED;
     color: #ffffff;
 }
 
 /*  ============================= RESPONSIVE ============================= */
-
 @media screen and (max-width: 768px) {
 
     .containerGeneral {
