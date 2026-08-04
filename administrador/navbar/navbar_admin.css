@@ -11,7 +11,7 @@
 /* ===== NAVBAR ADMIN PRINCIPAL ===== */
 .navbar-kumo {
     background: #282121;
-    padding: 16px 0 0 0;
+    padding: 14px 0;
     border-bottom: 4px solid #8316ED;
     box-shadow: 0 4px 30px rgba(131, 22, 237, 0.3);
     position: sticky;
@@ -37,7 +37,6 @@
     justify-content: space-between;
     gap: 20px;
     flex-wrap: wrap;
-    padding-bottom: 14px;
 }
 
 /* ===== LOGO ===== */
@@ -50,8 +49,8 @@
 }
 
 .logo-img {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
     display: block;
     transition: transform 0.4s ease, filter 0.4s ease;
 }
@@ -62,59 +61,21 @@
 }
 
 
-/* TÍTULO ADMIN                               */
-.admin-title {
-    flex: 1;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.admin-title span {
-    color: #fff;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 2px;
-    background: rgba(253, 12, 125, 0.15);
-    padding: 6px 24px;
-    border-radius: 50px;
-    border: 1px solid rgba(253, 12, 125, 0.3);
-    transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.admin-title span i {
-    font-size: 1.1rem;
-    color: #FD0C7D;
-}
-
-.admin-title span:hover {
-    background: rgba(253, 12, 125, 0.25);
-    border-color: rgba(253, 12, 125, 0.6);
-    transform: scale(1.02);
-    box-shadow: 0 0 25px rgba(253, 12, 125, 0.15);
-}
-
 /* ÍCONOS Y MENÚ DE USUARIO                   */
 .nav-icons {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
     flex-shrink: 0;
 }
 
 .user-menu-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
-/* === BOTÓN DEL USUARIO LOGUEADO === */
-/* === BOTONES LOGIN / REGISTRO === */
+/* BOTÓN DEL USUARIO LOGUEADO */
 .btn-login {
     display: inline-flex;
     align-items: center;
@@ -122,7 +83,7 @@
     background: transparent;
     color: #fff !important;
     border: 2px solid rgba(255, 255, 255, 0.2);
-    padding: 6px 18px;
+    padding: 9px 18px;
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.85rem;
@@ -144,7 +105,7 @@
     background: linear-gradient(90deg, #8316ED, #FD0C7D);
     color: #fff !important;
     border: none;
-    padding: 6px 18px;
+    padding: 9px 18px;
     border-radius: 50px;
     font-weight: 600;
     font-size: 0.85rem;
@@ -159,7 +120,7 @@
     box-shadow: 0 4px 15px rgba(253, 12, 125, 0.3);
 }
 
-/* === DROPDOWN MENU === */
+/*  DROPDOWN MENU  */
 .dropdown-menu {
     border-radius: 12px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -201,28 +162,38 @@
     border-color: rgba(255, 255, 255, 0.06);
 }
 
-/* === VOLVER A LA TIENDA === */
+/* boton volver a la tienda */
 .icon-link {
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    overflow: hidden;
     color: #D5D5D5;
     text-decoration: none;
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 6px 12px;
-    border-radius: 30px;
-    transition: all 0.4s ease;
-    font-family: 'Nunito', sans-serif;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 }
 
 .icon-link i {
-    font-size: 1.5rem;
-    transition: all 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    line-height: 1;
+    margin: 0;
+    transition: color 0.3s ease;
 }
 
 .icon-link:hover {
-    background: rgba(131, 22, 237, 0.12);
+    background: rgba(131, 22, 237, 0.18);
+    border-color: rgba(131, 22, 237, 0.45);
     color: #8316ED;
     transform: translateY(-2px);
 }
@@ -233,31 +204,16 @@
 
 /* RESPONSIVE                                 */
 @media (max-width: 992px) {
-    .admin-title span {
-        font-size: 1rem;
-        padding: 5px 18px;
-    }
-    
     .nav-top {
         flex-wrap: wrap;
     }
 }
 
 @media (max-width: 768px) {
-    .admin-title span {
-        font-size: 0.85rem;
-        padding: 4px 14px;
-        letter-spacing: 1px;
-    }
-    
-    .admin-title span i {
-        font-size: 0.9rem;
-    }
-    
     .btn-user-dropdown .user-name {
         max-width: 80px;
     }
-    
+
     .btn-login,
     .btn-registro {
         font-size: 0.75rem;
@@ -266,35 +222,32 @@
 }
 
 @media (max-width: 576px) {
-    .admin-title {
-        display: none;
-    }
-    
     .logo-img {
         height: 40px;
         width: 40px;
     }
-    
+
     .btn-user-dropdown {
         padding: 4px 12px 4px 8px;
         font-size: 0.8rem;
     }
-    
+
     .btn-user-dropdown .user-name {
         max-width: 60px;
     }
-    
+
     .btn-login,
     .btn-registro {
         font-size: 0.7rem;
         padding: 4px 10px;
     }
-    
-    .icon-link span {
-        display: none;
+
+    .icon-link {
+        width: 38px;
+        height: 38px;
     }
-    
+
     .icon-link i {
-        font-size: 1.3rem;
+        font-size: 1.1rem;
     }
 }

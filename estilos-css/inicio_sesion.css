@@ -120,11 +120,36 @@ body {
 /*formulario*/
 .panelDerecho {
     width: 58%;
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 35px 55px;
+}
+
+/*botón para volver al inicio*/
+.botonVolverInicio {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #F2F2F2;
+    color: #282121;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.botonVolverInicio:hover {
+    background: linear-gradient(90deg, #8316ED, #FD0C7D);
+    color: #FFF;
+    transform: translateX(-3px);
 }
 
 .panelDerecho form {

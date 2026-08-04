@@ -5,13 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gestión de Productos | Kumo</title>
-
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="icon" href="../../assets/img/logo.png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <link rel="stylesheet" href="../css/admin-servicios.css">
     <link rel="stylesheet" href="../footer/footer_admin.css">
     <link rel="stylesheet" href="../../estilos-css/navbar.CSS" />
@@ -47,12 +45,15 @@
         <!-- Barra superior -->
         <div class="barraHerramientasProductos">
             <div class="buscadorProductos">
-                <i class="bi bi-search"></i>
+                <i class="bi bi-search iconoBuscadorProductos"></i>
                 <input type="text" id="buscadorProductos" placeholder="Buscar productos...">
+                <button type="button" id="btnLimpiarBusquedaProductos" class="kumoBotonLimpiarBusquedaProductos"
+                    title="Limpiar búsqueda">
+                    <i class="fa-solid fa-broom"></i>
+                </button>
             </div>
 
             <!-- Filtros -->
-
             <div class="grupoFiltrosProductos">
                 <button id="filtroTodos" class="btn btnFiltroProducto">
                     <i class="bi bi-grid"></i> Todos</button>
@@ -177,6 +178,24 @@
 
                 <button type="submit" class="botonGuardarProducto"> Actualizar producto </button>
             </form>
+        </div>
+    </div>
+
+    <!-- modal confirmar cambio de estado -->
+    <div id="modalConfirmarEstado" class="fondoModal">
+        <div class="ventanaModal ventanaModalConfirmacion">
+
+            <div class="encabezadoModal">
+                <h2 id="tituloConfirmarEstado"> Cambiar estado </h2>
+                <button id="cerrarModalConfirmarEstado" class="botonCerrarModal"> &times; </button>
+            </div>
+
+            <p id="mensajeConfirmarEstado" class="mensajeConfirmarEstado"></p>
+
+            <div class="accionesConfirmarEstado">
+                <button id="btnCancelarCambioEstado" class="botonCancelarEstado"> Cancelar </button>
+                <button id="btnConfirmarCambioEstado" class="botonConfirmarEstado"> Confirmar </button>
+            </div>
         </div>
     </div>
 

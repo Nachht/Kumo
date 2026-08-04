@@ -37,7 +37,7 @@ function renderizarCarrito() {
     const carrito = cargarCarrito();
     console.log('📦 Carrito:', carrito);
 
-    // 1. RENDERIZAR OFFCANVAS (contenedorArticulos)
+    //RENDERIZAR OFFCANVAS (contenedorArticulos)
     const contenedor = document.getElementById("contenedorArticulos");
     console.log('📦 Contenedor offcanvas:', contenedor);
 
@@ -61,20 +61,20 @@ function renderizarCarrito() {
 
                 tarjeta.innerHTML = `
                     <div class="d-flex align-items-center gap-3">
-                        <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-2 object-fit-cover" style="width: 70px; height: 70px;">
+                        <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-2 object-fit-cover flex-shrink-0" style="width: 70px; height: 70px;">
                         
-                        <div class="flex-grow-1">
-                            <h6 class="fw-bold m-0 mb-1 text-dark text-truncate" style="max-width: 130px;">${articulo.nombre}</h6>
+                        <div class="flex-grow-1" style="min-width: 0;">
+                            <h6 class="fw-bold m-0 mb-1 text-dark text-truncate">${articulo.nombre}</h6>
                             <span class="text-muted small d-block">${formatearPrecio(articulo.precio)}</span>
                         </div>
 
-                        <div class="control-cantidad d-flex align-items-center border rounded bg-light px-1">
+                        <div class="control-cantidad d-flex align-items-center border rounded bg-light px-1 flex-shrink-0">
                             <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-dark" data-index="${index}">−</button>
                             <span class="px-2 fw-bold small text-dark">${articulo.cantidad}</span>
                             <button class="btn btn-sm p-1 border-0 btn-sumar fw-bold text-dark" data-index="${index}">+</button>
                         </div>
 
-                        <button class="btn p-0 border-0 text-danger ms-1 btn-eliminar" data-index="${index}" title="Eliminar">
+                        <button class="btn p-0 border-0 text-danger ms-1 btn-eliminar flex-shrink-0" data-index="${index}" title="Eliminar">
                             <i class="bi bi-trash fs-5"></i>
                         </button>
                     </div>
@@ -87,7 +87,7 @@ function renderizarCarrito() {
         console.warn('⚠️ No se encontró #contenedorArticulos');
     }
 
-    // 2. RENDERIZAR PÁGINA PRINCIPAL (tablaCarritoPrincipal)
+    //RENDERIZAR PÁGINA PRINCIPAL (tablaCarritoPrincipal)
     const tablaPrincipal = document.getElementById("tablaCarritoPrincipal");
     console.log('📦 Contenedor página principal:', tablaPrincipal);
 
@@ -113,16 +113,16 @@ function renderizarCarrito() {
                 tarjeta.className = "card border-0 shadow-sm p-3 mb-3 bg-white rounded-4";
 
                 tarjeta.innerHTML = `
-                    <div class="d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-3 object-fit-cover bg-light" style="width: 75px; height: 75px;">
-                            <div>
-                                <h5 class="fw-bold m-0 text-dark">${articulo.nombre}</h5>
+                    <div class="d-flex align-items-center justify-content-between gap-3">
+                        <div class="d-flex align-items-center gap-3" style="min-width: 0; flex: 1 1 auto;">
+                            <img src="${articulo.imagen}" alt="${articulo.nombre}" class="rounded-3 object-fit-cover bg-light flex-shrink-0" style="width: 75px; height: 75px;">
+                            <div style="min-width: 0;">
+                                <h5 class="fw-bold m-0 text-dark text-truncate">${articulo.nombre}</h5>
                                 <span class="text-secondary small">${formatearPrecio(articulo.precio)}</span>
                             </div>
                         </div>
 
-                        <div class="d-flex align-items-center gap-4">
+                        <div class="d-flex align-items-center gap-4 flex-shrink-0">
                             <div class="d-flex align-items-center rounded-pill px-2 border bg-light">
                                 <button class="btn btn-sm p-1 border-0 btn-restar fw-bold text-dark" data-index="${index}">−</button>
                                 <span class="px-3 fw-bold text-dark">${articulo.cantidad}</span>

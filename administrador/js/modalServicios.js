@@ -76,6 +76,7 @@ const contenedorProductos = document.getElementById("contenedorProductos");
 const totalProductos = document.getElementById("totalProductos");
 const productosVisibles = document.getElementById("productosVisibles");
 const buscadorProductos = document.getElementById("buscadorProductos");
+const btnLimpiarBusquedaProductos = document.getElementById("btnLimpiarBusquedaProductos");
 const filtroTodos = document.getElementById("filtroTodos");
 const filtroMangas = document.getElementById("filtroMangas");
 const filtroFiguras = document.getElementById("filtroFiguras");
@@ -87,6 +88,15 @@ const modalAgregar = document.getElementById("modalAgregarProducto");
 const modalEditar = document.getElementById("modalEditarProducto");
 const cerrarAgregar = document.getElementById("cerrarModalAgregar");
 const cerrarEditar = document.getElementById("cerrarModalEditar");
+
+// modal confirmar estado
+const modalConfirmarEstado = document.getElementById("modalConfirmarEstado");
+const tituloConfirmarEstado = document.getElementById("tituloConfirmarEstado");
+const mensajeConfirmarEstado = document.getElementById("mensajeConfirmarEstado");
+const btnCancelarCambioEstado = document.getElementById("btnCancelarCambioEstado");
+const btnConfirmarCambioEstado = document.getElementById("btnConfirmarCambioEstado");
+const cerrarModalConfirmarEstadoBtn = document.getElementById("cerrarModalConfirmarEstado");
+let idProductoParaCambiarEstado = null;
 
 // formularios
 const formularioAgregar = document.getElementById("formularioAgregarProducto");
@@ -143,39 +153,43 @@ function crearTarjetaProducto(producto) {
                 </span>
             </div>
             <div class="contenidoTarjetaProducto">
-                <h3 class="tituloProductoAdmin">
-                    ${producto.nombre}
-                </h3>
-                <p class="descripcionProductoAdmin">
-                    ${producto.descripcion}
-                </p>
-                <div class="informacionProducto">
-                    <div class="datoProducto">
-                        <i class="bi bi-box-seam"></i>
-                        <span>
-                            Stock: ${producto.stock}
-                        </span>
+                <div class="grupoInfoProducto">
+                    <h3 class="tituloProductoAdmin">
+                        ${producto.nombre}
+                    </h3>
+                    <p class="descripcionProductoAdmin">
+                        ${producto.descripcion}
+                    </p>
+                    <div class="informacionProducto">
+                        <div class="datoProducto">
+                            <i class="bi bi-box-seam"></i>
+                            <span>
+                                Stock: ${producto.stock}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="precioProductoAdmin">
+                        $${producto.precio.toLocaleString("es-CO")}
                     </div>
                 </div>
-                <div class="precioProductoAdmin">
-                    $${producto.precio.toLocaleString("es-CO")}
-                </div>
-                <div class="estadoProducto">
-                    <span>
-                        Activo
-                    </span>
-                    <i
-                        class="bi ${producto.activo ? "bi-toggle-on" : "bi-toggle-off"} toggleEstadoProducto"
-                        onclick="cambiarEstado(${producto.id})">
-                    </i>
-                </div>
-                <div class="accionesProducto">
-                    <button
-                        class="btn botonEditarProducto"
-                        onclick="abrirEditar(${producto.id})">
-                        <i class="bi bi-pencil-square"></i>
-                        Editar
-                    </button>
+                <div class="filaFinalProducto">
+                    <div class="estadoProducto">
+                        <span>
+                            Activo
+                        </span>
+                        <i
+                            class="bi ${producto.activo ? "bi-toggle-on" : "bi-toggle-off"} toggleEstadoProducto"
+                            onclick="cambiarEstado(${producto.id})">
+                        </i>
+                    </div>
+                    <div class="accionesProducto">
+                        <button
+                            class="btn botonEditarProducto"
+                            onclick="abrirEditar(${producto.id})">
+                            <i class="bi bi-pencil-square"></i>
+                            Editar
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -316,7 +330,7 @@ formularioAgregarProducto.addEventListener("submit", async function (e) {
         stock:
             Number(stockProductoAgregar.value),
         imagen: imagenFinal,
-        activo: true
+        activo: false
     };
 
     productos.push(nuevoProducto);
@@ -409,12 +423,37 @@ formularioEditarProducto.addEventListener("submit", async function (e) {
     modalEditarProducto.classList.remove("activo");
 });
 
-// Activar / Desactivar
+// Activar / Desactivar con confirmacion
 function cambiarEstado(id) {
     const producto = productos.find(
         p => p.id === id
     );
     if (!producto) return;
+
+    idProductoParaCambiarEstado = id;
+
+    if (producto.activo) {
+        tituloConfirmarEstado.textContent = "Desactivar producto";
+        mensajeConfirmarEstado.textContent =
+            `¿Seguro que deseas desactivar "${producto.nombre}"? Dejará de mostrarse en el catálogo.`;
+    } else {
+        tituloConfirmarEstado.textContent = "Activar producto";
+        mensajeConfirmarEstado.textContent =
+            `¿Seguro que deseas activar "${producto.nombre}"? Se mostrará en el catálogo.`;
+    }
+
+    modalConfirmarEstado.classList.add("activo");
+}
+
+// Aplica el cambio de estado una vez confirmado
+function confirmarCambioEstado() {
+    const producto = productos.find(
+        p => p.id === idProductoParaCambiarEstado
+    );
+    if (!producto) {
+        cerrarModalConfirmarEstado();
+        return;
+    }
 
     producto.activo = !producto.activo;
 
@@ -425,14 +464,49 @@ function cambiarEstado(id) {
     }
 
     renderizarProductos();
+    cerrarModalConfirmarEstado();
 }
 
+// Cierra el modal de confirmación de estado
+function cerrarModalConfirmarEstado() {
+    modalConfirmarEstado.classList.remove("activo");
+    idProductoParaCambiarEstado = null;
+}
+
+btnConfirmarCambioEstado.addEventListener("click", confirmarCambioEstado);
+btnCancelarCambioEstado.addEventListener("click", cerrarModalConfirmarEstado);
+cerrarModalConfirmarEstadoBtn.addEventListener("click", cerrarModalConfirmarEstado);
+
+modalConfirmarEstado.addEventListener("click", (e) => {
+    if (e.target === modalConfirmarEstado) {
+        cerrarModalConfirmarEstado();
+    }
+});
+
 // MODAL PRODUCTOS - KUMO
+// mostrar u ocultar el botón de limpiar según el contenido del buscador
+function actualizarBotonLimpiarBusquedaProductos() {
+    if (!btnLimpiarBusquedaProductos) return;
+    btnLimpiarBusquedaProductos.classList.toggle("visible", buscadorProductos.value.trim().length > 0);
+}
+
 // Buscador
 buscadorProductos.addEventListener("input", function () {
     textoBusqueda = this.value.trim().toLowerCase();
+    actualizarBotonLimpiarBusquedaProductos();
     renderizarProductos();
 });
+
+// Limpiar búsqueda con el botón de escoba
+if (btnLimpiarBusquedaProductos) {
+    btnLimpiarBusquedaProductos.addEventListener("click", () => {
+        buscadorProductos.value = "";
+        textoBusqueda = "";
+        actualizarBotonLimpiarBusquedaProductos();
+        renderizarProductos();
+        buscadorProductos.focus();
+    });
+}
 
 // Filtros
 filtroTodos.addEventListener("click", () => {
@@ -460,6 +534,7 @@ limpiarFiltros.addEventListener("click", () => {
     categoriaSeleccionada = "todos";
     textoBusqueda = "";
     buscadorProductos.value = "";
+    actualizarBotonLimpiarBusquedaProductos();
     renderizarProductos();
 });
 

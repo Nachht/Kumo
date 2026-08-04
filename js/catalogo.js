@@ -23,6 +23,7 @@ const contadoresPorCategoria = {
 
 //variables
 const inputBuscadorCatalogo = document.getElementById("buscadorCatalogo");
+const btnLimpiarBusquedaCatalogo = document.getElementById("btnLimpiarBusquedaCatalogo");
 const contadorCatalogoTotal = document.getElementById("contadorCatalogoTotal");
 const contadorCatalogoVisibles = document.getElementById("contadorCatalogoVisibles");
 let productosCatalogo = [];
@@ -269,11 +270,29 @@ estilosModalCatalogo.textContent = `
 
 document.head.appendChild(estilosModalCatalogo);
 
+// mostrar u ocultar el botón de limpiar según el contenido del buscador
+function actualizarBotonLimpiarBusqueda() {
+    if (!btnLimpiarBusquedaCatalogo) return;
+    btnLimpiarBusquedaCatalogo.classList.toggle("visible", inputBuscadorCatalogo.value.trim().length > 0);
+}
+
 // buscador
 inputBuscadorCatalogo.addEventListener("input", function () {
     textoBusquedaCatalogo = this.value.trim();
+    actualizarBotonLimpiarBusqueda();
     renderizarCatalogo();
 });
+
+// limpiar búsqueda con el botón de escoba
+if (btnLimpiarBusquedaCatalogo) {
+    btnLimpiarBusquedaCatalogo.addEventListener("click", () => {
+        inputBuscadorCatalogo.value = "";
+        textoBusquedaCatalogo = "";
+        actualizarBotonLimpiarBusqueda();
+        renderizarCatalogo();
+        inputBuscadorCatalogo.focus();
+    });
+}
 
 // sincronizacion con admin
 window.addEventListener("storage", (evento) => {
@@ -296,6 +315,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (inputBuscadorCatalogo) inputBuscadorCatalogo.value = terminoBusqueda;
     }
 
+    actualizarBotonLimpiarBusqueda();
     renderizarCatalogo();
     actualizarBadgeCarrito();
 });

@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         background: rgba(255,255,255,0.08);
                         border: 1px solid rgba(255,255,255,0.15);
                         border-radius: 50px;
-                        padding: 6px 16px 6px 12px;
+                        padding: 9px 16px 9px 12px;
                         color: #fff;
                         font-weight: 600;
                         font-size: 0.9rem;
@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     background: transparent;
                     color: #fff !important;
                     border: 2px solid rgba(255,255,255,0.2);
-                    padding: 6px 18px;
+                    padding: 9px 18px;
                     border-radius: 50px;
                     font-weight: 600;
                     font-size: 0.85rem;
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     background: linear-gradient(90deg, #8316ED, #FD0C7D);
                     color: #fff !important;
                     border: none;
-                    padding: 6px 18px;
+                    padding: 9px 18px;
                     border-radius: 50px;
                     font-weight: 600;
                     font-size: 0.85rem;
@@ -190,22 +190,21 @@ document.addEventListener("DOMContentLoaded", function () {
                         <div class="nav-top">
                             <!-- LOGO -->
                             <a href="../../inicio/index.html" class="logo-link" style="display: flex; align-items: center; gap: 8px; text-decoration: none; flex-shrink: 0;">
-                                <img src="../../assets/img/logo.png" alt="KUMO" class="logo-img" style="height: 60px; width: 60px; display: block;">
+                                <img src="../../assets/img/logo.png" alt="KUMO" class="logo-img" style="height: 50px; width: 50px; display: block;">
                             </a>
                             
                             
 
                             <!-- ÍCONOS -->
-                            <div class="nav-icons" style="display: flex; align-items: center; gap: 20px; flex-shrink: 0;">
+                            <div class="nav-icons" style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
                                 <!-- Menú de usuario -->
-                                <div class="user-menu-container" id="adminUserMenu" style="display: flex; align-items: center; gap: 12px;">
+                                <div class="user-menu-container" id="adminUserMenu" style="display: flex; align-items: center; gap: 10px;">
                                     ${userHTML}
                                 </div>
                                 
                                 <!-- Volver a la tienda -->
-                                <a href="../../inicio/index.html" class="icon-link" style="display: flex; align-items: center; gap: 6px; color: #D5D5D5; text-decoration: none; font-weight: 700; font-size: 0.9rem; padding: 6px 12px; border-radius: 30px; transition: all 0.4s ease;" onmouseover="this.style.background='rgba(131,22,237,0.12)'; this.style.color='#8316ED';" onmouseout="this.style.background='transparent'; this.style.color='#D5D5D5';">
-                                    <i class="bi bi-shop" style="font-size: 1.5rem;"></i>
-                                    <span>Tienda</span>
+                                <a href="../../inicio/index.html" class="icon-link" title="Volver a la tienda" style="display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; line-height: 1; flex-shrink: 0; overflow: hidden; color: #D5D5D5; text-decoration: none; border-radius: 50%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); transition: background 0.3s ease, border-color 0.3s ease, color 0.3s ease, transform 0.3s ease;" onmouseover="this.style.background='rgba(131,22,237,0.18)'; this.style.borderColor='rgba(131,22,237,0.45)'; this.style.color='#8316ED';" onmouseout="this.style.background='rgba(255,255,255,0.06)'; this.style.borderColor='rgba(255,255,255,0.12)'; this.style.color='#D5D5D5';">
+                                    <i class="bi bi-shop" style="display: flex; align-items: center; justify-content: center; font-size: 1.2rem; line-height: 1; margin: 0;"></i>
                                 </a>
                             </div>
                         </div>
