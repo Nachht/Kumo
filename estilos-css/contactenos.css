@@ -529,7 +529,7 @@ small.success {
     filter:
         drop-shadow(0 5px 10px rgb(255, 255, 255)) drop-shadow(0 5px 10px rgb(253, 253, 253));
     animation:
-        flotar 5s ease-in-out infinite,
+        flotar 7s ease-in-out infinite,
         respirar 4.5s ease-in-out infinite;
 }
 
@@ -557,12 +557,12 @@ small.success {
     0%,
     100% {
         filter:
-            drop-shadow(0 5px 10px rgba(255, 255, 255, 0.507)) drop-shadow(0 5px 10px rgba(195, 0, 255, 0.623));
+            drop-shadow(0 5px 10px rgb(255, 254, 254)) drop-shadow(0 5px 10px rgb(0, 0, 0));
     }
 
     50% {
         filter:
-            drop-shadow(0 5px 10px rgba(255, 0, 140, 0.637)) drop-shadow(0 5px 10px rgba(0, 0, 0, 0.493));
+            drop-shadow(0 5px 10px rgb(0, 0, 0)) drop-shadow(0 5px 10px rgba(253, 253, 253, 0.493));
     }
 }
 

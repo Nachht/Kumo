@@ -175,6 +175,7 @@
 
 .icon-link:hover span {
     color: #FD0C7D;
+    color: white;
 }
 
 /* Badge animado en carrito */
