@@ -41,13 +41,13 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
 }
 
-/* Control de Cantidad (+ 1 -) sobre Fondo Blanco */
+/* Control de Cantidad */
 .control-cantidad-claro {
     background-color: #f8f9fa;
     border: 1px solid #e9ecef;
 }
 
-/* Tarjetas de producto (offcanvas y página principal): borde rosado sutil en vez de gris */
+/* Tarjetas de producto */
 #contenedorArticulos .card,
 #tablaCarritoPrincipal .card {
     border: 1px solid rgba(255, 0, 127, 0.15) !important;
@@ -210,14 +210,13 @@
 
 #carritoKumo.offcanvas {
     z-index: 99999 !important;
-    /* Capa superior a cualquier navbar */
 }
 
 .offcanvas-backdrop {
     z-index: 99990 !important;
 }
 
-/* MODAL PERSONALIZADO CONFIRMAR COMPRA*/
+/* modal confirmar compra */
 .modal-kumo-overlay {
     position: fixed;
     inset: 0;
@@ -346,6 +345,12 @@
     color: #000000;
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(255, 0, 127, 0.5);
+}
+
+/*Gris en subtotal*/
+#carritoKumo .offcanvas-footer .text-muted,
+#carritoKumo .offcanvas-footer span.text-uppercase {
+    color: #6c757d !important;
 }
 
 @media (max-width: 420px) {

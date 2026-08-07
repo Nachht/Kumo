@@ -239,7 +239,6 @@ body {
     margin-bottom: 28px;
     background: #FFF;
     border: 1px solid #D5D5D5;
-    border-left: 6px solid transparent;
     box-shadow: 0 12px 28px rgba(131, 22, 237, .08);
 }
 
@@ -271,17 +270,17 @@ body {
 
 .seccionCategoriaCatalogo.categoria-manga .cabeceraSeccionCatalogo {
     color: #FD0C7D;
-    border-left-color: #FD0C7D;
+    border-color: #FD0C7D;
 }
 
 .seccionCategoriaCatalogo.categoria-figura .cabeceraSeccionCatalogo {
     color: #8316ED;
-    border-left-color: #8316ED;
+    border-color: #8316ED;
 }
 
 .seccionCategoriaCatalogo.categoria-merch .cabeceraSeccionCatalogo {
     color: #8316ED;
-    border-left-color: #FD0C7D;
+    border-color: #FD0C7D;
 }
 
 .iconoSeccionCatalogo {
@@ -315,8 +314,8 @@ body {
 /* Columna de imagen*/
 .contenedorImagenSeccion {
     position: relative;
-    width: 280px;
-    min-width: 250px;
+    width: 320px;
+    min-width: 280px;
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -335,29 +334,45 @@ body {
     mask-image: linear-gradient(to left, black 60%, transparent 100%);
 }
 
-/*tarjeta productos*/
+/*la propiedad del angulo para la animacion*/
+@property --angulo {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
+
 .tarjetaProductoCatalogo {
-    background: #FFF;
+    background: 1px white solid;
     border-radius: 20px;
     overflow: hidden;
     height: 100%;
-    border: 1px solid #D5D5D5;
-    box-shadow: 0 10px 25px rgba(131, 22, 237, .08);
-    transition: .35s;
+    border: 3px solid transparent;
+    box-shadow: 0 10px 25px rgba(74, 1, 146, 0.493);
     display: flex;
     flex-direction: column;
+    transition: .35s;
+    background: linear-gradient(#FFF, #FFF) padding-box,
+        conic-gradient(from var(--angulo), #ea00ffd2, #fcfcfc, #ff0077c0) border-box;
+    animation: rotarBorde 5s linear infinite;
 }
 
 .tarjetaProductoCatalogo:hover {
     transform: translateY(-8px);
-    box-shadow: 0 20px 40px rgba(131, 22, 237, .18);
+    box-shadow: 0 20px 40px rgba(159, 1, 173, 0.301);
+}
+
+/* animacion para que gire el color */
+@keyframes rotarBorde {
+    to {
+        --angulo: 360deg;
+    }
 }
 
 /*imagen*/
 .contenedorImagenCatalogo {
     position: relative;
     width: 100%;
-    height: 210px;
+    height: 330px;
     overflow: hidden;
     background: #E0E0E0;
 }
@@ -634,7 +649,7 @@ body {
     }
 
     .contenedorImagenCatalogo {
-        height: 190px;
+        height: 330px;
     }
 }
 

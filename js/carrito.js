@@ -198,7 +198,7 @@ function renderizarCarrito() {
     actualizarBadge();
 }
 
-// ===== MANEJO DE EVENTOS GLOBAL (DELEGACIÓN) =====
+// manejo de eventos
 document.addEventListener("click", (e) => {
     const btnSumar = e.target.closest(".btn-sumar");
     const btnRestar = e.target.closest(".btn-restar");
