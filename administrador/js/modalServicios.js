@@ -404,6 +404,11 @@ formularioEditarProducto.addEventListener("submit", async function (e) {
     producto.stock =
         Number(stockProductoEditar.value);
 
+    // Si el stock queda en 0, el producto se desactiva automáticamente
+    if (producto.stock <= 0) {
+        producto.activo = false;
+    }
+
     const archivo =
         imagenProductoEditar.files[0];
 
@@ -430,7 +435,21 @@ function cambiarEstado(id) {
     );
     if (!producto) return;
 
+    // No se puede activar un producto sin stock disponible
+    if (!producto.activo && producto.stock <= 0) {
+        idProductoParaCambiarEstado = null;
+        tituloConfirmarEstado.textContent = "Sin stock disponible";
+        mensajeConfirmarEstado.textContent =
+            `No puedes activar "${producto.nombre}" porque no tiene stock. Edita el producto y aumenta el stock para poder activarlo.`;
+        btnCancelarCambioEstado.style.display = "none";
+        btnConfirmarCambioEstado.textContent = "Entendido";
+        modalConfirmarEstado.classList.add("activo");
+        return;
+    }
+
     idProductoParaCambiarEstado = id;
+    btnCancelarCambioEstado.style.display = "";
+    btnConfirmarCambioEstado.textContent = "Confirmar";
 
     if (producto.activo) {
         tituloConfirmarEstado.textContent = "Desactivar producto";

@@ -47,6 +47,30 @@
     border: 1px solid #e9ecef;
 }
 
+/* Tarjetas de producto (offcanvas y página principal): borde rosado sutil en vez de gris */
+#contenedorArticulos .card,
+#tablaCarritoPrincipal .card {
+    border: 1px solid rgba(255, 0, 127, 0.15) !important;
+    box-shadow: 0 2px 10px rgba(131, 22, 237, 0.06);
+}
+
+/* Hover de los botones +/- de cantidad */
+#contenedorArticulos .btn-restar:hover,
+#contenedorArticulos .btn-sumar:hover,
+#tablaCarritoPrincipal .btn-restar:hover,
+#tablaCarritoPrincipal .btn-sumar:hover {
+    background-color: rgba(131, 22, 237, 0.12) !important;
+    color: var(--purple-kumo) !important;
+    border-radius: 6px;
+}
+
+/* Hover del ícono de eliminar producto */
+#contenedorArticulos .btn-eliminar:hover,
+#tablaCarritoPrincipal .btn-eliminar:hover {
+    color: #ff0000 !important;
+    transform: scale(1.12);
+}
+
 /* Texto Morado para Totales y Controles */
 .text-purple {
     color: var(--purple-kumo) !important;
@@ -66,8 +90,8 @@
 
 /* FORZAR ESTRUCTURA PERFECTA DEL OFFCANVAS */
 #carritoKumo.offcanvas {
-    background-color: var(--bg-dark-offcanvas) !important;
-    color: #ffffff !important;
+    background-color: white !important;
+    color: #050505 !important;
     width: 380px !important;
     border-left: 2px solid var(--fucsia-neon) !important;
 
@@ -84,7 +108,7 @@
 /* Encabezado fijo arriba */
 #carritoKumo .offcanvas-header {
     flex-shrink: 0 !important;
-    background-color: var(--bg-dark-offcanvas) !important;
+    background-color: white !important;
     padding: 1rem 1.25rem !important;
 }
 
@@ -98,9 +122,9 @@
 /* Pie de página pegado abajo SIEMPRE */
 #carritoKumo .offcanvas-footer {
     flex-shrink: 0 !important;
-    background-color: var(--bg-dark-offcanvas) !important;
+    background-color: white;
     padding: 1rem 1.25rem 1.25rem 1.25rem !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-top: 1px solid rgba(253, 0, 177, 0.438) !important;
 }
 
 /* --- TEXTOS Y BOTONES FUCSIA LED COMPACTOS --- */
@@ -130,13 +154,13 @@
 
 .btn-outline-fucsia-led {
     background-color: transparent !important;
-    color: #ffffff !important;
+    color: #222222 !important;
     border: 1.5px solid var(--fucsia-neon) !important;
     font-size: 0.75rem !important;
     font-weight: 800 !important;
     letter-spacing: 0.8px;
     padding: 8px 16px !important;
-    transition: all 0.25s ease;
+    transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
 }
 
 .btn-outline-fucsia-led:hover {
@@ -145,9 +169,18 @@
     box-shadow: 0 0 14px rgba(255, 0, 127, 0.6);
 }
 
+/* Especificidad igualada en ambos estados para que no compitan entre sí */
+#carritoKumo .btn-outline-fucsia-led {
+    color: #222222 !important;
+}
+
+#carritoKumo .btn-outline-fucsia-led:hover {
+    color: #ffffff !important;
+}
+
 .btn-vaciar-offcanvas {
     font-size: 0.75rem !important;
-    color: #b0b0b0 !important;
+    color: #000000 !important;
 }
 
 .btn-vaciar-offcanvas:hover {
@@ -156,12 +189,23 @@
 
 .btn-seguir-viendo {
     font-size: 0.7rem !important;
-    color: #aaaaaa !important;
+    color: #555555 !important;
     letter-spacing: 0.5px;
+    transition: color 0.25s ease;
 }
 
 .btn-seguir-viendo:hover {
-    color: #ffffff !important;
+    color: #000000 !important;
+    text-decoration: underline !important;
+}
+
+/* Especificidad igualada en ambos estados para que no compitan entre sí */
+#carritoKumo .btn-seguir-viendo {
+    color: #555555 !important;
+}
+
+#carritoKumo .btn-seguir-viendo:hover {
+    color: #000000 !important;
 }
 
 #carritoKumo.offcanvas {
@@ -196,13 +240,13 @@
 }
 
 .modal-kumo-box {
-    background: var(--bg-dark-offcanvas);
-    color: #ffffff;
+    background: white;
+    color: var(--bg-dark-offcanvas);
     width: 100%;
     max-width: 380px;
     border-radius: 20px;
     border: 1px solid rgba(255, 0, 127, 0.25);
-    box-shadow: 0 0 40px rgba(255, 0, 127, 0.18), 0 20px 50px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 40px rgba(255, 0, 127, 0.18), 0 20px 50px rgb(78, 0, 102);
     padding: 2rem 1.75rem 1.75rem;
     text-align: center;
     transform: scale(0.85) translateY(10px);
@@ -246,7 +290,7 @@
 }
 
 .modal-kumo-mensaje {
-    color: rgba(255, 255, 255, 0.7);
+    color: rgba(0, 0, 0, 0.979);
     font-size: 0.9rem;
     line-height: 1.6;
     margin-bottom: 1.6rem;
@@ -292,13 +336,16 @@
 
 .modal-kumo-btn-cancelar {
     background: transparent;
-    color: rgba(255, 255, 255, 0.7);
-    border: 1.5px solid rgba(255, 255, 255, 0.2) !important;
+    color: rgba(0, 0, 0, 0.849);
+    border: 1.5px solid rgba(0, 0, 0, 0.2) !important;
+    background: rgb(255, 255, 255);
 }
 
 .modal-kumo-btn-cancelar:hover {
-    border-color: rgba(255, 255, 255, 0.5) !important;
-    color: #ffffff;
+    border-color: rgba(0, 0, 0, 0.35) !important;
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 0, 127, 0.5);
 }
 
 @media (max-width: 420px) {

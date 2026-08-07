@@ -168,7 +168,9 @@ function agregarAlCarrito(producto) {
 function mostrarModalCarrito(nombreProducto) {
     const modalExistente = document.getElementById("modalCarritoKumo");
     if (modalExistente) modalExistente.remove();
+
     const modal = document.createElement("div");
+
     modal.id = "modalCarritoKumo";
     modal.style.cssText = `
         position: fixed;
@@ -176,70 +178,143 @@ function mostrarModalCarrito(nombreProducto) {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0,0,0,0.5);
+        background: rgba(15, 12, 24, 0.72);
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 9999;
+        padding: 20px;
         animation: fadeIn 0.3s ease;
     `;
 
     modal.innerHTML = `
         <div style="
-            background: white;
-            border-radius: 20px;
-            padding: 40px 35px;
+            background: #ffffff;
+            border-radius: 22px;
+            padding: 32px 30px 28px;
             max-width: 420px;
-            width: 90%;
+            width: 100%;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            box-shadow: 
+                0 20px 45px rgba(131, 1, 148, 0.69),
+                0 0 35px rgba(255, 0, 127, 0.20);
+            border: 1px solid rgba(255, 0, 127, 0.18);
             animation: slideUp 0.3s ease;
         ">
-            <div style="font-size: 50px; margin-bottom: 10px;">✅</div>
-            <h3 style="color: #1E1B4B; font-weight: 800; margin-bottom: 8px;">
+
+            <div style="
+                width: 64px;
+                height: 64px;
+                margin: 0 auto 18px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #8A2BE2 0%, #FF007F 100%);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                font-size: 29px;
+                box-shadow: 0 8px 22px rgba(255, 0, 127, 0.30);
+            ">
+                <i class="bi bi-bag-check-fill"></i>
+            </div>
+
+            <h3 style="
+                color: #1E1B4B;
+                font-size: 1.45rem;
+                font-weight: 800;
+                margin: 0 0 10px;
+                letter-spacing: 0.2px;
+            ">
                 ¡Agregado al carrito!
             </h3>
-            <p style="color: #6B7280; margin-bottom: 25px;">
-                <strong>"${nombreProducto}"</strong> se agregó correctamente.
+
+            <p style="
+                color: #4B5563;
+                font-size: 0.98rem;
+                line-height: 1.5;
+                margin: 0 auto 26px;
+            ">
+                <strong style="color: #1E1B4B;">"${nombreProducto}"</strong>
+                se agregó correctamente.
             </p>
-            <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+
+            <div style="
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            ">
+
                 <button onclick="cerrarModalCarrito()" style="
-                    background: #E5E7EB;
-                    border: none;
-                    padding: 12px 28px;
-                    border-radius: 12px;
-                    font-weight: 700;
+                    flex: 1;
+                    min-width: 145px;
+                    background: #ffffff;
+                    border: 1px solid #D1D5DB;
+                    padding: 12px 20px;
+                    border-radius: 25px;
+                    font-weight: 800;
+                    font-size: 0.9rem;
                     color: #1E1B4B;
                     cursor: pointer;
-                    transition: all 0.2s;
-                " onmouseover="this.style.background='#D1D5DB'" onmouseout="this.style.background='#E5E7EB'">
+                    transition: all 0.25s ease;
+                "
+                onmouseover="
+                    this.style.background='#F3F4F6';
+                    this.style.borderColor='#A855F7';
+                "
+                onmouseout="
+                    this.style.background='#FFFFFF';
+                    this.style.borderColor='#D1D5DB';
+                ">
                     Seguir comprando
                 </button>
+
                 <a href="../carrito/carrito.html" style="
-                    background: #4C1D95;
+                    flex: 1;
+                    min-width: 145px;
+                    background: linear-gradient(135deg, #8A2BE2 0%, #FF007F 100%);
                     border: none;
-                    padding: 12px 28px;
-                    border-radius: 12px;
-                    font-weight: 700;
-                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 25px;
+                    font-weight: 800;
+                    font-size: 0.9rem;
+                    color: #FFFFFF;
                     cursor: pointer;
                     text-decoration: none;
-                    transition: all 0.2s;
-                " onmouseover="this.style.background='#6C2BD9'" onmouseout="this.style.background='#4C1D95'">
-                    Ir al carrito 🛒
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 7px;
+                    box-shadow: 0 8px 20px rgba(255, 0, 127, 0.25);
+                    transition: all 0.25s ease;
+                "
+                onmouseover="
+                    this.style.transform='translateY(-2px)';
+                    this.style.boxShadow='0 11px 25px rgba(255, 0, 127, 0.35)';
+                "
+                onmouseout="
+                    this.style.transform='translateY(0)';
+                    this.style.boxShadow='0 8px 20px rgba(255, 0, 127, 0.25)';
+                ">
+                    Ir al carrito
+                    <i class="bi bi-cart3"></i>
                 </a>
+
             </div>
         </div>
     `;
 
     document.body.appendChild(modal);
+
     modal.addEventListener("click", (e) => {
         if (e.target === modal) cerrarModalCarrito();
     });
 }
 
 function cerrarModalCarrito() {
-
     const modal = document.getElementById("modalCarritoKumo");
     if (modal) modal.remove();
 }
@@ -302,6 +377,12 @@ window.addEventListener("storage", (evento) => {
         cargarProductosCatalogo();
         renderizarCatalogo();
     }
+});
+
+// sincronizacion en la misma pestaña como por ejemplo al comprar desde el carrito desplegable
+document.addEventListener("productosKumoActualizados", () => {
+    cargarProductosCatalogo();
+    renderizarCatalogo();
 });
 
 document.addEventListener("DOMContentLoaded", () => {

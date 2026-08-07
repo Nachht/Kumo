@@ -1,16 +1,61 @@
 console.log('📦 carrito.js cargado');
 
-// ===== CARGAR CARRITO =====
+// productos del admin para descontar stock al comprar
+const CLAVE_PRODUCTOS_ADMIN_KUMO = "kumo_productos";
+
+function cargarProductosKumo() {
+    try {
+        const datos = localStorage.getItem(CLAVE_PRODUCTOS_ADMIN_KUMO);
+        return datos ? JSON.parse(datos) : [];
+    } catch (error) {
+        console.error("No se pudieron leer los productos:", error);
+        return [];
+    }
+}
+
+function guardarProductosKumo(lista) {
+    try {
+        localStorage.setItem(CLAVE_PRODUCTOS_ADMIN_KUMO, JSON.stringify(lista));
+        return true;
+    } catch (error) {
+        console.error("No se pudieron guardar los productos:", error);
+        return false;
+    }
+}
+
+// Descuenta el stock comprado y desactiva automáticamente los productos que se agoten
+function descontarStockCompra(carrito) {
+    const productos = cargarProductosKumo();
+
+    carrito.forEach(articulo => {
+        const producto = productos.find(p => String(p.id) === String(articulo.id));
+        if (!producto) return;
+
+        producto.stock = Math.max(0, producto.stock - articulo.cantidad);
+
+        // Si el stock llega a 0, el producto se desactiva automáticamente
+        if (producto.stock <= 0) {
+            producto.activo = false;
+        }
+    });
+
+    guardarProductosKumo(productos);
+
+    // avisa a las otras paginas que el stock cambio para que lo actualice
+    document.dispatchEvent(new CustomEvent("productosKumoActualizados"));
+}
+
+// cargar carrito
 function cargarCarrito() {
     return JSON.parse(localStorage.getItem("carrito")) || [];
 }
 
-// ===== GUARDAR CARRITO =====
+// guardar carrito
 function guardarCarrito(carrito) {
     localStorage.setItem("carrito", JSON.stringify(carrito));
 }
 
-// ===== FORMATEAR PRECIO =====
+// formatear precio
 function formatearPrecio(precio) {
     return Number(precio).toLocaleString("es-CO", {
         style: "currency",
@@ -19,7 +64,7 @@ function formatearPrecio(precio) {
     });
 }
 
-// ===== ACTUALIZAR BADGE DEL NAVBAR =====
+// actualizar badge del navbar
 function actualizarBadge() {
     const carrito = cargarCarrito();
     const totalItems = carrito.reduce((sum, item) => sum + item.cantidad, 0);
@@ -30,14 +75,14 @@ function actualizarBadge() {
     }
 }
 
-// ===== RENDERIZAR TODO EL CARRITO =====
+// renderizar carrito
 function renderizarCarrito() {
     console.log('🔄 Renderizando carrito...');
 
     const carrito = cargarCarrito();
     console.log('📦 Carrito:', carrito);
 
-    //RENDERIZAR OFFCANVAS (contenedorArticulos)
+    // renderizar offcanvas
     const contenedor = document.getElementById("contenedorArticulos");
     console.log('📦 Contenedor offcanvas:', contenedor);
 
@@ -47,9 +92,9 @@ function renderizarCarrito() {
         if (carrito.length === 0) {
             contenedor.innerHTML = `
                 <div class="text-center py-5 w-100">
-                    <i class="bi bi-cart-x text-white-50" style="font-size: 3.5rem;"></i>
-                    <h5 class="mt-3 text-white fw-bold">Tu carrito está vacío</h5>
-                    <p class="text-white-50 small">Explora nuestro catálogo y agrega figuras.</p>
+                    <i class="bi bi-cart-x text-muted" style="font-size: 3.5rem;"></i>
+                    <h5 class="mt-3 text-dark fw-bold">Tu carrito está vacío</h5>
+                    <p class="text-muted small">Explora nuestro catálogo y agrega figuras.</p>
                 </div>
             `;
             console.log('✅ Offcanvas: carrito vacío');
@@ -330,6 +375,31 @@ function ejecutarCompra() {
         return;
     }
 
+    // Verificar que haya stock suficiente para cada producto antes de continuar
+    const productos = cargarProductosKumo();
+    const productosSinStock = [];
+
+    carrito.forEach(articulo => {
+        const producto = productos.find(p => String(p.id) === String(articulo.id));
+        const stockDisponible = producto ? producto.stock : 0;
+        if (articulo.cantidad > stockDisponible) {
+            productosSinStock.push(articulo.nombre);
+        }
+    });
+
+    if (productosSinStock.length > 0) {
+        mostrarModalKumo({
+            icono: "bi-exclamation-triangle-fill",
+            tipoIcono: "icono-vacio",
+            titulo: "Stock insuficiente",
+            mensajeHTML: `No hay stock suficiente para: <strong>${productosSinStock.join(", ")}</strong>. Ajusta la cantidad en tu carrito antes de continuar.`,
+            botones: [
+                { texto: "Entendido", clase: "modal-kumo-btn-ok" }
+            ]
+        });
+        return;
+    }
+
     const subtotal = carrito.reduce((sum, item) => sum + (item.precio * item.cantidad), 0);
 
     mostrarModalKumo({
@@ -345,7 +415,8 @@ function ejecutarCompra() {
                 accion: () => {
                     // Pequeña espera para que la animación de cierre no choque con la de apertura
                     setTimeout(() => {
-                        // La compra ya se confirmó: vaciamos el carrito y actualizamos la vista
+                        // La compra ya se confirmó: descontamos el stock, vaciamos el carrito y actualizamos la vista
+                        descontarStockCompra(carrito);
                         localStorage.removeItem("carrito");
                         renderizarCarrito();
 
@@ -370,8 +441,8 @@ function forzarEstilosOffcanvas() {
     const offcanvas = document.getElementById('carritoKumo');
     if (!offcanvas) return;
 
-    offcanvas.style.backgroundColor = '#1b1618';
-    offcanvas.style.color = 'white';
+    offcanvas.style.backgroundColor = '#ffffff';
+    offcanvas.style.color = '#050505';
     offcanvas.style.borderLeft = '2px solid #ff007f';
 
     const subtotal = document.getElementById('subtotalCarrito');
